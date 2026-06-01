@@ -1,0 +1,33 @@
+name: E-Consular Appointment Monitor
+
+on:
+  schedule:
+    # Vérifie toutes les 10 minutes (GitHub minimum fiable)
+    - cron: '*/10 * * * *'
+  workflow_dispatch: # Permet de lancer manuellement depuis GitHub
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install Playwright Chromium
+        run: npx playwright install chromium --with-deps
+
+      - name: Run availability check
+        env:
+          EC_EMAIL: ${{ secrets.EC_EMAIL }}
+          EC_PASSWORD: ${{ secrets.EC_PASSWORD }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          NOTIFY_EMAILS: ${{ secrets.NOTIFY_EMAILS }}
+        run: node monitor.js --once

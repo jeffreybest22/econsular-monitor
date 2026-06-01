@@ -1,0 +1,19 @@
+name = "econsular-monitor"
+main = "src/worker.js"
+compatibility_date = "2024-05-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Cron: vérifie toutes les 5 minutes, 24h/24
+[triggers]
+crons = ["*/5 * * * *"]
+
+# KV Namespace pour stocker le cooldown anti-doublon
+# Après `wrangler kv:namespace create "KV"`, copier l'id ici
+[[kv_namespaces]]
+binding = "KV"
+id = "REMPLACER_PAR_VOTRE_KV_ID"
+# preview_id = "REMPLACER_PAR_VOTRE_KV_PREVIEW_ID"
+
+# Variables d'environnement (valeurs via `wrangler secret put`)
+# EC_EMAIL, EC_PASSWORD, RESEND_API_KEY, NOTIFY_EMAILS
+# NE PAS mettre les secrets ici — utiliser `wrangler secret put NOM`

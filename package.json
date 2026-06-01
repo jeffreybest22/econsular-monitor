@@ -1,0 +1,14 @@
+{
+  "name": "econsular-monitor",
+  "version": "1.0.0",
+  "description": "Monitor Brazilian Embassy e-consular appointment availability",
+  "main": "monitor.js",
+  "scripts": {
+    "start": "node monitor.js",
+    "test-email": "node monitor.js --test-email"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "playwright": "^1.44.0"
+  }
+}
