@@ -1,0 +1,4 @@
+node_modules/
+.env
+cloudflare/node_modules/
+*.log
