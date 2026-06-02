@@ -70,7 +70,6 @@ async function ensureLoggedIn(page) {
 async function checkAvailability(page) {
   await page.goto(PROCESS_URL, { waitUntil: 'networkidle', timeout: 30000 });
 
-  // Detect redirect to login (session expired)
   if (page.url().includes('/login')) {
     log('Session expired — re-logging in...');
     await login(page);
@@ -80,12 +79,24 @@ async function checkAvailability(page) {
   const bodyText = await page.locator('body').innerText();
 
   if (bodyText.includes(NO_SLOTS_TEXT)) {
-    return { available: false, pageText: bodyText };
+    return { available: false };
   }
 
-  // Check if there are actual time slot elements
-  const hasSlots = await page.locator('[class*="slot"], [class*="hora"], [class*="horario"], input[type="radio"]').count();
-  return { available: true, pageText: bodyText, slotCount: hasSlots };
+  // Extract visible slot dates/times from the page
+  let slots = [];
+
+  // Try labeled slot elements first
+  const slotEls = await page.locator('[class*="slot"], [class*="hora"], [class*="horario"], [class*="date"], [class*="data"]').allInnerTexts();
+  slots = slotEls.map(t => t.trim()).filter(t => t.length > 2 && t.length < 80);
+
+  // Fallback: extract date/time patterns from full body text
+  if (slots.length === 0) {
+    const dateMatches = bodyText.match(/\d{1,2}\/\d{1,2}\/\d{2,4}[^\n]*/g) || [];
+    const timeMatches = bodyText.match(/\d{1,2}:\d{2}[^\n]*/g) || [];
+    slots = [...new Set([...dateMatches, ...timeMatches])].map(s => s.trim()).slice(0, 10);
+  }
+
+  return { available: true, slots, slotCount: slots.length };
 }
 
 async function runCheck() {
@@ -105,21 +116,33 @@ async function runCheck() {
 
     if (available) {
       log(`SLOTS AVAILABLE! (${slotCount || '?'} slot(s) detected)`);
+      if (slots.length > 0) log(`Slots: ${slots.join(' | ')}`);
 
       if (!lastNotifiedAvailable) {
         lastNotifiedAvailable = true;
+
+        const slotsHtml = slots.length > 0
+          ? `<div style="background:#f0fff4;padding:15px;border-left:4px solid #1a7f3c;margin:15px 0">
+              <strong>Créneaux disponibles :</strong>
+              <ul style="margin:8px 0;padding-left:20px">
+                ${slots.map(s => `<li style="margin:4px 0">${s}</li>`).join('')}
+              </ul>
+             </div>`
+          : `<p style="color:#555">Connectez-vous pour voir les créneaux exacts.</p>`;
+
         await sendEmail(
-          '🎉 RENDEZ-VOUS DISPONIBLE - Ambassade du Brésil Porto-Prince',
+          'RENDEZ-VOUS DISPONIBLE - Ambassade du Brésil Porto-Prince',
           `<div style="font-family:sans-serif;max-width:600px;margin:auto">
-            <h2 style="color:#1a7f3c">✅ Créneaux de rendez-vous disponibles!</h2>
-            <p>Un ou plusieurs créneaux sont maintenant disponibles pour votre demande:</p>
-            <div style="background:#f0f7ff;padding:15px;border-left:4px solid #0066cc;margin:20px 0">
+            <h2 style="color:#1a7f3c">Créneaux de rendez-vous disponibles!</h2>
+            <p>Un ou plusieurs créneaux sont maintenant disponibles pour :</p>
+            <div style="background:#f0f7ff;padding:15px;border-left:4px solid #0066cc;margin:15px 0">
               <strong>${SERVICE_NAME}</strong><br>
               <small>Embaixada do Brasil em Porto Príncipe</small>
             </div>
+            ${slotsHtml}
             <p>
               <a href="${PROCESS_URL}" style="background:#1a7f3c;color:white;padding:12px 24px;text-decoration:none;border-radius:6px;display:inline-block">
-                👉 Prendre le rendez-vous maintenant
+                Prendre le rendez-vous maintenant
               </a>
             </p>
             <p><strong>Dépêchez-vous</strong> — les créneaux se remplissent rapidement!</p>
