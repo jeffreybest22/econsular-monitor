@@ -1,4 +1,6 @@
 const { chromium } = require('playwright');
+const fs = require('fs');
+const path = require('path');
 require('dotenv').config();
 
 const LOGIN_URL = 'https://ec-portoprincipe.itamaraty.gov.br/login';
@@ -153,12 +155,14 @@ async function runCheck() {
       } else {
         log('Notification already sent for this availability window — skipping duplicate');
       }
+      return { ts: new Date().toISOString(), status: 'slots', message: `${slotCount || '?'} créneau(x) disponible(s)`, slots };
     } else {
       log('No slots available yet.');
       if (lastNotifiedAvailable) {
         log('Slots were available before but no longer — resetting notification flag');
         lastNotifiedAvailable = false;
       }
+      return { ts: new Date().toISOString(), status: 'ok', message: 'Aucun créneau disponible' };
     }
   } catch (err) {
     log(`ERROR: ${err.message}`);
@@ -192,6 +196,7 @@ async function runCheck() {
     } else {
       log('Error cooldown active — skipping duplicate error notification');
     }
+    return { ts: new Date().toISOString(), status: 'error', message: err.message.substring(0, 200) };
   } finally {
     if (browser) await browser.close();
   }
@@ -213,6 +218,28 @@ async function testEmail() {
   }
 }
 
+function writeStatusLog(logFile, entry) {
+  try {
+    const dir = path.dirname(logFile);
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+
+    let data = { checks: [] };
+    if (fs.existsSync(logFile)) {
+      try { data = JSON.parse(fs.readFileSync(logFile, 'utf8')); } catch {}
+    }
+
+    data.checks.unshift(entry);
+    if (data.checks.length > 50) data.checks = data.checks.slice(0, 50);
+    data.last_check = entry.ts;
+    data.last_status = entry.status;
+
+    fs.writeFileSync(logFile, JSON.stringify(data, null, 2));
+    log(`Status written to ${logFile}`);
+  } catch (e) {
+    log(`Failed to write status log: ${e.message}`);
+  }
+}
+
 async function main() {
   if (!EC_EMAIL || !EC_PASSWORD) {
     console.error('ERROR: EC_EMAIL or EC_PASSWORD not set in .env');
@@ -223,15 +250,24 @@ async function main() {
   log(`Service: ${SERVICE_NAME}`);
   log(`Notifications → ${NOTIFY_EMAILS.join(', ')}`);
 
+  const logFileIdx = process.argv.indexOf('--log-file');
+  const logFile = logFileIdx !== -1 ? process.argv[logFileIdx + 1] : null;
+
   // --once : single check then exit (used by GitHub Actions)
   if (process.argv.includes('--once')) {
-    await runCheck();
+    const result = await runCheck();
+    if (logFile && result) writeStatusLog(logFile, result);
     process.exit(0);
   }
 
   log(`Check interval: ${CHECK_INTERVAL_MS / 60000} minutes`);
-  await runCheck();
-  setInterval(async () => { await runCheck(); }, CHECK_INTERVAL_MS);
+  const r = await runCheck();
+  if (logFile && r) writeStatusLog(logFile, r);
+
+  setInterval(async () => {
+    const r2 = await runCheck();
+    if (logFile && r2) writeStatusLog(logFile, r2);
+  }, CHECK_INTERVAL_MS);
   log(`Monitor running. Press Ctrl+C to stop.`);
 }
 

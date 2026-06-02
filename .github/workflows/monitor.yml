@@ -5,6 +5,9 @@ on:
     - cron: '*/10 * * * *'
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   check:
     runs-on: ubuntu-latest
@@ -16,9 +19,6 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
-
-      - name: Verify DNS resolves
-        run: nslookup ec-portoprincipe.itamaraty.gov.br
 
       - name: Install dependencies
         run: npm install
@@ -32,4 +32,12 @@ jobs:
           EC_PASSWORD: ${{ secrets.EC_PASSWORD }}
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
           NOTIFY_EMAILS: ${{ secrets.NOTIFY_EMAILS }}
-        run: node monitor.js --once
+        run: node monitor.js --once --log-file docs/status.json
+
+      - name: Commit status update
+        run: |
+          git config user.email "monitor@github-actions"
+          git config user.name "E-Consular Monitor"
+          git add docs/status.json
+          git diff --staged --quiet || git commit -m "chore: update monitor status [skip ci]"
+          git push

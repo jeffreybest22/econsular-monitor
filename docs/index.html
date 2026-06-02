@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>E-Consular Monitor — Dashboard</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; color: #333; }
+  header { background: #1a3a5c; color: white; padding: 20px 24px; }
+  header h1 { font-size: 20px; font-weight: 600; }
+  header p { font-size: 13px; opacity: 0.75; margin-top: 4px; }
+  .container { max-width: 800px; margin: 24px auto; padding: 0 16px; }
+  .card { background: white; border-radius: 10px; padding: 20px; margin-bottom: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+  .status-banner { display: flex; align-items: center; gap: 12px; padding: 16px 20px; border-radius: 10px; margin-bottom: 16px; }
+  .status-banner.ok { background: #e8f5e9; border: 1px solid #a5d6a7; }
+  .status-banner.error { background: #ffebee; border: 1px solid #ef9a9a; }
+  .status-banner.slots { background: #e3f2fd; border: 1px solid #90caf9; }
+  .dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+  .dot.ok { background: #4caf50; box-shadow: 0 0 0 3px #a5d6a766; }
+  .dot.error { background: #f44336; }
+  .dot.slots { background: #2196f3; box-shadow: 0 0 0 3px #90caf966; animation: pulse 1.5s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
+  .status-text { flex: 1; }
+  .status-text strong { font-size: 15px; display: block; }
+  .status-text span { font-size: 12px; color: #666; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { text-align: left; padding: 8px 12px; background: #f8f8f8; border-bottom: 2px solid #eee; font-weight: 600; color: #555; }
+  td { padding: 10px 12px; border-bottom: 1px solid #f0f0f0; }
+  tr:last-child td { border-bottom: none; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 600; }
+  .badge.ok { background: #e8f5e9; color: #2e7d32; }
+  .badge.error { background: #ffebee; color: #c62828; }
+  .badge.slots { background: #e3f2fd; color: #1565c0; }
+  .refresh { font-size: 12px; color: #999; text-align: right; margin-top: 8px; }
+  a.btn { display: inline-block; background: #1a3a5c; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-size: 13px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>E-Consular Monitor</h1>
+  <p>Ambassade du Brésil — Porto-Prince | Outras declarações e atestados</p>
+</header>
+<div class="container">
+  <div id="status-banner" class="status-banner ok">
+    <div class="dot ok" id="dot"></div>
+    <div class="status-text">
+      <strong id="status-text">Chargement...</strong>
+      <span id="status-sub"></span>
+    </div>
+    <a href="https://ec-portoprincipe.itamaraty.gov.br/login" target="_blank" class="btn">Ouvrir le site</a>
+  </div>
+
+  <div class="card">
+    <h2 style="font-size:15px;margin-bottom:16px">Dernières vérifications</h2>
+    <table>
+      <thead>
+        <tr><th>Date / Heure</th><th>Statut</th><th>Message</th></tr>
+      </thead>
+      <tbody id="logs-body">
+        <tr><td colspan="3" style="text-align:center;color:#999;padding:20px">Chargement...</td></tr>
+      </tbody>
+    </table>
+    <p class="refresh" id="refresh-info"></p>
+  </div>
+</div>
+
+<script>
+async function load() {
+  try {
+    const r = await fetch('status.json?t=' + Date.now());
+    if (!r.ok) throw new Error('status.json not found');
+    const data = await r.json();
+
+    const latest = data.checks && data.checks[0];
+    const banner = document.getElementById('status-banner');
+    const dot = document.getElementById('dot');
+    const statusText = document.getElementById('status-text');
+    const statusSub = document.getElementById('status-sub');
+
+    if (latest) {
+      if (latest.status === 'slots') {
+        banner.className = 'status-banner slots';
+        dot.className = 'dot slots';
+        statusText.textContent = 'CRÉNEAUX DISPONIBLES !';
+        statusSub.textContent = 'Connectez-vous immédiatement pour réserver';
+      } else if (latest.status === 'error') {
+        banner.className = 'status-banner error';
+        dot.className = 'dot error';
+        statusText.textContent = 'Erreur de vérification';
+        statusSub.textContent = latest.message || '';
+      } else {
+        banner.className = 'status-banner ok';
+        dot.className = 'dot ok';
+        statusText.textContent = 'Surveillance active — Aucun créneau disponible';
+        statusSub.textContent = 'Dernière vérification : ' + formatDate(latest.ts);
+      }
+    }
+
+    const tbody = document.getElementById('logs-body');
+    const checks = data.checks || [];
+    if (checks.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="3" style="text-align:center;color:#999;padding:20px">Aucune donnée</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = checks.map(c => `
+      <tr>
+        <td style="font-family:monospace;font-size:12px">${formatDate(c.ts)}</td>
+        <td><span class="badge ${c.status}">${labelStatus(c.status)}</span></td>
+        <td style="color:#555">${c.message || ''}</td>
+      </tr>
+    `).join('');
+
+    document.getElementById('refresh-info').textContent =
+      `Mis à jour automatiquement toutes les 10 minutes · ${checks.length} entrées`;
+
+  } catch(e) {
+    document.getElementById('status-text').textContent = 'En attente des premières données...';
+    document.getElementById('status-sub').textContent = 'Le fichier status.json sera créé au prochain run GitHub Actions';
+    document.getElementById('logs-body').innerHTML =
+      '<tr><td colspan="3" style="text-align:center;color:#999;padding:20px">Aucune donnée disponible</td></tr>';
+  }
+}
+
+function formatDate(ts) {
+  if (!ts) return '-';
+  return new Date(ts).toLocaleString('fr-FR', { timeZone: 'America/Port-au-Prince' });
+}
+
+function labelStatus(s) {
+  return s === 'ok' ? 'OK' : s === 'slots' ? 'CRÉNEAU !' : 'ERREUR';
+}
+
+load();
+setInterval(load, 60000);
+</script>
+</body>
+</html>
