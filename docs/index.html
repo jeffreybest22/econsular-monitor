@@ -10,14 +10,14 @@
   header { background: #1a3a5c; color: white; padding: 20px 24px; }
   header h1 { font-size: 20px; font-weight: 600; }
   header p { font-size: 13px; opacity: 0.75; margin-top: 4px; }
-  .container { max-width: 800px; margin: 24px auto; padding: 0 16px; }
+  .container { max-width: 860px; margin: 24px auto; padding: 0 16px; }
   .card { background: white; border-radius: 10px; padding: 20px; margin-bottom: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
   .status-banner { display: flex; align-items: center; gap: 12px; padding: 16px 20px; border-radius: 10px; margin-bottom: 16px; }
-  .status-banner.ok { background: #e8f5e9; border: 1px solid #a5d6a7; }
+  .status-banner.ok    { background: #e8f5e9; border: 1px solid #a5d6a7; }
   .status-banner.error { background: #ffebee; border: 1px solid #ef9a9a; }
   .status-banner.slots { background: #e3f2fd; border: 1px solid #90caf9; }
   .dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
-  .dot.ok { background: #4caf50; box-shadow: 0 0 0 3px #a5d6a766; }
+  .dot.ok    { background: #4caf50; box-shadow: 0 0 0 3px #a5d6a766; }
   .dot.error { background: #f44336; }
   .dot.slots { background: #2196f3; box-shadow: 0 0 0 3px #90caf966; animation: pulse 1.5s infinite; }
   @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
@@ -26,13 +26,23 @@
   .status-text span { font-size: 12px; color: #666; }
   table { width: 100%; border-collapse: collapse; font-size: 13px; }
   th { text-align: left; padding: 8px 12px; background: #f8f8f8; border-bottom: 2px solid #eee; font-weight: 600; color: #555; }
-  td { padding: 10px 12px; border-bottom: 1px solid #f0f0f0; }
+  td { padding: 10px 12px; border-bottom: 1px solid #f0f0f0; vertical-align: middle; }
   tr:last-child td { border-bottom: none; }
+  .num { color: #aaa; font-size: 11px; font-weight: 600; width: 40px; }
   .badge { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 600; }
-  .badge.ok { background: #e8f5e9; color: #2e7d32; }
+  .badge.ok    { background: #e8f5e9; color: #2e7d32; }
   .badge.error { background: #ffebee; color: #c62828; }
   .badge.slots { background: #e3f2fd; color: #1565c0; }
-  .refresh { font-size: 12px; color: #999; text-align: right; margin-top: 8px; }
+  .card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+  .card-header h2 { font-size: 15px; }
+  .total-badge { background: #f0f0f0; color: #555; font-size: 12px; padding: 3px 10px; border-radius: 12px; }
+  .pagination { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 16px; }
+  .pagination button { padding: 6px 14px; border: 1px solid #ddd; background: white; border-radius: 6px; cursor: pointer; font-size: 13px; color: #333; transition: background 0.15s; }
+  .pagination button:hover:not(:disabled) { background: #f0f0f0; }
+  .pagination button:disabled { opacity: 0.35; cursor: default; }
+  .pagination button.active { background: #1a3a5c; color: white; border-color: #1a3a5c; }
+  .page-info { font-size: 13px; color: #666; }
+  .refresh { font-size: 12px; color: #999; text-align: right; margin-top: 12px; }
   a.btn { display: inline-block; background: #1a3a5c; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-size: 13px; }
 </style>
 </head>
@@ -52,75 +62,111 @@
   </div>
 
   <div class="card">
-    <h2 style="font-size:15px;margin-bottom:16px">Dernières vérifications</h2>
+    <div class="card-header">
+      <h2>Vérifications</h2>
+      <span class="total-badge" id="total-badge">0 entrées</span>
+    </div>
     <table>
       <thead>
-        <tr><th>Date / Heure</th><th>Statut</th><th>Message</th></tr>
+        <tr>
+          <th class="num">#</th>
+          <th>Date / Heure</th>
+          <th>Statut</th>
+          <th>Message</th>
+        </tr>
       </thead>
       <tbody id="logs-body">
-        <tr><td colspan="3" style="text-align:center;color:#999;padding:20px">Chargement...</td></tr>
+        <tr><td colspan="4" style="text-align:center;color:#999;padding:20px">Chargement...</td></tr>
       </tbody>
     </table>
+    <div class="pagination" id="pagination"></div>
     <p class="refresh" id="refresh-info"></p>
   </div>
 </div>
 
 <script>
+const PAGE_SIZE = 50;
+let allChecks = [];
+let currentPage = 1;
+
 async function load() {
   try {
     const r = await fetch('status.json?t=' + Date.now());
-    if (!r.ok) throw new Error('status.json not found');
+    if (!r.ok) throw new Error('not found');
     const data = await r.json();
 
-    const latest = data.checks && data.checks[0];
+    allChecks = data.checks || [];
+
+    // Banner
+    const latest = allChecks[0];
     const banner = document.getElementById('status-banner');
-    const dot = document.getElementById('dot');
-    const statusText = document.getElementById('status-text');
-    const statusSub = document.getElementById('status-sub');
+    const dot    = document.getElementById('dot');
+    const stText = document.getElementById('status-text');
+    const stSub  = document.getElementById('status-sub');
 
     if (latest) {
       if (latest.status === 'slots') {
-        banner.className = 'status-banner slots';
-        dot.className = 'dot slots';
-        statusText.textContent = 'CRÉNEAUX DISPONIBLES !';
-        statusSub.textContent = 'Connectez-vous immédiatement pour réserver';
+        banner.className = 'status-banner slots'; dot.className = 'dot slots';
+        stText.textContent = 'CRÉNEAUX DISPONIBLES !';
+        stSub.textContent  = 'Connectez-vous immédiatement pour réserver';
       } else if (latest.status === 'error') {
-        banner.className = 'status-banner error';
-        dot.className = 'dot error';
-        statusText.textContent = 'Erreur de vérification';
-        statusSub.textContent = latest.message || '';
+        banner.className = 'status-banner error'; dot.className = 'dot error';
+        stText.textContent = 'Erreur de vérification';
+        stSub.textContent  = latest.message || '';
       } else {
-        banner.className = 'status-banner ok';
-        dot.className = 'dot ok';
-        statusText.textContent = 'Surveillance active — Aucun créneau disponible';
-        statusSub.textContent = 'Dernière vérification : ' + formatDate(latest.ts);
+        banner.className = 'status-banner ok'; dot.className = 'dot ok';
+        stText.textContent = 'Surveillance active — Aucun créneau disponible';
+        stSub.textContent  = 'Dernière vérification : ' + formatDate(latest.ts);
       }
     }
 
-    const tbody = document.getElementById('logs-body');
-    const checks = data.checks || [];
-    if (checks.length === 0) {
-      tbody.innerHTML = '<tr><td colspan="3" style="text-align:center;color:#999;padding:20px">Aucune donnée</td></tr>';
-      return;
-    }
-
-    tbody.innerHTML = checks.map(c => `
-      <tr>
-        <td style="font-family:monospace;font-size:12px">${formatDate(c.ts)}</td>
-        <td><span class="badge ${c.status}">${labelStatus(c.status)}</span></td>
-        <td style="color:#555">${c.message || ''}</td>
-      </tr>
-    `).join('');
-
-    document.getElementById('refresh-info').textContent =
-      `Mis à jour automatiquement toutes les 10 minutes · ${checks.length} entrées`;
+    document.getElementById('total-badge').textContent = allChecks.length + ' entrée' + (allChecks.length > 1 ? 's' : '');
+    renderPage(currentPage);
 
   } catch(e) {
     document.getElementById('status-text').textContent = 'En attente des premières données...';
-    document.getElementById('status-sub').textContent = 'Le fichier status.json sera créé au prochain run GitHub Actions';
+    document.getElementById('status-sub').textContent  = 'Le fichier status.json sera créé au prochain run';
     document.getElementById('logs-body').innerHTML =
-      '<tr><td colspan="3" style="text-align:center;color:#999;padding:20px">Aucune donnée disponible</td></tr>';
+      '<tr><td colspan="4" style="text-align:center;color:#999;padding:20px">Aucune donnée disponible</td></tr>';
   }
+}
+
+function renderPage(page) {
+  currentPage = page;
+  const total      = allChecks.length;
+  const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+  if (page < 1) page = 1;
+  if (page > totalPages) page = totalPages;
+
+  const start = (page - 1) * PAGE_SIZE;
+  const slice = allChecks.slice(start, start + PAGE_SIZE);
+
+  const tbody = document.getElementById('logs-body');
+  if (slice.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:#999;padding:20px">Aucune donnée</td></tr>';
+  } else {
+    tbody.innerHTML = slice.map((c, i) => {
+      const globalNum = total - start - i;
+      return `<tr>
+        <td class="num">#${globalNum}</td>
+        <td style="font-family:monospace;font-size:12px">${formatDate(c.ts)}</td>
+        <td><span class="badge ${c.status}">${labelStatus(c.status)}</span></td>
+        <td style="color:#555">${c.message || ''}</td>
+      </tr>`;
+    }).join('');
+  }
+
+  // Pagination
+  const pag = document.getElementById('pagination');
+  if (totalPages <= 1) { pag.innerHTML = ''; return; }
+
+  let html = `<button onclick="renderPage(${page-1})" ${page===1?'disabled':''}>&#8592; Précédent</button>`;
+  html += `<span class="page-info">Page ${page} / ${totalPages}</span>`;
+  html += `<button onclick="renderPage(${page+1})" ${page===totalPages?'disabled':''}>Suivant &#8594;</button>`;
+  pag.innerHTML = html;
+
+  document.getElementById('refresh-info').textContent =
+    `Mis à jour toutes les 10 min · ${total} vérification${total>1?'s':''} · Page ${page}/${totalPages}`;
 }
 
 function formatDate(ts) {
