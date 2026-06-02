@@ -16,7 +16,9 @@ const NO_SLOTS_TEXT = 'Não há horários disponíveis no momento';
 const SERVICE_NAME = 'Outras declarações e atestados';
 
 let lastNotifiedAvailable = false;
+let lastErrorNotifiedAt = 0;
 let checkCount = 0;
+const ERROR_NOTIFY_COOLDOWN_MS = 60 * 60 * 1000; // 1 heure entre chaque alerte erreur
 
 function log(msg) {
   const ts = new Date().toISOString().replace('T', ' ').substring(0, 19);
@@ -137,6 +139,36 @@ async function runCheck() {
     }
   } catch (err) {
     log(`ERROR: ${err.message}`);
+
+    const now = Date.now();
+    const isLoginError = err.message.includes('login') || err.message.includes('Login') || err.message.includes('user-main') || err.message.includes('password');
+    const errorType = isLoginError ? 'Connexion impossible' : 'Vérification impossible';
+
+    if (now - lastErrorNotifiedAt > ERROR_NOTIFY_COOLDOWN_MS) {
+      lastErrorNotifiedAt = now;
+      try {
+        await sendEmail(
+          `⚠️ ERREUR Monitor Ambassade du Brésil - ${errorType}`,
+          `<div style="font-family:sans-serif;max-width:600px;margin:auto">
+            <h2 style="color:#cc0000">⚠️ Problème détecté</h2>
+            <p>Le moniteur n'a pas pu effectuer la vérification :</p>
+            <div style="background:#fff3f3;padding:15px;border-left:4px solid #cc0000;margin:20px 0;font-family:monospace;font-size:13px">
+              ${err.message.substring(0, 300)}
+            </div>
+            <p><strong>Type :</strong> ${errorType}</p>
+            <p><strong>Heure :</strong> ${new Date().toLocaleString('fr-FR')}</p>
+            <p>La surveillance continue — vous serez notifié si l'erreur persiste.</p>
+            <hr>
+            <small style="color:#666">E-Consular Monitor | Check #${checkCount}</small>
+          </div>`
+        );
+        log('Error notification email sent');
+      } catch (emailErr) {
+        log(`Failed to send error email: ${emailErr.message}`);
+      }
+    } else {
+      log('Error cooldown active — skipping duplicate error notification');
+    }
   } finally {
     if (browser) await browser.close();
   }
