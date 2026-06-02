@@ -2,9 +2,8 @@ name: E-Consular Appointment Monitor
 
 on:
   schedule:
-    # Vérifie toutes les 10 minutes (GitHub minimum fiable)
     - cron: '*/10 * * * *'
-  workflow_dispatch: # Permet de lancer manuellement depuis GitHub
+  workflow_dispatch:
 
 jobs:
   check:
