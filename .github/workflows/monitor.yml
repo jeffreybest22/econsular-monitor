@@ -17,6 +17,11 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Fix DNS resolution
+        run: |
+          echo "nameserver 8.8.8.8" | sudo tee /etc/resolv.conf
+          nslookup ec-portoprince.itamaraty.gov.br || echo "DNS still failing"
+
       - name: Install dependencies
         run: npm install
 
