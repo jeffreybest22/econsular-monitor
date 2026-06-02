@@ -1,9 +1,9 @@
 const { chromium } = require('playwright');
 require('dotenv').config();
 
-const LOGIN_URL = 'https://ec-portoprince.itamaraty.gov.br/login';
-const DASHBOARD_URL = 'https://ec-portoprince.itamaraty.gov.br/user-main';
-const PROCESS_URL = 'https://ec-portoprince.itamaraty.gov.br/process?id=69a5a30b2cb1a60013b679f5';
+const LOGIN_URL = 'https://ec-portoprincipe.itamaraty.gov.br/login';
+const DASHBOARD_URL = 'https://ec-portoprincipe.itamaraty.gov.br/user-main';
+const PROCESS_URL = 'https://ec-portoprincipe.itamaraty.gov.br/process?id=69a5a30b2cb1a60013b679f5';
 
 const EC_EMAIL = process.env.EC_EMAIL;
 const EC_PASSWORD = process.env.EC_PASSWORD;

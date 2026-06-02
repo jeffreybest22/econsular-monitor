@@ -17,10 +17,24 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Fix DNS resolution
+      - name: Resolve domain via Cloudflare DoH and inject hosts
         run: |
-          echo "nameserver 8.8.8.8" | sudo tee /etc/resolv.conf
-          nslookup ec-portoprince.itamaraty.gov.br || echo "DNS still failing"
+          IP=$(curl -sf "https://cloudflare-dns.com/dns-query?name=ec-portoprincipe.itamaraty.gov.br&type=A" \
+            -H "accept: application/dns-json" | python3 -c "import sys,json; d=json.load(sys.stdin); print(d['Answer'][0]['data'])" 2>/dev/null || echo "")
+          if [ -n "$IP" ]; then
+            echo "Resolved IP: $IP"
+            echo "$IP ec-portoprincipe.itamaraty.gov.br" | sudo tee -a /etc/hosts
+          else
+            echo "Cloudflare DoH failed — trying Google DoH"
+            IP=$(curl -sf "https://dns.google/resolve?name=ec-portoprincipe.itamaraty.gov.br&type=A" | python3 -c "import sys,json; d=json.load(sys.stdin); print(d['Answer'][0]['data'])" 2>/dev/null || echo "")
+            if [ -n "$IP" ]; then
+              echo "Resolved IP via Google: $IP"
+              echo "$IP ec-portoprincipe.itamaraty.gov.br" | sudo tee -a /etc/hosts
+            else
+              echo "WARNING: DNS resolution failed from both DoH providers"
+            fi
+          fi
+          nslookup ec-portoprincipe.itamaraty.gov.br || true
 
       - name: Install dependencies
         run: npm install
