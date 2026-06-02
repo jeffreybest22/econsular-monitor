@@ -15,8 +15,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - uses: actions/setup-node@v4
         with:
@@ -36,12 +34,19 @@ jobs:
           NOTIFY_EMAILS: ${{ secrets.NOTIFY_EMAILS }}
         run: node monitor.js --once --log-file docs/status.json
 
-      - name: Commit status update
+      - name: Push status via GitHub API
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
         run: |
-          git config user.email "monitor@github-actions"
-          git config user.name "E-Consular Monitor"
-          git add docs/status.json
-          git diff --staged --quiet && echo "No changes" && exit 0
-          git commit -m "chore: update monitor status [skip ci]"
-          git pull --rebase origin master
-          git push
+          CONTENT=$(base64 -w 0 docs/status.json)
+          SHA=$(curl -sf -H "Authorization: token $GH_TOKEN" \
+            "https://api.github.com/repos/$REPO/contents/docs/status.json" \
+            | python3 -c "import sys,json; print(json.load(sys.stdin).get('sha',''))" 2>/dev/null || echo "")
+          DATA="{\"message\":\"chore: update status [skip ci]\",\"content\":\"$CONTENT\""
+          [ -n "$SHA" ] && DATA="$DATA,\"sha\":\"$SHA\""
+          DATA="$DATA}"
+          curl -sf -X PUT -H "Authorization: token $GH_TOKEN" \
+            -H "Content-Type: application/json" \
+            "https://api.github.com/repos/$REPO/contents/docs/status.json" \
+            -d "$DATA" > /dev/null && echo "Status updated via API" || echo "API update failed"
