@@ -177,13 +177,28 @@ function renderPage(page) {
     }).join('');
   }
 
-  // Pagination
+  // Pagination — toujours visible
   const pag = document.getElementById('pagination');
-  if (totalPages <= 1) { pag.innerHTML = ''; return; }
+  let html = '';
 
-  let html = `<button onclick="renderPage(${page-1})" ${page===1?'disabled':''}>&#8592; Précédent</button>`;
-  html += `<span class="page-info">Page ${page} / ${totalPages}</span>`;
+  // Bouton Précédent
+  html += `<button onclick="renderPage(${page-1})" ${page===1?'disabled':''}>&#8592; Précédent</button>`;
+
+  // Numéros de pages (max 7 boutons visibles)
+  const delta = 2;
+  let pages = new Set([1, totalPages]);
+  for (let i = Math.max(2, page-delta); i <= Math.min(totalPages-1, page+delta); i++) pages.add(i);
+  let sorted = [...pages].sort((a,b) => a-b);
+  let prev = 0;
+  for (const p of sorted) {
+    if (p - prev > 1) html += `<span class="page-info">…</span>`;
+    html += `<button onclick="renderPage(${p})" class="${p===page?'active':''}">${p}</button>`;
+    prev = p;
+  }
+
+  // Bouton Suivant
   html += `<button onclick="renderPage(${page+1})" ${page===totalPages?'disabled':''}>Suivant &#8594;</button>`;
+
   pag.innerHTML = html;
 
   document.getElementById('refresh-info').textContent =
