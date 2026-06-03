@@ -229,7 +229,7 @@ function writeStatusLog(logFile, entry) {
     }
 
     data.checks.unshift(entry);
-    if (data.checks.length > 50) data.checks = data.checks.slice(0, 50);
+    if (data.checks.length > 500) data.checks = data.checks.slice(0, 500);
     data.last_check = entry.ts;
     data.last_status = entry.status;
 
