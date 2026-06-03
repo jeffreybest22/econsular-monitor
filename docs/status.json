@@ -1,6 +1,11 @@
 {
   "checks": [
     {
+      "ts": "2026-06-03T09:35:51.574Z",
+      "status": "ok",
+      "message": "Aucun créneau disponible"
+    },
+    {
       "ts": "2026-06-03T09:30:59.178Z",
       "status": "ok",
       "message": "Aucun créneau disponible"
@@ -244,13 +249,8 @@
       "ts": "2026-06-03T05:31:12.490Z",
       "status": "error",
       "message": "page.goto: Timeout 30000ms exceeded.\nCall log:\n  - navigating to \"https://ec-portoprincipe.itamaraty.gov.br/login\", waiting until \"networkidle\"\n"
-    },
-    {
-      "ts": "2026-06-03T05:25:42.453Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
     }
   ],
-  "last_check": "2026-06-03T09:30:59.178Z",
+  "last_check": "2026-06-03T09:35:51.574Z",
   "last_status": "ok"
 }
