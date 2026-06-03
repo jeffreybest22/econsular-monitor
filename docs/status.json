@@ -1,6 +1,11 @@
 {
   "checks": [
     {
+      "ts": "2026-06-03T02:15:46.860Z",
+      "status": "ok",
+      "message": "Aucun créneau disponible"
+    },
+    {
       "ts": "2026-06-03T02:10:47.809Z",
       "status": "ok",
       "message": "Aucun créneau disponible"
@@ -244,13 +249,8 @@
       "ts": "2026-06-02T22:15:46.559Z",
       "status": "ok",
       "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-02T22:10:50.060Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
     }
   ],
-  "last_check": "2026-06-03T02:10:47.809Z",
+  "last_check": "2026-06-03T02:15:46.860Z",
   "last_status": "ok"
 }
