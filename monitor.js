@@ -37,6 +37,30 @@ async function sendEmail(subject, htmlBody) {
   return true;
 }
 
+// ntfy.sh push notification — alarme sonore haute priorité qui bypasse le mode silencieux
+const NTFY_TOPIC = process.env.NTFY_TOPIC || 'econsular-jeff-a7f3k9x2';
+async function sendNtfy(title, message, url) {
+  try {
+    const res = await fetch(`https://ntfy.sh/${NTFY_TOPIC}`, {
+      method: 'POST',
+      headers: {
+        'Title': title,
+        'Priority': 'urgent',                // alarme + bypass silencieux
+        'Tags': 'rotating_light,calendar',
+        'Click': url || 'https://ec-portoprincipe.itamaraty.gov.br/login',
+        'Actions': `view, Réserver maintenant, ${url || 'https://ec-portoprincipe.itamaraty.gov.br/login'}`,
+      },
+      body: message,
+    });
+    if (!res.ok) { log(`ntfy failed ${res.status}`); return false; }
+    log(`ntfy push sent → topic ${NTFY_TOPIC}`);
+    return true;
+  } catch (e) {
+    log(`ntfy error: ${e.message}`);
+    return false;
+  }
+}
+
 async function login(page) {
   log('Logging in...');
   await page.goto(LOGIN_URL, { waitUntil: 'networkidle' });
@@ -197,6 +221,12 @@ async function runCheck() {
               <hr><small>Détecté le ${new Date().toLocaleString('fr-FR')} | E-Consular Monitor</small>
             </div>`
           ).catch(e => log(`Email failed (non-fatal): ${e.message}`));
+
+          // Push ntfy.sh — alarme sonore sur le téléphone
+          const ntfyMsg = slots.length > 0
+            ? `${slots.length} créneau(x) : ${slots.slice(0, 3).join(', ')}`
+            : 'Un créneau vient de s\'ouvrir — réservez vite !';
+          await sendNtfy(`🚨 RDV DISPONIBLE — ${svc.name}`, ntfyMsg, svc.url);
         } else {
           log(`Notification already sent for "${svc.name}" — skipping duplicate`);
         }
@@ -252,9 +282,17 @@ function writeStatusLog(logFile, entry) {
 }
 
 async function main() {
-  if (!EC_EMAIL || !EC_PASSWORD) { console.error('ERROR: EC_EMAIL or EC_PASSWORD not set'); process.exit(1); }
   log('=== E-Consular Monitor ===');
-  log(`Notifications → ${NOTIFY_EMAILS.join(', ')}`);
+
+  // Test ntfy alarm without logging in
+  if (process.argv.includes('--test-ntfy')) {
+    log(`Sending test alarm to topic: ${NTFY_TOPIC}`);
+    await sendNtfy('🚨 TEST — E-Consular Monitor', 'Ceci est un test. Si vous entendez l\'alarme, tout fonctionne !', 'https://jeffreybest22.github.io/econsular-monitor');
+    process.exit(0);
+  }
+
+  if (!EC_EMAIL || !EC_PASSWORD) { console.error('ERROR: EC_EMAIL or EC_PASSWORD not set'); process.exit(1); }
+  log(`Notifications → ${NOTIFY_EMAILS.join(', ')} | ntfy: ${NTFY_TOPIC}`);
 
   const logFileIdx = process.argv.indexOf('--log-file');
   const logFile    = logFileIdx !== -1 ? process.argv[logFileIdx + 1] : null;
