@@ -3,24 +3,21 @@ const fs = require('fs');
 const path = require('path');
 require('dotenv').config();
 
-const LOGIN_URL = 'https://ec-portoprincipe.itamaraty.gov.br/login';
-const DASHBOARD_URL = 'https://ec-portoprincipe.itamaraty.gov.br/user-main';
-const PROCESS_URL = 'https://ec-portoprincipe.itamaraty.gov.br/process?id=69a5a30b2cb1a60013b679f5';
+const BASE_URL    = 'https://ec-portoprincipe.itamaraty.gov.br';
+const LOGIN_URL   = `${BASE_URL}/login`;
+const DASH_URL    = `${BASE_URL}/user-main`;
+const NO_SLOTS_TEXT = 'Não há horários disponíveis no momento';
 
-const EC_EMAIL = process.env.EC_EMAIL;
+const EC_EMAIL    = process.env.EC_EMAIL;
 const EC_PASSWORD = process.env.EC_PASSWORD;
-const GMAIL_USER = process.env.GMAIL_USER;
-const GMAIL_APP_PASSWORD = process.env.GMAIL_APP_PASSWORD;
 const NOTIFY_EMAILS = (process.env.NOTIFY_EMAILS || EC_EMAIL).split(',').map(e => e.trim());
 const CHECK_INTERVAL_MS = parseInt(process.env.CHECK_INTERVAL_MINUTES || '5') * 60 * 1000;
 
-const NO_SLOTS_TEXT = 'Não há horários disponíveis no momento';
-const SERVICE_NAME = 'Outras declarações e atestados';
-
-let lastNotifiedAvailable = false;
+// Per-service notification state  { [serviceId]: boolean }
+const notifiedSlots = {};
 let lastErrorNotifiedAt = 0;
 let checkCount = 0;
-const ERROR_NOTIFY_COOLDOWN_MS = 60 * 60 * 1000; // 1 heure entre chaque alerte erreur
+const ERROR_COOLDOWN_MS = 60 * 60 * 1000;
 
 function log(msg) {
   const ts = new Date().toISOString().replace('T', ' ').substring(0, 19);
@@ -28,77 +25,100 @@ function log(msg) {
 }
 
 async function sendEmail(subject, htmlBody) {
-  const resendKey = process.env.RESEND_API_KEY;
-  if (!resendKey) {
-    log('WARNING: RESEND_API_KEY not set — skipping email');
-    return false;
-  }
+  const key = process.env.RESEND_API_KEY;
+  if (!key) { log('WARNING: RESEND_API_KEY not set'); return false; }
   const res = await fetch('https://api.resend.com/emails', {
     method: 'POST',
-    headers: { 'Authorization': `Bearer ${resendKey}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      from: 'E-Consular Monitor <onboarding@resend.dev>',
-      to: NOTIFY_EMAILS,
-      subject,
-      html: htmlBody,
-    }),
+    headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ from: 'E-Consular Monitor <onboarding@resend.dev>', to: NOTIFY_EMAILS, subject, html: htmlBody }),
   });
-  if (!res.ok) throw new Error(`Resend error ${res.status}: ${await res.text()}`);
-  log(`Email sent to: ${NOTIFY_EMAILS.join(', ')}`);
+  if (!res.ok) throw new Error(`Resend ${res.status}: ${await res.text()}`);
+  log(`Email sent → ${NOTIFY_EMAILS.join(', ')}`);
   return true;
 }
 
 async function login(page) {
-  log('Navigating to login page...');
+  log('Logging in...');
   await page.goto(LOGIN_URL, { waitUntil: 'networkidle' });
-
-  // Fill email and password
   await page.fill('input[type="email"], input[name="email"], #email', EC_EMAIL);
   await page.fill('input[type="password"], input[name="password"], #password', EC_PASSWORD);
   await page.click('button[type="submit"], input[type="submit"]');
-
-  // Wait for redirect to dashboard
   await page.waitForURL('**/user-main', { timeout: 20000 });
   log('Login successful');
 }
 
-async function ensureLoggedIn(page) {
-  const url = page.url();
-  if (url.includes('/login') || url === '') {
-    await login(page);
+// Scrape all services from user-main dashboard
+async function fetchServices(page) {
+  await page.goto(DASH_URL, { waitUntil: 'networkidle', timeout: 30000 });
+  if (page.url().includes('/login')) { await login(page); await page.goto(DASH_URL, { waitUntil: 'networkidle' }); }
+
+  const rows = await page.locator('table tr, [class*="service"], [class*="processo"]').all();
+  const services = [];
+
+  for (const row of rows) {
+    const text = (await row.innerText().catch(() => '')).trim();
+    if (!text || text.length < 5) continue;
+
+    // Look for a "Continuar" button with a link containing process ID
+    const links = await row.locator('a[href*="/process"], a[href*="/agendamento"]').all();
+    for (const link of links) {
+      const href = await link.getAttribute('href').catch(() => '');
+      const idMatch = href && href.match(/[?&]id=([a-f0-9]+)/i);
+      if (idMatch) {
+        // Get service name from the row text (first non-empty long text)
+        const nameLine = text.split('\n').find(l => l.trim().length > 10 && !l.includes('Continuar') && !l.includes('Apagar'));
+        services.push({
+          id: idMatch[1],
+          name: (nameLine || text).substring(0, 80).trim(),
+          url: `${BASE_URL}${href.startsWith('/') ? href : '/' + href}`,
+        });
+      }
+    }
   }
+
+  // Fallback: try to find process links anywhere on page
+  if (services.length === 0) {
+    const allLinks = await page.locator('a[href*="/process?id="]').all();
+    for (const link of allLinks) {
+      const href  = await link.getAttribute('href').catch(() => '');
+      const label = (await link.innerText().catch(() => '')).trim() || 'Service';
+      const idMatch = href && href.match(/id=([a-f0-9]+)/i);
+      if (idMatch && !services.find(s => s.id === idMatch[1])) {
+        services.push({ id: idMatch[1], name: label, url: `${BASE_URL}${href}` });
+      }
+    }
+  }
+
+  log(`Found ${services.length} service(s): ${services.map(s => s.name).join(' | ')}`);
+  return services;
 }
 
-async function checkAvailability(page) {
-  await page.goto(PROCESS_URL, { waitUntil: 'networkidle', timeout: 30000 });
+async function checkOneService(page, service) {
+  const url = service.url || `${BASE_URL}/process?id=${service.id}`;
+  await page.goto(url, { waitUntil: 'networkidle', timeout: 30000 });
 
   if (page.url().includes('/login')) {
-    log('Session expired — re-logging in...');
     await login(page);
-    await page.goto(PROCESS_URL, { waitUntil: 'networkidle', timeout: 30000 });
+    await page.goto(url, { waitUntil: 'networkidle', timeout: 30000 });
   }
 
   const bodyText = await page.locator('body').innerText();
 
   if (bodyText.includes(NO_SLOTS_TEXT)) {
-    return { available: false };
+    return { available: false, slots: [] };
   }
 
-  // Extract visible slot dates/times from the page
   let slots = [];
-
-  // Try labeled slot elements first
-  const slotEls = await page.locator('[class*="slot"], [class*="hora"], [class*="horario"], [class*="date"], [class*="data"]').allInnerTexts();
+  const slotEls = await page.locator('[class*="slot"],[class*="hora"],[class*="horario"],[class*="date"],[class*="data"]').allInnerTexts();
   slots = slotEls.map(t => t.trim()).filter(t => t.length > 2 && t.length < 80);
 
-  // Fallback: extract date/time patterns from full body text
   if (slots.length === 0) {
-    const dateMatches = bodyText.match(/\d{1,2}\/\d{1,2}\/\d{2,4}[^\n]*/g) || [];
-    const timeMatches = bodyText.match(/\d{1,2}:\d{2}[^\n]*/g) || [];
-    slots = [...new Set([...dateMatches, ...timeMatches])].map(s => s.trim()).slice(0, 10);
+    const dm = bodyText.match(/\d{1,2}\/\d{1,2}\/\d{2,4}[^\n]*/g) || [];
+    const tm = bodyText.match(/\d{2}:\d{2}[^\n]*/g) || [];
+    slots = [...new Set([...dm, ...tm])].map(s => s.trim()).slice(0, 10);
   }
 
-  return { available: true, slots, slotCount: slots.length };
+  return { available: true, slots };
 }
 
 async function runCheck() {
@@ -108,113 +128,82 @@ async function runCheck() {
   let browser = null;
   try {
     browser = await chromium.launch({ headless: true });
-    const context = await browser.newContext({
-      userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/124.0.0.0 Safari/537.36',
-    });
-    const page = await context.newPage();
+    const page = await browser.newPage();
 
     await login(page);
-    const { available, slots = [], slotCount } = await checkAvailability(page);
 
-    if (available) {
-      log(`SLOTS AVAILABLE! (${slotCount || '?'} slot(s) detected)`);
-      if (slots.length > 0) log(`Slots: ${slots.join(' | ')}`);
+    // Discover all services
+    let services = await fetchServices(page);
 
-      if (!lastNotifiedAvailable) {
-        lastNotifiedAvailable = true;
-
-        const slotsHtml = slots.length > 0
-          ? `<div style="background:#f0fff4;padding:15px;border-left:4px solid #1a7f3c;margin:15px 0">
-              <strong>Créneaux disponibles :</strong>
-              <ul style="margin:8px 0;padding-left:20px">
-                ${slots.map(s => `<li style="margin:4px 0">${s}</li>`).join('')}
-              </ul>
-             </div>`
-          : `<p style="color:#555">Connectez-vous pour voir les créneaux exacts.</p>`;
-
-        await sendEmail(
-          'RENDEZ-VOUS DISPONIBLE - Ambassade du Brésil Porto-Prince',
-          `<div style="font-family:sans-serif;max-width:600px;margin:auto">
-            <h2 style="color:#1a7f3c">Créneaux de rendez-vous disponibles!</h2>
-            <p>Un ou plusieurs créneaux sont maintenant disponibles pour :</p>
-            <div style="background:#f0f7ff;padding:15px;border-left:4px solid #0066cc;margin:15px 0">
-              <strong>${SERVICE_NAME}</strong><br>
-              <small>Embaixada do Brasil em Porto Príncipe</small>
-            </div>
-            ${slotsHtml}
-            <p>
-              <a href="${PROCESS_URL}" style="background:#1a7f3c;color:white;padding:12px 24px;text-decoration:none;border-radius:6px;display:inline-block">
-                Prendre le rendez-vous maintenant
-              </a>
-            </p>
-            <p><strong>Dépêchez-vous</strong> — les créneaux se remplissent rapidement!</p>
-            <hr>
-            <small style="color:#666">Détecté le ${new Date().toLocaleString('fr-FR')} | E-Consular Monitor</small>
-          </div>`
-        );
-      } else {
-        log('Notification already sent for this availability window — skipping duplicate');
-      }
-      return { ts: new Date().toISOString(), status: 'slots', message: `${slotCount || '?'} créneau(x) disponible(s)`, slots };
-    } else {
-      log('No slots available yet.');
-      if (lastNotifiedAvailable) {
-        log('Slots were available before but no longer — resetting notification flag');
-        lastNotifiedAvailable = false;
-      }
-      return { ts: new Date().toISOString(), status: 'ok', message: 'Aucun créneau disponible' };
+    // Fallback: if scraping found nothing, use the hardcoded default
+    if (services.length === 0) {
+      log('No services scraped — using hardcoded default');
+      services = [{ id: '69a5a30b2cb1a60013b679f5', name: 'Outras declarações e atestados', url: `${BASE_URL}/process?id=69a5a30b2cb1a60013b679f5` }];
     }
+
+    const results = [];
+    for (const svc of services) {
+      log(`Checking: ${svc.name}`);
+      const { available, slots } = await checkOneService(page, svc);
+
+      if (available) {
+        log(`SLOTS AVAILABLE for "${svc.name}"! (${slots.length} slot(s))`);
+        if (slots.length > 0) log(`  → ${slots.join(' | ')}`);
+
+        if (!notifiedSlots[svc.id]) {
+          notifiedSlots[svc.id] = true;
+          const slotsHtml = slots.length > 0
+            ? `<ul style="padding-left:20px">${slots.map(s => `<li>${s}</li>`).join('')}</ul>`
+            : `<p>Connectez-vous pour voir les créneaux exacts.</p>`;
+          await sendEmail(
+            `RENDEZ-VOUS DISPONIBLE — ${svc.name}`,
+            `<div style="font-family:sans-serif;max-width:600px;margin:auto">
+              <h2 style="color:#1a7f3c">Créneaux disponibles !</h2>
+              <div style="background:#f0f7ff;padding:15px;border-left:4px solid #0066cc;margin:15px 0">
+                <strong>${svc.name}</strong><br><small>Embaixada do Brasil em Porto Príncipe</small>
+              </div>
+              ${slotsHtml}
+              <p><a href="${svc.url}" style="background:#1a7f3c;color:white;padding:12px 24px;text-decoration:none;border-radius:6px;display:inline-block">Réserver maintenant</a></p>
+              <p><strong>Dépêchez-vous !</strong></p>
+              <hr><small>Détecté le ${new Date().toLocaleString('fr-FR')} | E-Consular Monitor</small>
+            </div>`
+          );
+        } else {
+          log(`Notification already sent for "${svc.name}" — skipping duplicate`);
+        }
+        results.push({ id: svc.id, name: svc.name, status: 'slots', slots, message: `${slots.length || '?'} créneau(x)` });
+      } else {
+        if (notifiedSlots[svc.id]) { notifiedSlots[svc.id] = false; }
+        log(`No slots for "${svc.name}"`);
+        results.push({ id: svc.id, name: svc.name, status: 'ok', slots: [], message: 'Aucun créneau disponible' });
+      }
+    }
+
+    const overallStatus = results.some(r => r.status === 'slots') ? 'slots' : 'ok';
+    const overallMsg    = results.some(r => r.status === 'slots')
+      ? results.filter(r => r.status === 'slots').map(r => r.name).join(', ')
+      : 'Aucun créneau disponible';
+
+    return { ts: new Date().toISOString(), status: overallStatus, message: overallMsg, services: results };
+
   } catch (err) {
     log(`ERROR: ${err.message}`);
-
     const now = Date.now();
-    const isLoginError = err.message.includes('login') || err.message.includes('Login') || err.message.includes('user-main') || err.message.includes('password');
-    const errorType = isLoginError ? 'Connexion impossible' : 'Vérification impossible';
-
-    if (now - lastErrorNotifiedAt > ERROR_NOTIFY_COOLDOWN_MS) {
+    if (now - lastErrorNotifiedAt > ERROR_COOLDOWN_MS) {
       lastErrorNotifiedAt = now;
-      try {
-        await sendEmail(
-          `⚠️ ERREUR Monitor Ambassade du Brésil - ${errorType}`,
-          `<div style="font-family:sans-serif;max-width:600px;margin:auto">
-            <h2 style="color:#cc0000">⚠️ Problème détecté</h2>
-            <p>Le moniteur n'a pas pu effectuer la vérification :</p>
-            <div style="background:#fff3f3;padding:15px;border-left:4px solid #cc0000;margin:20px 0;font-family:monospace;font-size:13px">
-              ${err.message.substring(0, 300)}
-            </div>
-            <p><strong>Type :</strong> ${errorType}</p>
-            <p><strong>Heure :</strong> ${new Date().toLocaleString('fr-FR')}</p>
-            <p>La surveillance continue — vous serez notifié si l'erreur persiste.</p>
-            <hr>
-            <small style="color:#666">E-Consular Monitor | Check #${checkCount}</small>
-          </div>`
-        );
-        log('Error notification email sent');
-      } catch (emailErr) {
-        log(`Failed to send error email: ${emailErr.message}`);
-      }
-    } else {
-      log('Error cooldown active — skipping duplicate error notification');
+      const isLogin = /login|user-main|password/i.test(err.message);
+      await sendEmail(
+        `⚠️ ERREUR Monitor — ${isLogin ? 'Connexion impossible' : 'Vérification impossible'}`,
+        `<div style="font-family:sans-serif">
+          <h2 style="color:#cc0000">⚠️ Problème détecté</h2>
+          <pre style="background:#fff3f3;padding:15px;border-left:4px solid #c00">${err.message.substring(0, 300)}</pre>
+          <p>Heure : ${new Date().toLocaleString('fr-FR')}</p>
+        </div>`
+      ).catch(() => {});
     }
-    return { ts: new Date().toISOString(), status: 'error', message: err.message.substring(0, 200) };
+    return { ts: new Date().toISOString(), status: 'error', message: err.message.substring(0, 200), services: [] };
   } finally {
     if (browser) await browser.close();
-  }
-}
-
-async function testEmail() {
-  log('Sending test email...');
-  const ok = await sendEmail(
-    '✅ Test - E-Consular Monitor configuré',
-    `<p>Le moniteur e-consular est bien configuré.<br>
-     Vous recevrez un email quand des créneaux seront disponibles pour:<br>
-     <strong>${SERVICE_NAME}</strong></p>
-     <p>Vérification toutes les ${CHECK_INTERVAL_MS / 60000} minutes.</p>`
-  );
-  if (ok) {
-    log('Test email sent successfully!');
-  } else {
-    log('Test email FAILED — check GMAIL_APP_PASSWORD in .env');
   }
 }
 
@@ -222,56 +211,36 @@ function writeStatusLog(logFile, entry) {
   try {
     const dir = path.dirname(logFile);
     if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-
     let data = { checks: [] };
-    if (fs.existsSync(logFile)) {
-      try { data = JSON.parse(fs.readFileSync(logFile, 'utf8')); } catch {}
-    }
-
+    if (fs.existsSync(logFile)) { try { data = JSON.parse(fs.readFileSync(logFile, 'utf8')); } catch {} }
     data.checks.unshift(entry);
     if (data.checks.length > 500) data.checks = data.checks.slice(0, 500);
-    data.last_check = entry.ts;
+    data.last_check  = entry.ts;
     data.last_status = entry.status;
-
     fs.writeFileSync(logFile, JSON.stringify(data, null, 2));
     log(`Status written to ${logFile}`);
-  } catch (e) {
-    log(`Failed to write status log: ${e.message}`);
-  }
+  } catch (e) { log(`Failed to write log: ${e.message}`); }
 }
 
 async function main() {
-  if (!EC_EMAIL || !EC_PASSWORD) {
-    console.error('ERROR: EC_EMAIL or EC_PASSWORD not set in .env');
-    process.exit(1);
-  }
-
-  log('=== E-Consular Appointment Monitor ===');
-  log(`Service: ${SERVICE_NAME}`);
+  if (!EC_EMAIL || !EC_PASSWORD) { console.error('ERROR: EC_EMAIL or EC_PASSWORD not set'); process.exit(1); }
+  log('=== E-Consular Monitor ===');
   log(`Notifications → ${NOTIFY_EMAILS.join(', ')}`);
 
   const logFileIdx = process.argv.indexOf('--log-file');
-  const logFile = logFileIdx !== -1 ? process.argv[logFileIdx + 1] : null;
+  const logFile    = logFileIdx !== -1 ? process.argv[logFileIdx + 1] : null;
 
-  // --once : single check then exit (used by GitHub Actions)
   if (process.argv.includes('--once')) {
     const result = await runCheck();
     if (logFile && result) writeStatusLog(logFile, result);
     process.exit(0);
   }
 
-  log(`Check interval: ${CHECK_INTERVAL_MS / 60000} minutes`);
+  log(`Interval: ${CHECK_INTERVAL_MS / 60000} min`);
   const r = await runCheck();
   if (logFile && r) writeStatusLog(logFile, r);
-
-  setInterval(async () => {
-    const r2 = await runCheck();
-    if (logFile && r2) writeStatusLog(logFile, r2);
-  }, CHECK_INTERVAL_MS);
-  log(`Monitor running. Press Ctrl+C to stop.`);
+  setInterval(async () => { const r2 = await runCheck(); if (logFile && r2) writeStatusLog(logFile, r2); }, CHECK_INTERVAL_MS);
+  log('Monitor running. Ctrl+C to stop.');
 }
 
-main().catch(err => {
-  console.error('Fatal error:', err);
-  process.exit(1);
-});
+main().catch(err => { console.error('Fatal:', err); process.exit(1); });

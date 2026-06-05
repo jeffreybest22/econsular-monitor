@@ -3,88 +3,98 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>E-Consular Monitor — Dashboard</title>
+<title>E-Consular Monitor</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; color: #333; }
   header { background: #1a3a5c; color: white; padding: 20px 24px; }
   header h1 { font-size: 20px; font-weight: 600; }
   header p { font-size: 13px; opacity: 0.75; margin-top: 4px; }
-  .container { max-width: 860px; margin: 24px auto; padding: 0 16px; }
+  .container { max-width: 900px; margin: 24px auto; padding: 0 16px; }
   .card { background: white; border-radius: 10px; padding: 20px; margin-bottom: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
-  .status-banner { display: flex; align-items: center; gap: 12px; padding: 16px 20px; border-radius: 10px; margin-bottom: 16px; }
-  .status-banner.ok    { background: #e8f5e9; border: 1px solid #a5d6a7; }
-  .status-banner.error { background: #ffebee; border: 1px solid #ef9a9a; }
-  .status-banner.slots { background: #e3f2fd; border: 1px solid #90caf9; }
-  .dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
-  .dot.ok    { background: #4caf50; box-shadow: 0 0 0 3px #a5d6a766; }
-  .dot.error { background: #f44336; }
-  .dot.slots { background: #2196f3; box-shadow: 0 0 0 3px #90caf966; animation: pulse 1.5s infinite; }
-  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
-  .status-text { flex: 1; }
-  .status-text strong { font-size: 15px; display: block; }
-  .status-text span { font-size: 12px; color: #666; }
-  table { width: 100%; border-collapse: collapse; font-size: 13px; }
-  th { text-align: left; padding: 8px 12px; background: #f8f8f8; border-bottom: 2px solid #eee; font-weight: 600; color: #555; }
-  td { padding: 10px 12px; border-bottom: 1px solid #f0f0f0; vertical-align: middle; }
-  tr:last-child td { border-bottom: none; }
-  .num { color: #aaa; font-size: 11px; font-weight: 600; width: 40px; }
-  .badge { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 600; }
-  .badge.ok    { background: #e8f5e9; color: #2e7d32; }
-  .badge.error { background: #ffebee; color: #c62828; }
-  .badge.slots { background: #e3f2fd; color: #1565c0; }
-  .card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
-  .card-header h2 { font-size: 15px; }
-  .total-badge { background: #f0f0f0; color: #555; font-size: 12px; padding: 3px 10px; border-radius: 12px; }
-  .filter-btn { padding: 5px 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 12px; cursor: pointer; background: white; color: #555; transition: all 0.15s; }
-  .filter-btn.active { background: #1565c0; color: white; border-color: #1565c0; }
-  .filter-btn.active::before { content: '✓ '; }
-  .pagination { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 16px; }
-  .pagination button { padding: 6px 14px; border: 1px solid #ddd; background: white; border-radius: 6px; cursor: pointer; font-size: 13px; color: #333; transition: background 0.15s; }
-  .pagination button:hover:not(:disabled) { background: #f0f0f0; }
-  .pagination button:disabled { opacity: 0.35; cursor: default; }
-  .pagination button.active { background: #1a3a5c; color: white; border-color: #1a3a5c; }
-  .page-info { font-size: 13px; color: #666; }
-  .refresh { font-size: 12px; color: #999; text-align: right; margin-top: 12px; }
-  a.btn { display: inline-block; background: #1a3a5c; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-size: 13px; }
+  .banner { display: flex; align-items: center; gap: 12px; padding: 14px 18px; border-radius: 10px; margin-bottom: 16px; }
+  .banner.ok    { background:#e8f5e9; border:1px solid #a5d6a7; }
+  .banner.error { background:#ffebee; border:1px solid #ef9a9a; }
+  .banner.slots { background:#e3f2fd; border:1px solid #90caf9; }
+  .dot { width:12px; height:12px; border-radius:50%; flex-shrink:0; }
+  .dot.ok    { background:#4caf50; box-shadow:0 0 0 3px #a5d6a766; }
+  .dot.error { background:#f44336; }
+  .dot.slots { background:#2196f3; box-shadow:0 0 0 3px #90caf966; animation:pulse 1.5s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.5} }
+  .banner-text { flex:1; }
+  .banner-text strong { font-size:15px; display:block; }
+  .banner-text span { font-size:12px; color:#666; }
+  a.btn { background:#1a3a5c; color:white; padding:8px 16px; border-radius:6px; text-decoration:none; font-size:13px; white-space:nowrap; }
+
+  /* Toolbar */
+  .toolbar { display:flex; align-items:center; gap:10px; margin-bottom:16px; flex-wrap:wrap; }
+  .toolbar label { font-size:13px; color:#555; font-weight:600; }
+  select.svc-select { padding:6px 10px; border:1px solid #ddd; border-radius:6px; font-size:13px; background:white; cursor:pointer; flex:1; min-width:200px; }
+  .filter-btn { padding:6px 12px; border:1px solid #ddd; background:white; border-radius:6px; font-size:12px; cursor:pointer; color:#555; white-space:nowrap; }
+  .filter-btn.active { background:#1565c0; color:white; border-color:#1565c0; }
+  .total-badge { background:#f0f0f0; color:#555; font-size:12px; padding:3px 10px; border-radius:12px; white-space:nowrap; }
+
+  table { width:100%; border-collapse:collapse; font-size:13px; }
+  th { text-align:left; padding:8px 12px; background:#f8f8f8; border-bottom:2px solid #eee; font-weight:600; color:#555; }
+  td { padding:9px 12px; border-bottom:1px solid #f0f0f0; vertical-align:middle; }
+  tr:last-child td { border-bottom:none; }
+  .num { color:#aaa; font-size:11px; font-weight:600; width:36px; }
+  .svc-name { font-size:11px; color:#777; max-width:220px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .badge { display:inline-block; padding:2px 8px; border-radius:12px; font-size:11px; font-weight:600; }
+  .badge.ok    { background:#e8f5e9; color:#2e7d32; }
+  .badge.error { background:#ffebee; color:#c62828; }
+  .badge.slots { background:#e3f2fd; color:#1565c0; }
+
+  .pagination { display:flex; align-items:center; justify-content:center; gap:6px; margin-top:16px; flex-wrap:wrap; }
+  .pagination button { padding:5px 12px; border:1px solid #ddd; background:white; border-radius:6px; cursor:pointer; font-size:13px; }
+  .pagination button:hover:not(:disabled) { background:#f0f0f0; }
+  .pagination button:disabled { opacity:.35; cursor:default; }
+  .pagination button.active { background:#1a3a5c; color:white; border-color:#1a3a5c; }
+  .page-info { font-size:13px; color:#666; }
+  .refresh { font-size:12px; color:#999; text-align:right; margin-top:12px; }
 </style>
 </head>
 <body>
 <header>
   <h1>E-Consular Monitor</h1>
-  <p>Ambassade du Brésil — Porto-Prince | Outras declarações e atestados</p>
+  <p>Ambassade du Brésil — Porto-Prince</p>
 </header>
 <div class="container">
-  <div id="status-banner" class="status-banner ok">
+
+  <div id="banner" class="banner ok">
     <div class="dot ok" id="dot"></div>
-    <div class="status-text">
-      <strong id="status-text">Chargement...</strong>
-      <span id="status-sub"></span>
+    <div class="banner-text">
+      <strong id="banner-title">Chargement...</strong>
+      <span id="banner-sub"></span>
     </div>
     <a href="https://ec-portoprincipe.itamaraty.gov.br/login" target="_blank" class="btn">Ouvrir le site</a>
   </div>
 
   <div class="card">
-    <div class="card-header">
-      <h2>Vérifications</h2>
-      <div style="display:flex;align-items:center;gap:8px">
-        <button class="filter-btn" id="filter-btn" onclick="toggleFilter()">Créneaux seulement</button>
-        <span class="total-badge" id="total-badge">0 entrées</span>
-      </div>
+    <div class="toolbar">
+      <label>Service :</label>
+      <select class="svc-select" id="svc-select" onchange="onServiceChange()">
+        <option value="">Tous les services</option>
+      </select>
+      <button class="filter-btn" id="filter-btn" onclick="toggleFilter()">Créneaux seulement</button>
+      <span class="total-badge" id="total-badge">0 entrées</span>
     </div>
+
     <table>
       <thead>
         <tr>
           <th class="num">#</th>
           <th>Date / Heure</th>
+          <th>Service</th>
           <th>Statut</th>
           <th>Message</th>
         </tr>
       </thead>
-      <tbody id="logs-body">
-        <tr><td colspan="4" style="text-align:center;color:#999;padding:20px">Chargement...</td></tr>
+      <tbody id="tbody">
+        <tr><td colspan="5" style="text-align:center;color:#999;padding:20px">Chargement...</td></tr>
       </tbody>
     </table>
+
     <div class="pagination" id="pagination"></div>
     <p class="refresh" id="refresh-info"></p>
   </div>
@@ -92,9 +102,11 @@
 
 <script>
 const PAGE_SIZE = 50;
-let allChecks = [];
+let allChecks   = [];   // flat rows: { ts, status, message, svcId, svcName }
+let allServices = [];   // [{ id, name }]
 let currentPage = 1;
-let filterSlots = false;
+let filterService = ''; // '' = tous
+let filterSlots   = false;
 
 async function load() {
   try {
@@ -102,40 +114,74 @@ async function load() {
     if (!r.ok) throw new Error('not found');
     const data = await r.json();
 
-    allChecks = data.checks || [];
+    // Flatten checks into rows (support both old format and new multi-service format)
+    allChecks = [];
+    const svcMap = {};
 
-    // Banner
-    const latest = allChecks[0];
-    const banner = document.getElementById('status-banner');
-    const dot    = document.getElementById('dot');
-    const stText = document.getElementById('status-text');
-    const stSub  = document.getElementById('status-sub');
-
-    if (latest) {
-      if (latest.status === 'slots') {
-        banner.className = 'status-banner slots'; dot.className = 'dot slots';
-        stText.textContent = 'CRÉNEAUX DISPONIBLES !';
-        stSub.textContent  = 'Connectez-vous immédiatement pour réserver';
-      } else if (latest.status === 'error') {
-        banner.className = 'status-banner error'; dot.className = 'dot error';
-        stText.textContent = 'Erreur de vérification';
-        stSub.textContent  = latest.message || '';
+    for (const check of (data.checks || [])) {
+      if (check.services && check.services.length > 0) {
+        for (const svc of check.services) {
+          allChecks.push({ ts: check.ts, status: svc.status, message: svc.message, svcId: svc.id, svcName: svc.name, slots: svc.slots });
+          if (!svcMap[svc.id]) svcMap[svc.id] = svc.name;
+        }
       } else {
-        banner.className = 'status-banner ok'; dot.className = 'dot ok';
-        stText.textContent = 'Surveillance active — Aucun créneau disponible';
-        stSub.textContent  = 'Dernière vérification : ' + formatDate(latest.ts);
+        // Legacy single-service entry
+        allChecks.push({ ts: check.ts, status: check.status, message: check.message, svcId: 'default', svcName: 'Outras declarações e atestados', slots: check.slots || [] });
+        svcMap['default'] = 'Outras declarações e atestados';
       }
     }
+
+    // Populate service dropdown
+    allServices = Object.entries(svcMap).map(([id, name]) => ({ id, name }));
+    const sel = document.getElementById('svc-select');
+    const prevVal = sel.value;
+    sel.innerHTML = '<option value="">Tous les services</option>';
+    for (const s of allServices) {
+      const opt = document.createElement('option');
+      opt.value = s.id; opt.textContent = s.name;
+      sel.appendChild(opt);
+    }
+    if (prevVal) sel.value = prevVal;
+
+    // Banner: use latest check overall
+    const latest = (data.checks || [])[0];
+    updateBanner(latest);
 
     updateTotalBadge();
     renderPage(1);
 
   } catch(e) {
-    document.getElementById('status-text').textContent = 'En attente des premières données...';
-    document.getElementById('status-sub').textContent  = 'Le fichier status.json sera créé au prochain run';
-    document.getElementById('logs-body').innerHTML =
-      '<tr><td colspan="4" style="text-align:center;color:#999;padding:20px">Aucune donnée disponible</td></tr>';
+    document.getElementById('banner-title').textContent = 'En attente des premières données...';
+    document.getElementById('banner-sub').textContent   = 'Le fichier status.json sera créé au prochain run';
+    document.getElementById('tbody').innerHTML = '<tr><td colspan="5" style="text-align:center;color:#999;padding:20px">Aucune donnée</td></tr>';
   }
+}
+
+function updateBanner(latest) {
+  const banner = document.getElementById('banner');
+  const dot    = document.getElementById('dot');
+  const title  = document.getElementById('banner-title');
+  const sub    = document.getElementById('banner-sub');
+  if (!latest) return;
+  if (latest.status === 'slots') {
+    banner.className='banner slots'; dot.className='dot slots';
+    title.textContent = 'CRÉNEAUX DISPONIBLES !';
+    sub.textContent   = latest.message || '';
+  } else if (latest.status === 'error') {
+    banner.className='banner error'; dot.className='dot error';
+    title.textContent = 'Erreur de vérification';
+    sub.textContent   = latest.message || '';
+  } else {
+    banner.className='banner ok'; dot.className='dot ok';
+    title.textContent = 'Surveillance active — Aucun créneau';
+    sub.textContent   = 'Dernière vérification : ' + formatDate(latest.ts);
+  }
+}
+
+function onServiceChange() {
+  filterService = document.getElementById('svc-select').value;
+  updateTotalBadge();
+  renderPage(1);
 }
 
 function toggleFilter() {
@@ -145,71 +191,66 @@ function toggleFilter() {
   renderPage(1);
 }
 
+function getFiltered() {
+  return allChecks.filter(c =>
+    (!filterService || c.svcId === filterService) &&
+    (!filterSlots   || c.status === 'slots')
+  );
+}
+
 function updateTotalBadge() {
-  const visible = filterSlots ? allChecks.filter(c => c.status === 'slots') : allChecks;
-  const n = visible.length;
-  document.getElementById('total-badge').textContent = n + ' entrée' + (n > 1 ? 's' : '') + (filterSlots ? ' (créneaux)' : '');
+  const n = getFiltered().length;
+  document.getElementById('total-badge').textContent = n + ' entrée' + (n > 1 ? 's' : '');
 }
 
 function renderPage(page) {
   currentPage = page;
-  const source = filterSlots ? allChecks.filter(c => c.status === 'slots') : allChecks;
-  const total  = source.length;
+  const src   = getFiltered();
+  const total = src.length;
   const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
   if (page < 1) page = 1;
   if (page > totalPages) page = totalPages;
 
   const start = (page - 1) * PAGE_SIZE;
-  const slice = source.slice(start, start + PAGE_SIZE);
+  const slice = src.slice(start, start + PAGE_SIZE);
 
-  const tbody = document.getElementById('logs-body');
-  if (slice.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:#999;padding:20px">Aucune donnée</td></tr>';
+  const tbody = document.getElementById('tbody');
+  if (!slice.length) {
+    tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:#999;padding:20px">Aucune entrée</td></tr>';
   } else {
-    tbody.innerHTML = slice.map((c, i) => {
-      const globalNum = total - start - i;
-      return `<tr>
-        <td class="num">#${globalNum}</td>
+    tbody.innerHTML = slice.map((c, i) => `
+      <tr>
+        <td class="num">#${total - start - i}</td>
         <td style="font-family:monospace;font-size:12px">${formatDate(c.ts)}</td>
+        <td><div class="svc-name" title="${c.svcName}">${c.svcName}</div></td>
         <td><span class="badge ${c.status}">${labelStatus(c.status)}</span></td>
         <td style="color:#555">${c.message || ''}</td>
-      </tr>`;
-    }).join('');
+      </tr>`).join('');
   }
 
-  // Pagination — toujours visible
+  // Pagination
   const pag = document.getElementById('pagination');
-  let html = '';
-
-  // Bouton Précédent
-  html += `<button onclick="renderPage(${page-1})" ${page===1?'disabled':''}>&#8592; Précédent</button>`;
-
-  // Numéros de pages (max 7 boutons visibles)
+  let html = `<button onclick="renderPage(${page-1})" ${page===1?'disabled':''}>&#8592; Précédent</button>`;
   const delta = 2;
   let pages = new Set([1, totalPages]);
   for (let i = Math.max(2, page-delta); i <= Math.min(totalPages-1, page+delta); i++) pages.add(i);
-  let sorted = [...pages].sort((a,b) => a-b);
   let prev = 0;
-  for (const p of sorted) {
+  for (const p of [...pages].sort((a,b)=>a-b)) {
     if (p - prev > 1) html += `<span class="page-info">…</span>`;
     html += `<button onclick="renderPage(${p})" class="${p===page?'active':''}">${p}</button>`;
     prev = p;
   }
-
-  // Bouton Suivant
   html += `<button onclick="renderPage(${page+1})" ${page===totalPages?'disabled':''}>Suivant &#8594;</button>`;
-
   pag.innerHTML = html;
 
   document.getElementById('refresh-info').textContent =
-    `Mis à jour toutes les 10 min · ${allChecks.length} total · Page ${page}/${totalPages}${filterSlots ? ' · Filtre: créneaux' : ''}`;
+    `Mis à jour toutes les 10 min · ${allChecks.length} entrées · Page ${page}/${totalPages}`;
 }
 
 function formatDate(ts) {
   if (!ts) return '-';
   return new Date(ts).toLocaleString('fr-FR', { timeZone: 'America/Port-au-Prince' });
 }
-
 function labelStatus(s) {
   return s === 'ok' ? 'OK' : s === 'slots' ? 'CRÉNEAU !' : 'ERREUR';
 }
