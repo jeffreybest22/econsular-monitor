@@ -1,6 +1,11 @@
 {
   "checks": [
     {
+      "ts": "2026-06-05T04:10:52.457Z",
+      "status": "error",
+      "message": "slots is not defined"
+    },
+    {
       "ts": "2026-06-05T04:05:48.740Z",
       "status": "error",
       "message": "slots is not defined"
@@ -2386,6 +2391,6 @@
       "message": "Aucun créneau disponible"
     }
   ],
-  "last_check": "2026-06-05T04:05:48.740Z",
+  "last_check": "2026-06-05T04:10:52.457Z",
   "last_status": "error"
 }
