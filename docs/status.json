@@ -1,6 +1,27 @@
 {
   "checks": [
     {
+      "ts": "2026-06-05T16:20:27.770Z",
+      "status": "ok",
+      "message": "Aucun créneau disponible",
+      "services": [
+        {
+          "id": "69a5a30b2cb1a60013b679f5",
+          "name": "Outras declarações e atestados não expressamente listados no site da Embaixada\tJ",
+          "status": "ok",
+          "slots": [],
+          "message": "Aucun créneau disponible"
+        },
+        {
+          "id": "69ae03992cb1a60013b691fd",
+          "name": "Visto de Visita - VIVIS\tJeff Jean Baptiste\tNecessita ação do interessado",
+          "status": "ok",
+          "slots": [],
+          "message": "Pas encore à l'étape rendez-vous"
+        }
+      ]
+    },
+    {
       "ts": "2026-06-05T16:15:52.350Z",
       "status": "ok",
       "message": "Aucun créneau disponible",
@@ -2557,6 +2578,6 @@
       "message": "Aucun créneau disponible"
     }
   ],
-  "last_check": "2026-06-05T16:15:52.350Z",
+  "last_check": "2026-06-05T16:20:27.770Z",
   "last_status": "ok"
 }
