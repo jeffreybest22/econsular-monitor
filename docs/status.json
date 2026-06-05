@@ -1,2604 +1,2632 @@
 {
-  "checks": [
-    {
-      "ts": "2026-06-05T16:25:51.255Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible",
-      "services": [
-        {
-          "id": "69a5a30b2cb1a60013b679f5",
-          "name": "Outras declarações e atestados",
-          "status": "ok",
-          "slots": [],
-          "message": "Aucun créneau disponible"
-        },
-        {
-          "id": "69ae03992cb1a60013b691fd",
-          "name": "Visto de Visita - VIVIS",
-          "status": "ok",
-          "slots": [],
-          "message": "Pas encore à l'étape rendez-vous"
-        }
-      ]
-    },
-    {
-      "ts": "2026-06-05T16:20:50.411Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible",
-      "services": [
-        {
-          "id": "69a5a30b2cb1a60013b679f5",
-          "name": "Outras declarações e atestados não expressamente listados no site da Embaixada\tJ",
-          "status": "ok",
-          "slots": [],
-          "message": "Aucun créneau disponible"
-        },
-        {
-          "id": "69ae03992cb1a60013b691fd",
-          "name": "Visto de Visita - VIVIS\tJeff Jean Baptiste\tNecessita ação do interessado",
-          "status": "ok",
-          "slots": [],
-          "message": "Pas encore à l'étape rendez-vous"
-        }
-      ]
-    },
-    {
-      "ts": "2026-06-05T16:15:52.350Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible",
-      "services": [
-        {
-          "id": "69a5a30b2cb1a60013b679f5",
-          "name": "Outras declarações e atestados não expressamente listados no site da Embaixada\tJ",
-          "status": "ok",
-          "slots": [],
-          "message": "Aucun créneau disponible"
-        },
-        {
-          "id": "69ae03992cb1a60013b691fd",
-          "name": "Visto de Visita - VIVIS\tJeff Jean Baptiste\tNecessita ação do interessado",
-          "status": "ok",
-          "slots": [],
-          "message": "Pas encore à l'étape rendez-vous"
-        }
-      ]
-    },
-    {
-      "ts": "2026-06-05T16:10:59.752Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible",
-      "services": [
-        {
-          "id": "69a5a30b2cb1a60013b679f5",
-          "name": "Outras declarações e atestados",
-          "status": "ok",
-          "slots": [],
-          "message": "Aucun créneau disponible"
-        },
-        {
-          "id": "69ae03992cb1a60013b691fd",
-          "name": "Visto de Visita - VIVIS",
-          "status": "ok",
-          "slots": [],
-          "message": "Pas encore à l'étape rendez-vous"
-        }
-      ]
-    },
-    {
-      "ts": "2026-06-05T16:05:52.458Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible",
-      "services": [
-        {
-          "id": "69a5a30b2cb1a60013b679f5",
-          "name": "Outras declarações e atestados",
-          "status": "ok",
-          "slots": [],
-          "message": "Aucun créneau disponible"
-        },
-        {
-          "id": "69ae03992cb1a60013b691fd",
-          "name": "Visto de Visita - VIVIS",
-          "status": "ok",
-          "slots": [],
-          "message": "Pas encore à l'étape rendez-vous"
-        }
-      ]
-    },
-    {
-      "ts": "2026-06-05T16:01:05.390Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible",
-      "services": [
-        {
-          "id": "69a5a30b2cb1a60013b679f5",
-          "name": "Outras declarações e atestados",
-          "status": "ok",
-          "slots": [],
-          "message": "Aucun créneau disponible"
-        },
-        {
-          "id": "69ae03992cb1a60013b691fd",
-          "name": "Visto de Visita - VIVIS",
-          "status": "ok",
-          "slots": [],
-          "message": "Pas encore à l'étape rendez-vous"
-        }
-      ]
-    },
-    {
-      "ts": "2026-06-05T15:40:52.462Z",
-      "status": "error",
-      "message": "Resend 403: {\"statusCode\":403,\"name\":\"validation_error\",\"message\":\"You can only send testing emails to your own email address (jeffreybest2@gmail.com). To send emails to other recipients, please verif",
-      "services": []
-    },
-    {
-      "ts": "2026-06-05T15:37:58.655Z",
-      "status": "error",
-      "message": "Resend 403: {\"statusCode\":403,\"name\":\"validation_error\",\"message\":\"You can only send testing emails to your own email address (jeffreybest2@gmail.com). To send emails to other recipients, please verif",
-      "services": []
-    },
-    {
-      "ts": "2026-06-05T15:35:52.862Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T15:30:56.103Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T15:25:55.308Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T15:20:59.526Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T15:15:57.347Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T15:10:52.784Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T15:05:56.648Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T15:00:55.063Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T14:55:53.638Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T14:50:53.957Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T14:45:55.277Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T14:40:55.961Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T14:35:53.419Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T14:30:55.892Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T14:25:50.735Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T14:21:00.882Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T14:15:51.416Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T14:11:00.705Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T14:05:52.801Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T14:00:59.891Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T13:55:52.369Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T13:50:50.137Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T13:46:14.123Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T13:40:56.886Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T13:35:58.426Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T13:30:58.432Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T13:25:50.536Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T13:20:49.945Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T13:15:54.854Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T13:10:58.676Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T13:05:53.431Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T13:00:59.967Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T12:55:53.499Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T12:50:49.772Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T12:45:53.694Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T12:40:53.547Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T12:35:50.729Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T12:31:02.767Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T12:25:56.761Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T12:20:48.937Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T12:15:57.969Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T12:10:49.277Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T12:05:54.936Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T12:00:59.425Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T11:55:51.054Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T11:50:49.218Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T11:45:55.557Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T11:40:52.432Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T11:35:48.593Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T11:30:52.620Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T11:25:54.201Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T11:20:48.675Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T11:15:51.045Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T11:10:57.234Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T11:05:54.649Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T11:00:59.431Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T10:55:50.958Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T10:50:50.492Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T10:45:51.428Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T10:40:51.790Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T10:35:48.675Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T10:30:45.290Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T10:25:49.361Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T10:20:53.318Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T10:15:54.817Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T10:10:48.193Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T10:05:52.872Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T10:03:11.197Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T09:55:52.701Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T09:50:53.938Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T09:45:49.491Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T09:40:56.627Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T09:35:46.688Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T09:30:52.113Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T09:25:47.929Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T09:20:53.815Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T09:15:52.249Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T09:10:50.414Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T09:05:52.008Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T09:01:05.923Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T08:55:47.975Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T08:51:02.632Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T08:45:51.713Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T08:40:49.460Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T08:35:53.984Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T08:30:55.567Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T08:25:50.801Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T08:20:50.094Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T08:15:52.880Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T08:13:04.576Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T08:05:52.723Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T08:00:57.882Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T07:55:47.978Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T07:50:52.439Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T07:45:50.564Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T07:40:49.299Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T07:35:47.860Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T07:30:51.471Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T07:25:44.839Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T07:20:54.165Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T07:15:52.835Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T07:10:51.130Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T07:05:50.890Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T07:00:56.455Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T06:55:50.026Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T06:50:54.104Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T06:45:54.483Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T06:40:49.540Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T06:35:56.603Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T06:31:01.202Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T06:25:48.908Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T06:20:55.585Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T06:15:49.523Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T06:10:48.454Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T06:05:54.381Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T06:01:00.911Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T05:55:50.693Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T05:50:49.093Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T05:45:58.910Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T05:40:54.124Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T05:35:48.086Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T05:30:56.841Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T05:25:51.638Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T05:20:50.976Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T05:15:51.588Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T05:10:52.086Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T05:05:47.095Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T05:01:00.961Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T04:55:47.751Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T04:50:49.020Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T04:45:51.003Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T04:40:49.768Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T04:35:49.123Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T04:30:53.824Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T04:25:50.025Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T04:20:51.664Z",
-      "status": "error",
-      "message": "slots is not defined"
-    },
-    {
-      "ts": "2026-06-05T04:15:48.273Z",
-      "status": "error",
-      "message": "slots is not defined"
-    },
-    {
-      "ts": "2026-06-05T04:10:52.457Z",
-      "status": "error",
-      "message": "slots is not defined"
-    },
-    {
-      "ts": "2026-06-05T04:05:48.740Z",
-      "status": "error",
-      "message": "slots is not defined"
-    },
-    {
-      "ts": "2026-06-05T04:01:00.358Z",
-      "status": "error",
-      "message": "slots is not defined"
-    },
-    {
-      "ts": "2026-06-05T03:55:46.516Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T03:50:53.123Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T03:45:48.315Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T03:40:51.301Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T03:35:53.382Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T03:30:56.657Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T03:25:59.362Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T03:20:51.505Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T03:15:55.129Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T03:10:52.995Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T03:05:50.034Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T03:00:56.608Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T02:55:50.267Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T02:50:52.689Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T02:45:45.025Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T02:40:49.540Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T02:35:50.232Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T02:30:54.144Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T02:25:58.461Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T02:20:52.882Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T02:15:48.826Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T02:10:48.465Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T02:05:47.165Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T02:00:53.163Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T01:55:54.221Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T01:50:51.375Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T01:45:49.227Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T01:40:49.714Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T01:35:47.429Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T01:30:50.436Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T01:25:46.837Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T01:20:47.694Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T01:15:50.275Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T01:11:29.135Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T01:05:46.252Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T01:00:54.680Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T00:55:51.744Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T00:51:00.391Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T00:45:53.723Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T00:40:46.067Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T00:35:48.255Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T00:30:55.029Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T00:25:48.190Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T00:20:50.966Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T00:15:51.571Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T00:10:49.750Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T00:05:52.930Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-05T00:00:55.181Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T23:55:55.003Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T23:50:50.032Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T23:45:46.936Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T23:40:48.357Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T23:35:52.788Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T23:30:54.384Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T23:25:50.166Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T23:20:51.795Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T23:15:49.010Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T23:10:48.795Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T23:05:49.302Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T23:01:08.053Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T22:58:00.683Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T22:55:47.613Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T22:50:47.324Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T22:45:47.743Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T22:40:54.725Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T22:35:48.995Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T22:30:50.784Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T22:25:48.930Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T22:20:52.609Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T22:15:49.056Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T22:10:59.932Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T22:05:50.886Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T22:00:52.365Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T21:55:47.123Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T21:50:49.693Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T21:45:52.375Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T21:40:49.138Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T21:35:47.566Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T21:30:55.869Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T21:25:53.446Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T21:20:55.273Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T21:15:54.934Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T21:10:54.423Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T21:05:47.999Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T21:01:00.222Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T20:55:52.459Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T20:51:02.215Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T20:45:51.728Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T20:40:48.535Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T20:35:58.969Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T20:30:55.975Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T20:25:56.508Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T20:20:56.280Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T20:15:54.039Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T20:10:56.819Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T20:05:48.441Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T20:00:59.831Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T19:55:51.330Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T19:50:55.761Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T19:46:03.949Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T19:40:54.007Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T19:35:52.650Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T19:30:56.727Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T19:25:48.579Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T19:21:05.205Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T19:15:49.620Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T19:10:57.181Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T19:05:47.925Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T19:00:56.244Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T18:55:47.794Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T18:50:54.170Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T18:45:55.259Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T18:40:50.743Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T18:39:14.099Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T18:35:55.204Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T18:31:01.309Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T18:25:58.720Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T18:20:57.396Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T18:15:57.360Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T18:10:55.832Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T18:05:50.523Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T18:00:57.172Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T17:55:55.750Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T17:50:54.274Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T17:46:00.777Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T17:40:53.325Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T17:35:53.345Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T17:30:58.603Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T17:25:52.899Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T17:21:06.203Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T17:16:00.492Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T17:10:58.521Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T17:05:57.361Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T17:01:04.536Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T16:55:53.370Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T16:51:08.535Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T16:45:58.872Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T16:40:55.574Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T16:35:50.581Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T16:31:06.739Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T16:25:59.966Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T16:21:01.776Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T16:16:03.094Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T16:10:54.427Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T16:05:58.902Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T16:01:06.317Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T15:56:21.898Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T15:51:01.975Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T15:46:00.515Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T15:40:51.671Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T15:35:51.109Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T15:30:55.442Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T15:25:49.137Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T15:20:57.315Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T15:15:55.722Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T15:11:01.750Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T15:05:55.107Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T15:00:58.800Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T14:55:53.743Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T14:51:00.829Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T14:45:59.116Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T14:40:54.211Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T14:35:56.114Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T14:30:59.995Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T14:25:57.561Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T14:20:57.617Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T14:15:54.982Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T14:10:59.148Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T14:05:53.716Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T14:01:02.153Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T13:55:52.629Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T13:51:01.657Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T13:45:56.057Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T13:40:52.684Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T13:35:59.486Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T13:31:05.063Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T13:25:53.231Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T13:21:00.140Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T13:15:55.500Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T13:10:53.004Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T13:05:54.428Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T13:00:58.537Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T12:55:52.283Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T12:50:55.383Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T12:45:58.982Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T12:40:52.894Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T12:35:48.802Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T12:31:01.645Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T12:25:48.915Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T12:21:32.859Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T12:15:50.973Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T12:10:51.669Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T12:05:52.760Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T12:01:01.632Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T11:55:46.601Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T11:50:55.036Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T11:45:53.605Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T11:40:53.057Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T11:35:56.882Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T11:30:52.472Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T11:25:50.732Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T11:20:55.792Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T11:16:08.994Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T11:10:51.550Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T11:05:55.679Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T11:00:53.385Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T10:55:54.634Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T10:52:39.817Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T10:50:58.232Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T10:45:55.022Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T10:41:00.798Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T10:35:56.600Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T10:30:56.200Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T10:25:51.846Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T10:20:49.289Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T10:15:50.070Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T10:10:55.586Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T10:05:49.762Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T10:00:56.773Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T09:55:49.874Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T09:50:57.462Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T09:45:53.797Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T09:40:51.289Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T09:35:49.648Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T09:30:59.303Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T09:25:49.716Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T09:20:54.357Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T09:16:04.751Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T09:10:50.584Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T09:05:49.126Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T09:00:59.309Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T08:55:52.985Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T08:51:01.238Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T08:46:04.217Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T08:40:57.032Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T08:35:48.992Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T08:31:04.229Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T08:25:57.980Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T08:20:50.432Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T08:15:50.810Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T08:10:57.060Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T08:05:50.631Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T08:00:55.171Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T07:55:49.454Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T07:50:53.370Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T07:45:54.900Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T07:40:50.892Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T07:35:56.724Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T07:30:53.598Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T07:25:50.949Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T07:20:51.084Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T07:15:49.184Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T07:10:55.607Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T07:05:50.332Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T07:01:04.800Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T06:56:03.214Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T06:50:46.061Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T06:45:49.107Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T06:40:58.774Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T06:35:52.985Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T06:30:51.148Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T06:25:52.867Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T06:21:03.276Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T06:15:56.255Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T06:10:54.637Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T06:05:44.381Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T06:01:03.627Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T05:55:54.093Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T05:50:47.173Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T05:45:47.667Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T05:40:53.683Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T05:35:58.000Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T05:30:52.404Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T05:25:55.570Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T05:21:00.175Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T05:15:58.080Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T05:10:45.728Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T05:05:50.260Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T05:01:02.349Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T04:55:46.546Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T04:50:48.318Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T04:45:48.535Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T04:40:52.764Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T04:36:00.889Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T04:30:51.241Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T04:25:55.075Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T04:20:54.204Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T04:15:48.364Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T04:10:50.519Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T04:05:53.626Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T04:00:51.942Z",
-      "status": "error",
-      "message": "slots is not defined"
-    },
-    {
-      "ts": "2026-06-04T03:55:45.401Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T03:50:55.366Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T03:46:00.522Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T03:40:52.518Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T03:35:52.621Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T03:30:59.171Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T03:25:55.763Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T03:20:51.530Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T03:15:49.602Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T03:10:58.501Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T03:05:46.219Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T03:01:01.166Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T02:55:51.602Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T02:50:51.688Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T02:45:57.518Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T02:40:53.958Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T02:35:52.391Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T02:30:55.203Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T02:25:49.488Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T02:20:52.199Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T02:15:51.423Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T02:10:53.270Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T02:05:51.877Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T02:01:04.852Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T01:55:50.380Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T01:50:50.249Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T01:45:46.292Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T01:40:53.189Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T01:35:52.638Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T01:30:51.878Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T01:25:47.284Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T01:20:48.164Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T01:15:54.167Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T01:10:49.081Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T01:05:55.330Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T01:00:58.389Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T00:55:52.373Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T00:50:51.546Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T00:45:47.537Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T00:40:47.839Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T00:35:53.293Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T00:30:53.786Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T00:25:48.779Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T00:21:00.035Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T00:15:50.515Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T00:10:50.656Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T00:05:51.419Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-04T00:00:56.603Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-03T23:55:56.113Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-03T23:50:49.292Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-03T23:45:55.467Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-03T23:40:48.185Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-03T23:35:45.420Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-03T23:30:52.229Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-03T23:25:58.134Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-03T23:20:46.868Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-03T23:16:37.643Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-03T23:15:49.550Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-03T23:10:56.635Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-03T23:05:48.490Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-03T23:00:54.092Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
-    }
-  ],
-  "last_check": "2026-06-05T16:25:51.255Z",
-  "last_status": "ok"
+    "checks":  [
+                   {
+                       "ts":  "2026-06-05T16:25:51.255Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible",
+                       "services":  [
+                                        {
+                                            "id":  "69a5a30b2cb1a60013b679f5",
+                                            "name":  "Outras declarações e atestados",
+                                            "status":  "ok",
+                                            "slots":  [
+
+                                                      ],
+                                            "message":  "Aucun créneau disponible"
+                                        },
+                                        {
+                                            "id":  "69ae03992cb1a60013b691fd",
+                                            "name":  "Visto de Visita - VIVIS",
+                                            "status":  "ok",
+                                            "slots":  [
+
+                                                      ],
+                                            "message":  "Pas encore à l\u0027étape rendez-vous"
+                                        }
+                                    ]
+                   },
+                   {
+                       "ts":  "2026-06-05T16:20:50.411Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible",
+                       "services":  [
+                                        {
+                                            "id":  "69a5a30b2cb1a60013b679f5",
+                                            "name":  "Outras declarações e atestados",
+                                            "status":  "ok",
+                                            "slots":  [
+
+                                                      ],
+                                            "message":  "Aucun créneau disponible"
+                                        },
+                                        {
+                                            "id":  "69ae03992cb1a60013b691fd",
+                                            "name":  "Visto de Visita - VIVIS",
+                                            "status":  "ok",
+                                            "slots":  [
+
+                                                      ],
+                                            "message":  "Pas encore à l\u0027étape rendez-vous"
+                                        }
+                                    ]
+                   },
+                   {
+                       "ts":  "2026-06-05T16:15:52.350Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible",
+                       "services":  [
+                                        {
+                                            "id":  "69a5a30b2cb1a60013b679f5",
+                                            "name":  "Outras declarações e atestados",
+                                            "status":  "ok",
+                                            "slots":  [
+
+                                                      ],
+                                            "message":  "Aucun créneau disponible"
+                                        },
+                                        {
+                                            "id":  "69ae03992cb1a60013b691fd",
+                                            "name":  "Visto de Visita - VIVIS",
+                                            "status":  "ok",
+                                            "slots":  [
+
+                                                      ],
+                                            "message":  "Pas encore à l\u0027étape rendez-vous"
+                                        }
+                                    ]
+                   },
+                   {
+                       "ts":  "2026-06-05T16:10:59.752Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible",
+                       "services":  [
+                                        {
+                                            "id":  "69a5a30b2cb1a60013b679f5",
+                                            "name":  "Outras declarações e atestados",
+                                            "status":  "ok",
+                                            "slots":  [
+
+                                                      ],
+                                            "message":  "Aucun créneau disponible"
+                                        },
+                                        {
+                                            "id":  "69ae03992cb1a60013b691fd",
+                                            "name":  "Visto de Visita - VIVIS",
+                                            "status":  "ok",
+                                            "slots":  [
+
+                                                      ],
+                                            "message":  "Pas encore à l\u0027étape rendez-vous"
+                                        }
+                                    ]
+                   },
+                   {
+                       "ts":  "2026-06-05T16:05:52.458Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible",
+                       "services":  [
+                                        {
+                                            "id":  "69a5a30b2cb1a60013b679f5",
+                                            "name":  "Outras declarações e atestados",
+                                            "status":  "ok",
+                                            "slots":  [
+
+                                                      ],
+                                            "message":  "Aucun créneau disponible"
+                                        },
+                                        {
+                                            "id":  "69ae03992cb1a60013b691fd",
+                                            "name":  "Visto de Visita - VIVIS",
+                                            "status":  "ok",
+                                            "slots":  [
+
+                                                      ],
+                                            "message":  "Pas encore à l\u0027étape rendez-vous"
+                                        }
+                                    ]
+                   },
+                   {
+                       "ts":  "2026-06-05T16:01:05.390Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible",
+                       "services":  [
+                                        {
+                                            "id":  "69a5a30b2cb1a60013b679f5",
+                                            "name":  "Outras declarações e atestados",
+                                            "status":  "ok",
+                                            "slots":  [
+
+                                                      ],
+                                            "message":  "Aucun créneau disponible"
+                                        },
+                                        {
+                                            "id":  "69ae03992cb1a60013b691fd",
+                                            "name":  "Visto de Visita - VIVIS",
+                                            "status":  "ok",
+                                            "slots":  [
+
+                                                      ],
+                                            "message":  "Pas encore à l\u0027étape rendez-vous"
+                                        }
+                                    ]
+                   },
+                   {
+                       "ts":  "2026-06-05T15:40:52.462Z",
+                       "status":  "error",
+                       "message":  "Resend 403: {\"statusCode\":403,\"name\":\"validation_error\",\"message\":\"You can only send testing emails to your own email address (jeffreybest2@gmail.com). To send emails to other recipients, please verif",
+                       "services":  [
+
+                                    ]
+                   },
+                   {
+                       "ts":  "2026-06-05T15:37:58.655Z",
+                       "status":  "error",
+                       "message":  "Resend 403: {\"statusCode\":403,\"name\":\"validation_error\",\"message\":\"You can only send testing emails to your own email address (jeffreybest2@gmail.com). To send emails to other recipients, please verif",
+                       "services":  [
+
+                                    ]
+                   },
+                   {
+                       "ts":  "2026-06-05T15:35:52.862Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T15:30:56.103Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T15:25:55.308Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T15:20:59.526Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T15:15:57.347Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T15:10:52.784Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T15:05:56.648Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T15:00:55.063Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T14:55:53.638Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T14:50:53.957Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T14:45:55.277Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T14:40:55.961Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T14:35:53.419Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T14:30:55.892Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T14:25:50.735Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T14:21:00.882Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T14:15:51.416Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T14:11:00.705Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T14:05:52.801Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T14:00:59.891Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T13:55:52.369Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T13:50:50.137Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T13:46:14.123Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T13:40:56.886Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T13:35:58.426Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T13:30:58.432Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T13:25:50.536Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T13:20:49.945Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T13:15:54.854Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T13:10:58.676Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T13:05:53.431Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T13:00:59.967Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T12:55:53.499Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T12:50:49.772Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T12:45:53.694Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T12:40:53.547Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T12:35:50.729Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T12:31:02.767Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T12:25:56.761Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T12:20:48.937Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T12:15:57.969Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T12:10:49.277Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T12:05:54.936Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T12:00:59.425Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T11:55:51.054Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T11:50:49.218Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T11:45:55.557Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T11:40:52.432Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T11:35:48.593Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T11:30:52.620Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T11:25:54.201Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T11:20:48.675Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T11:15:51.045Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T11:10:57.234Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T11:05:54.649Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T11:00:59.431Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T10:55:50.958Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T10:50:50.492Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T10:45:51.428Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T10:40:51.790Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T10:35:48.675Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T10:30:45.290Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T10:25:49.361Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T10:20:53.318Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T10:15:54.817Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T10:10:48.193Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T10:05:52.872Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T10:03:11.197Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T09:55:52.701Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T09:50:53.938Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T09:45:49.491Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T09:40:56.627Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T09:35:46.688Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T09:30:52.113Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T09:25:47.929Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T09:20:53.815Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T09:15:52.249Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T09:10:50.414Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T09:05:52.008Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T09:01:05.923Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T08:55:47.975Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T08:51:02.632Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T08:45:51.713Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T08:40:49.460Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T08:35:53.984Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T08:30:55.567Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T08:25:50.801Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T08:20:50.094Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T08:15:52.880Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T08:13:04.576Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T08:05:52.723Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T08:00:57.882Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T07:55:47.978Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T07:50:52.439Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T07:45:50.564Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T07:40:49.299Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T07:35:47.860Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T07:30:51.471Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T07:25:44.839Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T07:20:54.165Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T07:15:52.835Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T07:10:51.130Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T07:05:50.890Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T07:00:56.455Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T06:55:50.026Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T06:50:54.104Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T06:45:54.483Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T06:40:49.540Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T06:35:56.603Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T06:31:01.202Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T06:25:48.908Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T06:20:55.585Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T06:15:49.523Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T06:10:48.454Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T06:05:54.381Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T06:01:00.911Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T05:55:50.693Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T05:50:49.093Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T05:45:58.910Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T05:40:54.124Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T05:35:48.086Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T05:30:56.841Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T05:25:51.638Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T05:20:50.976Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T05:15:51.588Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T05:10:52.086Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T05:05:47.095Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T05:01:00.961Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T04:55:47.751Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T04:50:49.020Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T04:45:51.003Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T04:40:49.768Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T04:35:49.123Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T04:30:53.824Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T04:25:50.025Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T04:20:51.664Z",
+                       "status":  "error",
+                       "message":  "slots is not defined"
+                   },
+                   {
+                       "ts":  "2026-06-05T04:15:48.273Z",
+                       "status":  "error",
+                       "message":  "slots is not defined"
+                   },
+                   {
+                       "ts":  "2026-06-05T04:10:52.457Z",
+                       "status":  "error",
+                       "message":  "slots is not defined"
+                   },
+                   {
+                       "ts":  "2026-06-05T04:05:48.740Z",
+                       "status":  "error",
+                       "message":  "slots is not defined"
+                   },
+                   {
+                       "ts":  "2026-06-05T04:01:00.358Z",
+                       "status":  "error",
+                       "message":  "slots is not defined"
+                   },
+                   {
+                       "ts":  "2026-06-05T03:55:46.516Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T03:50:53.123Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T03:45:48.315Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T03:40:51.301Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T03:35:53.382Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T03:30:56.657Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T03:25:59.362Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T03:20:51.505Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T03:15:55.129Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T03:10:52.995Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T03:05:50.034Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T03:00:56.608Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T02:55:50.267Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T02:50:52.689Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T02:45:45.025Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T02:40:49.540Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T02:35:50.232Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T02:30:54.144Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T02:25:58.461Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T02:20:52.882Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T02:15:48.826Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T02:10:48.465Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T02:05:47.165Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T02:00:53.163Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T01:55:54.221Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T01:50:51.375Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T01:45:49.227Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T01:40:49.714Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T01:35:47.429Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T01:30:50.436Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T01:25:46.837Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T01:20:47.694Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T01:15:50.275Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T01:11:29.135Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T01:05:46.252Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T01:00:54.680Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T00:55:51.744Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T00:51:00.391Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T00:45:53.723Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T00:40:46.067Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T00:35:48.255Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T00:30:55.029Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T00:25:48.190Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T00:20:50.966Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T00:15:51.571Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T00:10:49.750Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T00:05:52.930Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-05T00:00:55.181Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T23:55:55.003Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T23:50:50.032Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T23:45:46.936Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T23:40:48.357Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T23:35:52.788Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T23:30:54.384Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T23:25:50.166Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T23:20:51.795Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T23:15:49.010Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T23:10:48.795Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T23:05:49.302Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T23:01:08.053Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T22:58:00.683Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T22:55:47.613Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T22:50:47.324Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T22:45:47.743Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T22:40:54.725Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T22:35:48.995Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T22:30:50.784Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T22:25:48.930Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T22:20:52.609Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T22:15:49.056Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T22:10:59.932Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T22:05:50.886Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T22:00:52.365Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T21:55:47.123Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T21:50:49.693Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T21:45:52.375Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T21:40:49.138Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T21:35:47.566Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T21:30:55.869Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T21:25:53.446Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T21:20:55.273Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T21:15:54.934Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T21:10:54.423Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T21:05:47.999Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T21:01:00.222Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T20:55:52.459Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T20:51:02.215Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T20:45:51.728Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T20:40:48.535Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T20:35:58.969Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T20:30:55.975Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T20:25:56.508Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T20:20:56.280Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T20:15:54.039Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T20:10:56.819Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T20:05:48.441Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T20:00:59.831Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T19:55:51.330Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T19:50:55.761Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T19:46:03.949Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T19:40:54.007Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T19:35:52.650Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T19:30:56.727Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T19:25:48.579Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T19:21:05.205Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T19:15:49.620Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T19:10:57.181Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T19:05:47.925Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T19:00:56.244Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T18:55:47.794Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T18:50:54.170Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T18:45:55.259Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T18:40:50.743Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T18:39:14.099Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T18:35:55.204Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T18:31:01.309Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T18:25:58.720Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T18:20:57.396Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T18:15:57.360Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T18:10:55.832Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T18:05:50.523Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T18:00:57.172Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T17:55:55.750Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T17:50:54.274Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T17:46:00.777Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T17:40:53.325Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T17:35:53.345Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T17:30:58.603Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T17:25:52.899Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T17:21:06.203Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T17:16:00.492Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T17:10:58.521Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T17:05:57.361Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T17:01:04.536Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T16:55:53.370Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T16:51:08.535Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T16:45:58.872Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T16:40:55.574Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T16:35:50.581Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T16:31:06.739Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T16:25:59.966Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T16:21:01.776Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T16:16:03.094Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T16:10:54.427Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T16:05:58.902Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T16:01:06.317Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T15:56:21.898Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T15:51:01.975Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T15:46:00.515Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T15:40:51.671Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T15:35:51.109Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T15:30:55.442Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T15:25:49.137Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T15:20:57.315Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T15:15:55.722Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T15:11:01.750Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T15:05:55.107Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T15:00:58.800Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T14:55:53.743Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T14:51:00.829Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T14:45:59.116Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T14:40:54.211Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T14:35:56.114Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T14:30:59.995Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T14:25:57.561Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T14:20:57.617Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T14:15:54.982Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T14:10:59.148Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T14:05:53.716Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T14:01:02.153Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T13:55:52.629Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T13:51:01.657Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T13:45:56.057Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T13:40:52.684Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T13:35:59.486Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T13:31:05.063Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T13:25:53.231Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T13:21:00.140Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T13:15:55.500Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T13:10:53.004Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T13:05:54.428Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T13:00:58.537Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T12:55:52.283Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T12:50:55.383Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T12:45:58.982Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T12:40:52.894Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T12:35:48.802Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T12:31:01.645Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T12:25:48.915Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T12:21:32.859Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T12:15:50.973Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T12:10:51.669Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T12:05:52.760Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T12:01:01.632Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T11:55:46.601Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T11:50:55.036Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T11:45:53.605Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T11:40:53.057Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T11:35:56.882Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T11:30:52.472Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T11:25:50.732Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T11:20:55.792Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T11:16:08.994Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T11:10:51.550Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T11:05:55.679Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T11:00:53.385Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T10:55:54.634Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T10:52:39.817Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T10:50:58.232Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T10:45:55.022Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T10:41:00.798Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T10:35:56.600Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T10:30:56.200Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T10:25:51.846Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T10:20:49.289Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T10:15:50.070Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T10:10:55.586Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T10:05:49.762Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T10:00:56.773Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T09:55:49.874Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T09:50:57.462Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T09:45:53.797Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T09:40:51.289Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T09:35:49.648Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T09:30:59.303Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T09:25:49.716Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T09:20:54.357Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T09:16:04.751Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T09:10:50.584Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T09:05:49.126Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T09:00:59.309Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T08:55:52.985Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T08:51:01.238Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T08:46:04.217Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T08:40:57.032Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T08:35:48.992Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T08:31:04.229Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T08:25:57.980Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T08:20:50.432Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T08:15:50.810Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T08:10:57.060Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T08:05:50.631Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T08:00:55.171Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T07:55:49.454Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T07:50:53.370Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T07:45:54.900Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T07:40:50.892Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T07:35:56.724Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T07:30:53.598Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T07:25:50.949Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T07:20:51.084Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T07:15:49.184Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T07:10:55.607Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T07:05:50.332Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T07:01:04.800Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T06:56:03.214Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T06:50:46.061Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T06:45:49.107Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T06:40:58.774Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T06:35:52.985Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T06:30:51.148Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T06:25:52.867Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T06:21:03.276Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T06:15:56.255Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T06:10:54.637Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T06:05:44.381Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T06:01:03.627Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T05:55:54.093Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T05:50:47.173Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T05:45:47.667Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T05:40:53.683Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T05:35:58.000Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T05:30:52.404Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T05:25:55.570Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T05:21:00.175Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T05:15:58.080Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T05:10:45.728Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T05:05:50.260Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T05:01:02.349Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T04:55:46.546Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T04:50:48.318Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T04:45:48.535Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T04:40:52.764Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T04:36:00.889Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T04:30:51.241Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T04:25:55.075Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T04:20:54.204Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T04:15:48.364Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T04:10:50.519Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T04:05:53.626Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T04:00:51.942Z",
+                       "status":  "error",
+                       "message":  "slots is not defined"
+                   },
+                   {
+                       "ts":  "2026-06-04T03:55:45.401Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T03:50:55.366Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T03:46:00.522Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T03:40:52.518Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T03:35:52.621Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T03:30:59.171Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T03:25:55.763Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T03:20:51.530Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T03:15:49.602Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T03:10:58.501Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T03:05:46.219Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T03:01:01.166Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T02:55:51.602Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T02:50:51.688Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T02:45:57.518Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T02:40:53.958Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T02:35:52.391Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T02:30:55.203Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T02:25:49.488Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T02:20:52.199Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T02:15:51.423Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T02:10:53.270Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T02:05:51.877Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T02:01:04.852Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T01:55:50.380Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T01:50:50.249Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T01:45:46.292Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T01:40:53.189Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T01:35:52.638Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T01:30:51.878Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T01:25:47.284Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T01:20:48.164Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T01:15:54.167Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T01:10:49.081Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T01:05:55.330Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T01:00:58.389Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T00:55:52.373Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T00:50:51.546Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T00:45:47.537Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T00:40:47.839Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T00:35:53.293Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T00:30:53.786Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T00:25:48.779Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T00:21:00.035Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T00:15:50.515Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T00:10:50.656Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T00:05:51.419Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-04T00:00:56.603Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-03T23:55:56.113Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-03T23:50:49.292Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-03T23:45:55.467Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-03T23:40:48.185Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-03T23:35:45.420Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-03T23:30:52.229Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-03T23:25:58.134Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-03T23:20:46.868Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-03T23:16:37.643Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-03T23:15:49.550Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-03T23:10:56.635Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-03T23:05:48.490Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   },
+                   {
+                       "ts":  "2026-06-03T23:00:54.092Z",
+                       "status":  "ok",
+                       "message":  "Aucun créneau disponible"
+                   }
+               ],
+    "last_check":  "2026-06-05T16:25:51.255Z",
+    "last_status":  "ok"
 }
