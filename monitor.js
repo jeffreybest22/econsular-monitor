@@ -47,8 +47,8 @@ async function sendNtfy(title, message, url) {
         'Title': title,
         'Priority': 'urgent',                // alarme + bypass silencieux
         'Tags': 'rotating_light,calendar',
-        'Click': url || 'https://ec-portoprincipe.itamaraty.gov.br/login',
-        'Actions': `view, Réserver maintenant, ${url || 'https://ec-portoprincipe.itamaraty.gov.br/login'}`,
+        'Click': 'https://ec-portoprincipe.itamaraty.gov.br/login',
+        'Actions': `view, Réserver maintenant, ${url || 'https://ec-portoprincipe.itamaraty.gov.br/login'}, clear=true`,
       },
       body: message,
     });
