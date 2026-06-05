@@ -104,6 +104,13 @@ async function checkOneService(page, service) {
 
   const bodyText = await page.locator('body').innerText();
 
+  // Must be a scheduling page (contains "Agendamento" header)
+  const isSchedulingPage = bodyText.includes('Agendamento') || bodyText.includes('Escolha um dia');
+  if (!isSchedulingPage) {
+    log(`  → Not a scheduling page (form/other step) — skipping`);
+    return { available: false, slots: [], skipped: true };
+  }
+
   if (bodyText.includes(NO_SLOTS_TEXT)) {
     return { available: false, slots: [] };
   }
@@ -144,7 +151,13 @@ async function runCheck() {
     const results = [];
     for (const svc of services) {
       log(`Checking: ${svc.name}`);
-      const { available, slots } = await checkOneService(page, svc);
+      const { available, slots, skipped } = await checkOneService(page, svc);
+
+      if (skipped) {
+        log(`  → "${svc.name}" skipped (not a scheduling page)`);
+        results.push({ id: svc.id, name: svc.name, status: 'ok', slots: [], message: 'Pas encore à l\'étape rendez-vous' });
+        continue;
+      }
 
       if (available) {
         log(`SLOTS AVAILABLE for "${svc.name}"! (${slots.length} slot(s))`);
