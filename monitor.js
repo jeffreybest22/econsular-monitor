@@ -114,7 +114,7 @@ async function runCheck() {
     const page = await context.newPage();
 
     await login(page);
-    const { available, slotCount } = await checkAvailability(page);
+    const { available, slots = [], slotCount } = await checkAvailability(page);
 
     if (available) {
       log(`SLOTS AVAILABLE! (${slotCount || '?'} slot(s) detected)`);
