@@ -1,6 +1,12 @@
 {
   "checks": [
     {
+      "ts": "2026-06-05T15:37:58.655Z",
+      "status": "error",
+      "message": "Resend 403: {\"statusCode\":403,\"name\":\"validation_error\",\"message\":\"You can only send testing emails to your own email address (jeffreybest2@gmail.com). To send emails to other recipients, please verif",
+      "services": []
+    },
+    {
       "ts": "2026-06-05T15:35:52.862Z",
       "status": "ok",
       "message": "Aucun créneau disponible"
@@ -2494,13 +2500,8 @@
       "ts": "2026-06-03T22:25:55.219Z",
       "status": "ok",
       "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-03T22:20:53.389Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
     }
   ],
-  "last_check": "2026-06-05T15:35:52.862Z",
-  "last_status": "ok"
+  "last_check": "2026-06-05T15:37:58.655Z",
+  "last_status": "error"
 }
