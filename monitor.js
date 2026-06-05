@@ -65,13 +65,23 @@ async function fetchServices(page) {
       const href = await link.getAttribute('href').catch(() => '');
       const idMatch = href && href.match(/[?&]id=([a-f0-9]+)/i);
       if (idMatch) {
-        // Get service name from the row text (first non-empty long text)
-        const nameLine = text.split('\n').find(l => l.trim().length > 10 && !l.includes('Continuar') && !l.includes('Apagar'));
-        services.push({
-          id: idMatch[1],
-          name: (nameLine || text).substring(0, 80).trim(),
-          url: `${BASE_URL}${href.startsWith('/') ? href : '/' + href}`,
-        });
+        // Get service name: first cell of the row, stop before person name / status
+        let rawName = text.split('\n')[0].trim();
+        // Remove known status phrases and anything after them
+        rawName = rawName.replace(/\s*(Necessita|Validado|Em análise|Aguardando|Concluído|Apagar|Continuar).*/i, '').trim();
+        // If still too long, try to get the first <td> text directly
+        if (rawName.length > 80) {
+          const firstCell = await row.locator('td').first().innerText().catch(() => '');
+          if (firstCell.trim().length > 5) rawName = firstCell.trim().split('\n')[0];
+        }
+        const name = rawName.substring(0, 70).trim() || 'Service';
+        if (!services.find(s => s.id === idMatch[1])) {
+          services.push({
+            id: idMatch[1],
+            name,
+            url: `${BASE_URL}${href.startsWith('/') ? href : '/' + href}`,
+          });
+        }
       }
     }
   }
@@ -141,6 +151,12 @@ async function runCheck() {
 
     // Discover all services
     let services = await fetchServices(page);
+
+    // Normalize known service names
+    for (const s of services) {
+      if (/Outras declaraç/i.test(s.name)) s.name = 'Outras declarações e atestados';
+      if (/Visto de Visita/i.test(s.name))  s.name = 'Visto de Visita - VIVIS';
+    }
 
     // Fallback: if scraping found nothing, use the hardcoded default
     if (services.length === 0) {
