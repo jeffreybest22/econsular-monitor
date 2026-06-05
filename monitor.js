@@ -167,7 +167,7 @@ async function runCheck() {
               <p><strong>Dépêchez-vous !</strong></p>
               <hr><small>Détecté le ${new Date().toLocaleString('fr-FR')} | E-Consular Monitor</small>
             </div>`
-          );
+          ).catch(e => log(`Email failed (non-fatal): ${e.message}`));
         } else {
           log(`Notification already sent for "${svc.name}" — skipping duplicate`);
         }
