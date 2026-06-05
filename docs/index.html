@@ -116,23 +116,32 @@ async function load() {
 
     // Flatten checks into rows (support both old format and new multi-service format)
     allChecks = [];
-    const svcMap = {};
+    const svcByName = {}; // deduplicate by name
+
+    function normName(n) {
+      if (!n) return 'Outras declarações e atestados';
+      if (/Outras declaraç/i.test(n)) return 'Outras declarações e atestados';
+      if (/Visto de Visita/i.test(n))  return 'Visto de Visita - VIVIS';
+      return n;
+    }
 
     for (const check of (data.checks || [])) {
       if (check.services && check.services.length > 0) {
         for (const svc of check.services) {
-          allChecks.push({ ts: check.ts, status: svc.status, message: svc.message, svcId: svc.id, svcName: svc.name, slots: svc.slots });
-          if (!svcMap[svc.id]) svcMap[svc.id] = svc.name;
+          const name = normName(svc.name);
+          allChecks.push({ ts: check.ts, status: svc.status, message: svc.message, svcId: name, svcName: name, slots: svc.slots });
+          svcByName[name] = true;
         }
       } else {
         // Legacy single-service entry
-        allChecks.push({ ts: check.ts, status: check.status, message: check.message, svcId: 'default', svcName: 'Outras declarações e atestados', slots: check.slots || [] });
-        svcMap['default'] = 'Outras declarações e atestados';
+        const name = 'Outras declarações e atestados';
+        allChecks.push({ ts: check.ts, status: check.status, message: check.message, svcId: name, svcName: name, slots: check.slots || [] });
+        svcByName[name] = true;
       }
     }
 
-    // Populate service dropdown
-    allServices = Object.entries(svcMap).map(([id, name]) => ({ id, name }));
+    // Populate service dropdown (deduplicated by name)
+    allServices = Object.keys(svcByName).map(name => ({ id: name, name }));
     const sel = document.getElementById('svc-select');
     const prevVal = sel.value;
     sel.innerHTML = '<option value="">Tous les services</option>';
