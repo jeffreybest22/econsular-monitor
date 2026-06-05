@@ -1,6 +1,27 @@
 {
   "checks": [
     {
+      "ts": "2026-06-05T15:45:52.414Z",
+      "status": "slots",
+      "message": "Visto de Visita - VIVIS\tJeff Jean Baptiste\tNecessita ação do interessado",
+      "services": [
+        {
+          "id": "69a5a30b2cb1a60013b679f5",
+          "name": "Outras declarações e atestados não expressamente listados no site da Embaixada\tJ",
+          "status": "ok",
+          "slots": [],
+          "message": "Aucun créneau disponible"
+        },
+        {
+          "id": "69ae03992cb1a60013b691fd",
+          "name": "Visto de Visita - VIVIS\tJeff Jean Baptiste\tNecessita ação do interessado",
+          "status": "slots",
+          "slots": [],
+          "message": "? créneau(x)"
+        }
+      ]
+    },
+    {
       "ts": "2026-06-05T15:40:52.462Z",
       "status": "error",
       "message": "Resend 403: {\"statusCode\":403,\"name\":\"validation_error\",\"message\":\"You can only send testing emails to your own email address (jeffreybest2@gmail.com). To send emails to other recipients, please verif",
@@ -2496,13 +2517,8 @@
       "ts": "2026-06-03T22:35:49.923Z",
       "status": "ok",
       "message": "Aucun créneau disponible"
-    },
-    {
-      "ts": "2026-06-03T22:30:56.834Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible"
     }
   ],
-  "last_check": "2026-06-05T15:40:52.462Z",
-  "last_status": "error"
+  "last_check": "2026-06-05T15:45:52.414Z",
+  "last_status": "slots"
 }
