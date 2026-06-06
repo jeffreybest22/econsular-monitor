@@ -39,14 +39,14 @@ async function sendEmail(subject, htmlBody) {
 
 // ntfy.sh push notification — alarme sonore haute priorité qui bypasse le mode silencieux
 const NTFY_TOPIC = process.env.NTFY_TOPIC || 'econsular-jeff-a7f3k9x2';
-async function sendNtfy(title, message, url) {
+async function sendNtfy(title, message, url, priority = 'urgent') {
   try {
     const res = await fetch(`https://ntfy.sh/${NTFY_TOPIC}`, {
       method: 'POST',
       headers: {
         'Title': title,
-        'Priority': 'urgent',                // alarme + bypass silencieux
-        'Tags': 'rotating_light,calendar',
+        'Priority': priority,                // urgent = alarme + bypass silencieux
+        'Tags': priority === 'urgent' ? 'rotating_light,calendar' : 'warning',
         'Click': 'https://ec-portoprincipe.itamaraty.gov.br/login',
         'Actions': `view, Réserver maintenant, ${url || 'https://ec-portoprincipe.itamaraty.gov.br/login'}, clear=true`,
       },
@@ -63,18 +63,21 @@ async function sendNtfy(title, message, url) {
 
 async function login(page) {
   log('Logging in...');
-  await page.goto(LOGIN_URL, { waitUntil: 'networkidle' });
+  // domcontentloaded au lieu de networkidle (site gouv a des connexions permanentes)
+  await page.goto(LOGIN_URL, { waitUntil: 'domcontentloaded', timeout: 45000 });
+  await page.waitForSelector('input[type="email"], input[name="email"], #email', { timeout: 20000 });
   await page.fill('input[type="email"], input[name="email"], #email', EC_EMAIL);
   await page.fill('input[type="password"], input[name="password"], #password', EC_PASSWORD);
   await page.click('button[type="submit"], input[type="submit"]');
-  await page.waitForURL('**/user-main', { timeout: 20000 });
+  await page.waitForURL('**/user-main', { timeout: 30000 });
   log('Login successful');
 }
 
 // Scrape all services from user-main dashboard
 async function fetchServices(page) {
-  await page.goto(DASH_URL, { waitUntil: 'networkidle', timeout: 30000 });
-  if (page.url().includes('/login')) { await login(page); await page.goto(DASH_URL, { waitUntil: 'networkidle' }); }
+  await page.goto(DASH_URL, { waitUntil: 'domcontentloaded', timeout: 45000 });
+  await page.waitForSelector('a[href*="/process"], table tr', { timeout: 15000 }).catch(() => {});
+  if (page.url().includes('/login')) { await login(page); await page.goto(DASH_URL, { waitUntil: 'domcontentloaded', timeout: 45000 }); }
 
   const rows = await page.locator('table tr, [class*="service"], [class*="processo"]').all();
   const services = [];
@@ -129,12 +132,16 @@ async function fetchServices(page) {
 
 async function checkOneService(page, service) {
   const url = service.url || `${BASE_URL}/process?id=${service.id}`;
-  await page.goto(url, { waitUntil: 'networkidle', timeout: 30000 });
+  await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 45000 });
 
   if (page.url().includes('/login')) {
     await login(page);
-    await page.goto(url, { waitUntil: 'networkidle', timeout: 30000 });
+    await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 45000 });
   }
+
+  // Attendre que le contenu de la page de RDV soit chargé
+  await page.waitForSelector('body', { timeout: 10000 }).catch(() => {});
+  await page.waitForTimeout(1500); // laisser le JS rendre les créneaux
 
   const bodyText = await page.locator('body').innerText();
 
@@ -170,8 +177,20 @@ async function runCheck() {
   try {
     browser = await chromium.launch({ headless: true });
     const page = await browser.newPage();
+    page.setDefaultTimeout(45000);
 
-    await login(page);
+    // Login avec retry (2 tentatives) — résiste aux blips réseau et lenteurs du site
+    let loginOk = false;
+    for (let attempt = 1; attempt <= 2 && !loginOk; attempt++) {
+      try {
+        await login(page);
+        loginOk = true;
+      } catch (e) {
+        log(`Login attempt ${attempt} failed: ${e.message}`);
+        if (attempt < 2) { await page.waitForTimeout(3000); }
+        else throw e;
+      }
+    }
 
     // Discover all services
     let services = await fetchServices(page);
@@ -259,6 +278,13 @@ async function runCheck() {
           <p>Heure : ${new Date().toLocaleString('fr-FR')}</p>
         </div>`
       ).catch(() => {});
+      // ntfy priorité 'default' (notif normale, pas alarme) pour signaler un souci sans réveiller
+      await sendNtfy(
+        `⚠️ Monitor en erreur`,
+        `Le moniteur n'a pas pu vérifier : ${err.message.substring(0, 120)}`,
+        'https://jeffreybest22.github.io/econsular-monitor',
+        'default'
+      ).catch(() => {});
     }
     return { ts: new Date().toISOString(), status: 'error', message: err.message.substring(0, 200), services: [] };
   } finally {
@@ -273,7 +299,7 @@ function writeStatusLog(logFile, entry) {
     let data = { checks: [] };
     if (fs.existsSync(logFile)) { try { data = JSON.parse(fs.readFileSync(logFile, 'utf8')); } catch {} }
     data.checks.unshift(entry);
-    if (data.checks.length > 500) data.checks = data.checks.slice(0, 500);
+    if (data.checks.length > 300) data.checks = data.checks.slice(0, 300);
     data.last_check  = entry.ts;
     data.last_status = entry.status;
     fs.writeFileSync(logFile, JSON.stringify(data, null, 2));

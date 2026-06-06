@@ -39,14 +39,36 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPO: ${{ github.repository }}
         run: |
-          CONTENT=$(base64 -w 0 docs/status.json)
-          SHA=$(curl -sf -H "Authorization: token $GH_TOKEN" \
-            "https://api.github.com/repos/$REPO/contents/docs/status.json" \
-            | python3 -c "import sys,json; print(json.load(sys.stdin).get('sha',''))" 2>/dev/null || echo "")
-          DATA="{\"message\":\"chore: update status [skip ci]\",\"content\":\"$CONTENT\""
-          [ -n "$SHA" ] && DATA="$DATA,\"sha\":\"$SHA\""
-          DATA="$DATA}"
-          curl -sf -X PUT -H "Authorization: token $GH_TOKEN" \
-            -H "Content-Type: application/json" \
-            "https://api.github.com/repos/$REPO/contents/docs/status.json" \
-            -d "$DATA" > /dev/null && echo "Status updated via API" || echo "API update failed"
+          python3 - <<'PY'
+          import os, json, base64, urllib.request, sys
+
+          token = os.environ['GH_TOKEN']
+          repo  = os.environ['REPO']
+          url   = f"https://api.github.com/repos/{repo}/contents/docs/status.json"
+
+          with open('docs/status.json', 'rb') as f:
+              content_b64 = base64.b64encode(f.read()).decode()
+
+          # Get current SHA
+          req = urllib.request.Request(url, headers={'Authorization': f'token {token}', 'User-Agent': 'ec-monitor'})
+          sha = None
+          try:
+              with urllib.request.urlopen(req) as r:
+                  sha = json.load(r).get('sha')
+          except Exception as e:
+              print(f"Could not fetch SHA: {e}")
+
+          payload = {'message': 'chore: update status [skip ci]', 'content': content_b64}
+          if sha:
+              payload['sha'] = sha
+
+          data = json.dumps(payload).encode()
+          put = urllib.request.Request(url, data=data, method='PUT',
+              headers={'Authorization': f'token {token}', 'User-Agent': 'ec-monitor', 'Content-Type': 'application/json'})
+          try:
+              with urllib.request.urlopen(put) as r:
+                  print(f"Status updated via API (HTTP {r.status})")
+          except Exception as e:
+              print(f"API update FAILED: {e}")
+              sys.exit(1)
+          PY
