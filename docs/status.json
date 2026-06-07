@@ -1,6 +1,27 @@
 {
   "checks": [
     {
+      "ts": "2026-06-07T05:35:57.097Z",
+      "status": "ok",
+      "message": "Aucun créneau disponible",
+      "services": [
+        {
+          "id": "69a5a30b2cb1a60013b679f5",
+          "name": "Outras declarações e atestados",
+          "status": "ok",
+          "slots": [],
+          "message": "Aucun créneau disponible"
+        },
+        {
+          "id": "69ae03992cb1a60013b691fd",
+          "name": "Visto de Visita - VIVIS",
+          "status": "ok",
+          "slots": [],
+          "message": "Pas encore à l'étape rendez-vous"
+        }
+      ]
+    },
+    {
       "ts": "2026-06-07T05:31:06.524Z",
       "status": "ok",
       "message": "Aucun créneau disponible",
@@ -6267,14 +6288,8 @@
           "message": "Pas encore à l'étape rendez-vous"
         }
       ]
-    },
-    {
-      "ts": "2026-06-05T15:40:52.462Z",
-      "status": "error",
-      "message": "Resend 403: {\"statusCode\":403,\"name\":\"validation_error\",\"message\":\"You can only send testing emails to your own email address (jeffreybest2@gmail.com). To send emails to other recipients, please verif",
-      "services": []
     }
   ],
-  "last_check": "2026-06-07T05:31:06.524Z",
+  "last_check": "2026-06-07T05:35:57.097Z",
   "last_status": "ok"
 }
