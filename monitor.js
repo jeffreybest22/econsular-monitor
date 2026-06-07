@@ -38,21 +38,27 @@ async function sendEmail(subject, htmlBody) {
 }
 
 // ntfy.sh push notification — alarme sonore haute priorité qui bypasse le mode silencieux
+// IMPORTANT: on envoie via corps JSON (UTF-8) — les en-têtes HTTP ne supportent pas
+// les emoji/accents (erreur ByteString). Le format JSON gère l'UTF-8 sans problème.
 const NTFY_TOPIC = process.env.NTFY_TOPIC || 'econsular-jeff-a7f3k9x2';
 async function sendNtfy(title, message, url, priority = 'urgent') {
   try {
-    const res = await fetch(`https://ntfy.sh/${NTFY_TOPIC}`, {
+    const loginUrl = 'https://ec-portoprincipe.itamaraty.gov.br/login';
+    const payload = {
+      topic: NTFY_TOPIC,
+      title,                                   // emoji/accents OK dans le JSON
+      message,
+      priority: priority === 'urgent' ? 5 : 3, // 5 = max (alarme + bypass silencieux)
+      tags: priority === 'urgent' ? ['rotating_light', 'calendar'] : ['warning'],
+      click: loginUrl,
+      actions: [{ action: 'view', label: 'Réserver maintenant', url: url || loginUrl, clear: true }],
+    };
+    const res = await fetch('https://ntfy.sh/', {
       method: 'POST',
-      headers: {
-        'Title': title,
-        'Priority': priority,                // urgent = alarme + bypass silencieux
-        'Tags': priority === 'urgent' ? 'rotating_light,calendar' : 'warning',
-        'Click': 'https://ec-portoprincipe.itamaraty.gov.br/login',
-        'Actions': `view, Réserver maintenant, ${url || 'https://ec-portoprincipe.itamaraty.gov.br/login'}, clear=true`,
-      },
-      body: message,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
     });
-    if (!res.ok) { log(`ntfy failed ${res.status}`); return false; }
+    if (!res.ok) { log(`ntfy failed ${res.status}: ${await res.text()}`); return false; }
     log(`ntfy push sent → topic ${NTFY_TOPIC}`);
     return true;
   } catch (e) {
