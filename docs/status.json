@@ -1,6 +1,12 @@
 {
   "checks": [
     {
+      "ts": "2026-06-11T23:26:24.605Z",
+      "status": "error",
+      "message": "page.goto: net::ERR_NAME_NOT_RESOLVED at https://ec-portoprincipe.itamaraty.gov.br/login\nCall log:\n  - navigating to \"https://ec-portoprincipe.itamaraty.gov.br/login\", waiting until \"domcontentloaded\"",
+      "services": []
+    },
+    {
       "ts": "2026-06-11T23:20:50.392Z",
       "status": "ok",
       "message": "Aucun créneau disponible",
@@ -6288,29 +6294,8 @@
           "message": "Pas encore à l'étape rendez-vous"
         }
       ]
-    },
-    {
-      "ts": "2026-06-10T22:31:01.405Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible",
-      "services": [
-        {
-          "id": "69a5a30b2cb1a60013b679f5",
-          "name": "Outras declarações e atestados",
-          "status": "ok",
-          "slots": [],
-          "message": "Aucun créneau disponible"
-        },
-        {
-          "id": "69ae03992cb1a60013b691fd",
-          "name": "Visto de Visita - VIVIS",
-          "status": "ok",
-          "slots": [],
-          "message": "Pas encore à l'étape rendez-vous"
-        }
-      ]
     }
   ],
-  "last_check": "2026-06-11T23:20:50.392Z",
-  "last_status": "ok"
+  "last_check": "2026-06-11T23:26:24.605Z",
+  "last_status": "error"
 }
