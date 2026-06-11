@@ -1,6 +1,27 @@
 {
   "checks": [
     {
+      "ts": "2026-06-11T00:05:46.012Z",
+      "status": "ok",
+      "message": "Aucun créneau disponible",
+      "services": [
+        {
+          "id": "69a5a30b2cb1a60013b679f5",
+          "name": "Outras declarações e atestados",
+          "status": "ok",
+          "slots": [],
+          "message": "Aucun créneau disponible"
+        },
+        {
+          "id": "69ae03992cb1a60013b691fd",
+          "name": "Visto de Visita - VIVIS",
+          "status": "ok",
+          "slots": [],
+          "message": "Pas encore à l'étape rendez-vous"
+        }
+      ]
+    },
+    {
       "ts": "2026-06-11T00:01:02.383Z",
       "status": "ok",
       "message": "Aucun créneau disponible",
@@ -6280,29 +6301,8 @@
           "message": "Pas encore à l'étape rendez-vous"
         }
       ]
-    },
-    {
-      "ts": "2026-06-09T22:15:56.452Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible",
-      "services": [
-        {
-          "id": "69a5a30b2cb1a60013b679f5",
-          "name": "Outras declarações e atestados",
-          "status": "ok",
-          "slots": [],
-          "message": "Aucun créneau disponible"
-        },
-        {
-          "id": "69ae03992cb1a60013b691fd",
-          "name": "Visto de Visita - VIVIS",
-          "status": "ok",
-          "slots": [],
-          "message": "Pas encore à l'étape rendez-vous"
-        }
-      ]
     }
   ],
-  "last_check": "2026-06-11T00:01:02.383Z",
+  "last_check": "2026-06-11T00:05:46.012Z",
   "last_status": "ok"
 }
