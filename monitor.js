@@ -42,29 +42,35 @@ async function sendEmail(subject, htmlBody) {
 // les emoji/accents (erreur ByteString). Le format JSON gère l'UTF-8 sans problème.
 const NTFY_TOPIC = process.env.NTFY_TOPIC || 'econsular-jeff-a7f3k9x2';
 async function sendNtfy(title, message, url, priority = 'urgent') {
-  try {
-    const loginUrl = 'https://ec-portoprincipe.itamaraty.gov.br/login';
-    const payload = {
-      topic: NTFY_TOPIC,
-      title,                                   // emoji/accents OK dans le JSON
-      message,
-      priority: priority === 'urgent' ? 5 : 3, // 5 = max (alarme + bypass silencieux)
-      tags: priority === 'urgent' ? ['rotating_light', 'calendar'] : ['warning'],
-      click: loginUrl,
-      actions: [{ action: 'view', label: 'Réserver maintenant', url: url || loginUrl, clear: true }],
-    };
-    const res = await fetch('https://ntfy.sh/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    });
-    if (!res.ok) { log(`ntfy failed ${res.status}: ${await res.text()}`); return false; }
-    log(`ntfy push sent → topic ${NTFY_TOPIC}`);
-    return true;
-  } catch (e) {
-    log(`ntfy error: ${e.message}`);
-    return false;
+  const loginUrl = 'https://ec-portoprincipe.itamaraty.gov.br/login';
+  // Pour une alerte créneau (urgent), on répète 3× espacées pour être sûr de réveiller
+  const repeats = priority === 'urgent' ? 3 : 1;
+  let okCount = 0;
+
+  for (let i = 0; i < repeats; i++) {
+    try {
+      const payload = {
+        topic: NTFY_TOPIC,
+        title: repeats > 1 ? `${title} (${i + 1}/${repeats})` : title,
+        message,
+        priority: priority === 'urgent' ? 5 : 3, // 5 = max (alarme + bypass silencieux)
+        tags: priority === 'urgent' ? ['rotating_light', 'calendar'] : ['warning'],
+        click: loginUrl,
+        actions: [{ action: 'view', label: 'Réserver maintenant', url: url || loginUrl, clear: true }],
+      };
+      const res = await fetch('https://ntfy.sh/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      if (res.ok) { okCount++; log(`ntfy push ${i + 1}/${repeats} sent → ${NTFY_TOPIC}`); }
+      else { log(`ntfy ${i + 1}/${repeats} failed ${res.status}: ${await res.text()}`); }
+    } catch (e) {
+      log(`ntfy ${i + 1}/${repeats} error: ${e.message}`);
+    }
+    if (i < repeats - 1) await new Promise(r => setTimeout(r, 20000)); // 20s entre les rappels
   }
+  return okCount > 0;
 }
 
 // CallMeBot — appel vocal Telegram (gratuit) qui sonne et lit le message à voix haute
