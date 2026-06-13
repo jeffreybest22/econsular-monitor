@@ -32,6 +32,7 @@ jobs:
           EC_PASSWORD: ${{ secrets.EC_PASSWORD }}
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
           NOTIFY_EMAILS: ${{ secrets.NOTIFY_EMAILS }}
+          CALLMEBOT_USER: ${{ secrets.CALLMEBOT_USER }}
         run: node monitor.js --once --log-file docs/status.json
 
       - name: Push status via GitHub API

@@ -67,6 +67,25 @@ async function sendNtfy(title, message, url, priority = 'urgent') {
   }
 }
 
+// CallMeBot — appel vocal Telegram (gratuit) qui sonne et lit le message à voix haute
+// Username dans le secret CALLMEBOT_USER (repo public — ne pas mettre en clair)
+const CALLMEBOT_USER = process.env.CALLMEBOT_USER || '';
+async function makeCall(text) {
+  if (!CALLMEBOT_USER) { log('CALLMEBOT_USER not set — skipping call'); return false; }
+  try {
+    const url = `https://api.callmebot.com/start.php?user=${encodeURIComponent(CALLMEBOT_USER)}`
+      + `&text=${encodeURIComponent(text)}&lang=fr-FR-Standard-A&rpt=2`;
+    const res = await fetch(url);
+    const body = await res.text();
+    if (!res.ok) { log(`CallMeBot failed ${res.status}: ${body.substring(0, 120)}`); return false; }
+    log(`Phone call triggered → ${CALLMEBOT_USER}`);
+    return true;
+  } catch (e) {
+    log(`CallMeBot error: ${e.message}`);
+    return false;
+  }
+}
+
 async function login(page) {
   log('Logging in...');
   // domcontentloaded au lieu de networkidle (site gouv a des connexions permanentes)
@@ -252,6 +271,10 @@ async function runCheck() {
             ? `${slots.length} créneau(x) : ${slots.slice(0, 3).join(', ')}`
             : 'Un créneau vient de s\'ouvrir — réservez vite !';
           await sendNtfy(`🚨 RDV DISPONIBLE — ${svc.name}`, ntfyMsg, svc.url);
+
+          // Appel téléphonique Telegram (CallMeBot) — sonne et lit le message
+          await makeCall(`Alerte rendez-vous. Un créneau est disponible pour ${svc.name} à l'ambassade du Brésil. Connectez-vous immédiatement pour réserver.`)
+            .catch(e => log(`Call failed (non-fatal): ${e.message}`));
         } else {
           log(`Notification already sent for "${svc.name}" — skipping duplicate`);
         }
@@ -320,6 +343,13 @@ async function main() {
   if (process.argv.includes('--test-ntfy')) {
     log(`Sending test alarm to topic: ${NTFY_TOPIC}`);
     await sendNtfy('🚨 TEST — E-Consular Monitor', 'Ceci est un test. Si vous entendez l\'alarme, tout fonctionne !', 'https://jeffreybest22.github.io/econsular-monitor');
+    process.exit(0);
+  }
+
+  // Test phone call without logging in
+  if (process.argv.includes('--test-call')) {
+    log(`Triggering test call to: ${CALLMEBOT_USER}`);
+    await makeCall('Ceci est un test du moniteur de rendez-vous de l\'ambassade du Brésil. Si vous entendez ce message, les appels fonctionnent.');
     process.exit(0);
   }
 
