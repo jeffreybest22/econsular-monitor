@@ -1,6 +1,20 @@
 {
   "checks": [
     {
+      "ts": "2026-06-16T12:05:48.964Z",
+      "status": "ok",
+      "message": "Aucun créneau disponible",
+      "services": [
+        {
+          "id": "69a5a30b2cb1a60013b679f5",
+          "name": "Outras declarações e atestados",
+          "status": "ok",
+          "slots": [],
+          "message": "Aucun créneau disponible"
+        }
+      ]
+    },
+    {
       "ts": "2026-06-16T12:00:59.537Z",
       "status": "ok",
       "message": "Aucun créneau disponible",
@@ -4185,22 +4199,8 @@
           "message": "Aucun créneau disponible"
         }
       ]
-    },
-    {
-      "ts": "2026-06-15T11:10:54.016Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible",
-      "services": [
-        {
-          "id": "69a5a30b2cb1a60013b679f5",
-          "name": "Outras declarações e atestados",
-          "status": "ok",
-          "slots": [],
-          "message": "Aucun créneau disponible"
-        }
-      ]
     }
   ],
-  "last_check": "2026-06-16T12:00:59.537Z",
+  "last_check": "2026-06-16T12:05:48.964Z",
   "last_status": "ok"
 }
