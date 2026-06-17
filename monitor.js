@@ -176,10 +176,25 @@ async function checkOneService(page, service) {
 
   const bodyText = await page.locator('body').innerText();
 
+  // Déjà réservé : la page de confirmation contient "está agendado para".
+  // Ne PAS alerter — sinon la date du RDV pris est prise pour un créneau libre.
+  const alreadyBooked = /est[áa]\s+agendado\s+para|servi[çc]o\s+consular\s+est[áa]\s+agendado/i.test(bodyText);
+  if (alreadyBooked) {
+    log(`  → "${service.name}" déjà réservé (RDV pris) — pas d'alerte`);
+    return { available: false, slots: [], booked: true };
+  }
+
   // Must be a scheduling page (contains "Agendamento" header)
   const isSchedulingPage = bodyText.includes('Agendamento') || bodyText.includes('Escolha um dia');
   if (!isSchedulingPage) {
     log(`  → Not a scheduling page (form/other step) — skipping`);
+    return { available: false, slots: [], skipped: true };
+  }
+
+  // La page de RDV doit avoir l'invitation à choisir un créneau
+  const isSlotChooser = bodyText.includes('Escolha um dia') || bodyText.includes('horário');
+  if (!isSlotChooser) {
+    log(`  → "${service.name}" page Agendamento sans sélecteur de créneau — skip`);
     return { available: false, slots: [], skipped: true };
   }
 
@@ -241,7 +256,13 @@ async function runCheck() {
     const results = [];
     for (const svc of services) {
       log(`Checking: ${svc.name}`);
-      const { available, slots, skipped } = await checkOneService(page, svc);
+      const { available, slots, skipped, booked } = await checkOneService(page, svc);
+
+      if (booked) {
+        notifiedSlots[svc.id] = false;
+        results.push({ id: svc.id, name: svc.name, status: 'booked', slots: [], message: 'Rendez-vous déjà réservé' });
+        continue;
+      }
 
       if (skipped) {
         log(`  → "${svc.name}" skipped (not a scheduling page)`);

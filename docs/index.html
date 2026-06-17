@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>E-Consular Monitor</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; color: #333; }
@@ -41,9 +42,20 @@
   .num { color:#aaa; font-size:11px; font-weight:600; width:36px; }
   .svc-name { font-size:11px; color:#777; max-width:220px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
   .badge { display:inline-block; padding:2px 8px; border-radius:12px; font-size:11px; font-weight:600; }
-  .badge.ok    { background:#e8f5e9; color:#2e7d32; }
-  .badge.error { background:#ffebee; color:#c62828; }
-  .badge.slots { background:#e3f2fd; color:#1565c0; }
+  .badge.ok     { background:#e8f5e9; color:#2e7d32; }
+  .badge.error  { background:#ffebee; color:#c62828; }
+  .badge.slots  { background:#e3f2fd; color:#1565c0; }
+  .badge.booked { background:#ede7f6; color:#6a1b9a; }
+
+  /* Stats + graphiques */
+  .stats { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:16px; }
+  .stat { background:white; border-radius:10px; padding:14px 16px; box-shadow:0 1px 4px rgba(0,0,0,0.08); }
+  .stat .v { font-size:24px; font-weight:700; }
+  .stat .l { font-size:11px; color:#888; margin-top:2px; }
+  .stat.ok .v{color:#2e7d32} .stat.slots .v{color:#1565c0} .stat.error .v{color:#c62828} .stat.booked .v{color:#6a1b9a}
+  .chart-card h3 { font-size:14px; margin-bottom:12px; color:#444; }
+  canvas { max-width:100%; }
+  @media(max-width:600px){ .stats{grid-template-columns:repeat(2,1fr)} }
 
   .pagination { display:flex; align-items:center; justify-content:center; gap:6px; margin-top:16px; flex-wrap:wrap; }
   .pagination button { padding:5px 12px; border:1px solid #ddd; background:white; border-radius:6px; cursor:pointer; font-size:13px; }
@@ -68,6 +80,24 @@
       <span id="banner-sub"></span>
     </div>
     <a href="https://ec-portoprincipe.itamaraty.gov.br/login" target="_blank" class="btn">Ouvrir le site</a>
+  </div>
+
+  <!-- Cartes statistiques -->
+  <div class="stats">
+    <div class="stat ok"><div class="v" id="s-ok">0</div><div class="l">Vérifs OK</div></div>
+    <div class="stat slots"><div class="v" id="s-slots">0</div><div class="l">Créneaux détectés</div></div>
+    <div class="stat error"><div class="v" id="s-error">0</div><div class="l">Erreurs</div></div>
+    <div class="stat booked"><div class="v" id="s-booked">0</div><div class="l">RDV réservés</div></div>
+  </div>
+
+  <!-- Graphiques -->
+  <div class="card chart-card">
+    <h3>Activité par jour (7 derniers jours)</h3>
+    <canvas id="chartDaily" height="110"></canvas>
+  </div>
+  <div class="card chart-card">
+    <h3>Répartition des statuts</h3>
+    <canvas id="chartStatus" height="110"></canvas>
   </div>
 
   <div class="card">
@@ -158,6 +188,7 @@ async function load() {
 
     updateTotalBadge();
     renderPage(1);
+    renderCharts();
 
   } catch(e) {
     document.getElementById('banner-title').textContent = 'En attente des premières données...';
@@ -261,7 +292,66 @@ function formatDate(ts) {
   return new Date(ts).toLocaleString('fr-FR', { timeZone: 'America/Port-au-Prince' });
 }
 function labelStatus(s) {
-  return s === 'ok' ? 'OK' : s === 'slots' ? 'CRÉNEAU !' : 'ERREUR';
+  return s === 'ok' ? 'OK' : s === 'slots' ? 'CRÉNEAU !' : s === 'booked' ? 'RÉSERVÉ' : 'ERREUR';
+}
+
+// ---- Graphiques ----
+let chartDaily = null, chartStatus = null;
+
+function renderCharts() {
+  // Stats globales
+  const counts = { ok:0, slots:0, error:0, booked:0 };
+  for (const c of allChecks) counts[c.status] = (counts[c.status]||0) + 1;
+  document.getElementById('s-ok').textContent     = counts.ok;
+  document.getElementById('s-slots').textContent  = counts.slots;
+  document.getElementById('s-error').textContent  = counts.error;
+  document.getElementById('s-booked').textContent = counts.booked;
+
+  // Activité 7 derniers jours (par jour, par statut)
+  const days = [];
+  const fmt = d => d.toLocaleDateString('fr-FR', { day:'2-digit', month:'2-digit', timeZone:'America/Port-au-Prince' });
+  const today = new Date();
+  for (let i = 6; i >= 0; i--) {
+    const d = new Date(today); d.setDate(today.getDate() - i);
+    days.push({ key: d.toISOString().substring(0,10), label: fmt(d), ok:0, slots:0, error:0, booked:0 });
+  }
+  for (const c of allChecks) {
+    const key = (c.ts || '').substring(0,10);
+    const day = days.find(x => x.key === key);
+    if (day) day[c.status] = (day[c.status]||0) + 1;
+  }
+
+  const labels = days.map(d => d.label);
+  if (chartDaily) chartDaily.destroy();
+  chartDaily = new Chart(document.getElementById('chartDaily'), {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [
+        { label:'OK',       data:days.map(d=>d.ok),     backgroundColor:'#a5d6a7' },
+        { label:'Créneaux', data:days.map(d=>d.slots),  backgroundColor:'#2196f3' },
+        { label:'Erreurs',  data:days.map(d=>d.error),  backgroundColor:'#ef9a9a' },
+        { label:'Réservés', data:days.map(d=>d.booked), backgroundColor:'#9575cd' },
+      ],
+    },
+    options: {
+      responsive:true, maintainAspectRatio:true,
+      scales:{ x:{stacked:true}, y:{stacked:true, beginAtZero:true} },
+      plugins:{ legend:{ position:'bottom', labels:{ boxWidth:12, font:{size:11} } } },
+    },
+  });
+
+  if (chartStatus) chartStatus.destroy();
+  chartStatus = new Chart(document.getElementById('chartStatus'), {
+    type: 'doughnut',
+    data: {
+      labels:['OK','Créneaux','Erreurs','Réservés'],
+      datasets:[{ data:[counts.ok, counts.slots, counts.error, counts.booked],
+        backgroundColor:['#a5d6a7','#2196f3','#ef9a9a','#9575cd'] }],
+    },
+    options:{ responsive:true, maintainAspectRatio:true,
+      plugins:{ legend:{ position:'bottom', labels:{ boxWidth:12, font:{size:11} } } } },
+  });
 }
 
 load();
