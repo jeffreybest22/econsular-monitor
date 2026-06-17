@@ -313,43 +313,51 @@ function setPeriod(p) {
   renderCharts();
 }
 
-// Regroupe les checks par jour / semaine / mois
+// Génère une plage CONTINUE (jours/semaines/mois vides inclus) puis remplit avec les données
 function bucketize(period) {
-  const buckets = new Map(); // key -> {label, ok, slots, error, booked, order}
-  const ensure = (key, label, order) => {
-    if (!buckets.has(key)) buckets.set(key, { label, ok:0, slots:0, error:0, booked:0, order });
-    return buckets.get(key);
-  };
+  const WD = ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'];
+  const buckets = new Map(); // key -> {label, ok, slots, error, booked}
+  const now = new Date();
 
+  const mkDayKey   = d => d.toISOString().substring(0,10);
+  const mkMonthKey = d => d.toISOString().substring(0,7);
+  const mondayOf   = d => { const t = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate())); const w=(t.getUTCDay()+6)%7; t.setUTCDate(t.getUTCDate()-w); return t; };
+
+  // 1) Créer les buckets vides sur une plage continue
+  if (period === 'day') {
+    for (let i = 13; i >= 0; i--) {
+      const d = new Date(now); d.setUTCDate(now.getUTCDate() - i);
+      const key = mkDayKey(d);
+      buckets.set(key, { label: `${WD[d.getUTCDay()]} ${d.getUTCDate().toString().padStart(2,'0')}/${(d.getUTCMonth()+1).toString().padStart(2,'0')}`, ok:0, slots:0, error:0, booked:0 });
+    }
+  } else if (period === 'week') {
+    const base = mondayOf(now);
+    for (let i = 11; i >= 0; i--) {
+      const d = new Date(base); d.setUTCDate(base.getUTCDate() - i*7);
+      const key = mkDayKey(d);
+      buckets.set(key, { label: 'Sem. ' + `${d.getUTCDate().toString().padStart(2,'0')}/${(d.getUTCMonth()+1).toString().padStart(2,'0')}`, ok:0, slots:0, error:0, booked:0 });
+    }
+  } else { // month
+    for (let i = 11; i >= 0; i--) {
+      const d = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - i, 1));
+      const key = mkMonthKey(d);
+      buckets.set(key, { label: d.toLocaleDateString('fr-FR', { month:'short', year:'2-digit' }), ok:0, slots:0, error:0, booked:0 });
+    }
+  }
+
+  // 2) Remplir avec les données
   for (const c of allChecks) {
     if (!c.ts) continue;
     const d = new Date(c.ts);
-    let key, label, order;
-    if (period === 'day') {
-      key = c.ts.substring(0,10);
-      label = d.toLocaleDateString('fr-FR', { day:'2-digit', month:'2-digit', timeZone:'America/Port-au-Prince' });
-      order = key;
-    } else if (period === 'week') {
-      // semaine ISO (lundi)
-      const t = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()));
-      const day = (t.getUTCDay() + 6) % 7; t.setUTCDate(t.getUTCDate() - day);
-      key = t.toISOString().substring(0,10);
-      label = 'Sem. ' + t.toLocaleDateString('fr-FR', { day:'2-digit', month:'2-digit' });
-      order = key;
-    } else { // month
-      key = c.ts.substring(0,7);
-      label = d.toLocaleDateString('fr-FR', { month:'short', year:'2-digit', timeZone:'America/Port-au-Prince' });
-      order = key;
-    }
-    const b = ensure(key, label, order);
-    b[c.status] = (b[c.status] || 0) + 1;
+    let key;
+    if (period === 'day')        key = mkDayKey(d);
+    else if (period === 'week')  key = mkDayKey(mondayOf(d));
+    else                         key = mkMonthKey(d);
+    const b = buckets.get(key);
+    if (b) b[c.status] = (b[c.status] || 0) + 1;
   }
 
-  let arr = [...buckets.values()].sort((a,b) => a.order < b.order ? -1 : 1);
-  // Limiter : 14 jours / 12 semaines / 12 mois max
-  const limit = period === 'day' ? 14 : 12;
-  if (arr.length > limit) arr = arr.slice(arr.length - limit);
-  return arr;
+  return [...buckets.values()];
 }
 
 function renderCharts() {
