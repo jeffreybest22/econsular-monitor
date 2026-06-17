@@ -135,6 +135,17 @@
     <h3>Répartition des statuts</h3>
     <canvas id="chartStatus" height="110"></canvas>
   </div>
+
+  <div class="card chart-card">
+    <h3>🕐 Top heures — créneaux disponibles</h3>
+    <p style="font-size:12px;color:#888;margin:-6px 0 12px">Quand les créneaux apparaissent le plus dans la journée (heure Haïti)</p>
+    <canvas id="chartHours" height="110"></canvas>
+  </div>
+  <div class="card chart-card">
+    <h3>📅 Top jours — créneaux disponibles</h3>
+    <p style="font-size:12px;color:#888;margin:-6px 0 12px">Quels jours de la semaine les créneaux apparaissent le plus</p>
+    <canvas id="chartWeekdays" height="110"></canvas>
+  </div>
 </div>
 
 <script>
@@ -400,6 +411,72 @@ function renderCharts() {
     },
     options:{ responsive:true, maintainAspectRatio:true,
       plugins:{ legend:{ position:'bottom', labels:{ boxWidth:12, font:{size:11} } } } },
+  });
+
+  renderSlotPatterns();
+}
+
+// Graphiques "Top heures" et "Top jours" basés UNIQUEMENT sur les créneaux détectés
+let chartHours = null, chartWeekdays = null;
+function renderSlotPatterns() {
+  const slotChecks = allChecks.filter(c => c.status === 'slots');
+
+  // Formateur heure/jour en fuseau Haïti
+  const partsOf = ts => {
+    const s = new Date(ts).toLocaleString('en-US', {
+      timeZone:'America/Port-au-Prince', hour12:false,
+      weekday:'short', hour:'2-digit'
+    });
+    // ex: "Mon, 14" → weekday=Mon, hour=14
+    const wd = s.split(',')[0].trim();
+    const hr = parseInt(s.split(',')[1]) ;
+    return { wd, hr: isNaN(hr) ? new Date(ts).getHours() : hr };
+  };
+
+  // Top heures (0-23)
+  const hours = Array(24).fill(0);
+  // Top jours (Lun..Dim)
+  const wdMap = { Mon:0, Tue:1, Wed:2, Thu:3, Fri:4, Sat:5, Sun:6 };
+  const wdLabels = ['Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche'];
+  const wd = Array(7).fill(0);
+
+  for (const c of slotChecks) {
+    const { wd: w, hr } = partsOf(c.ts);
+    if (hr >= 0 && hr < 24) hours[hr]++;
+    if (w in wdMap) wd[wdMap[w]]++;
+  }
+
+  const hasData = slotChecks.length > 0;
+  const noDataPlugin = hasData ? [] : undefined;
+
+  if (chartHours) chartHours.destroy();
+  chartHours = new Chart(document.getElementById('chartHours'), {
+    type: 'bar',
+    data: {
+      labels: hours.map((_, h) => `${h.toString().padStart(2,'0')}h`),
+      datasets: [{ label:'Créneaux détectés', data:hours, backgroundColor:'#2196f3' }],
+    },
+    options: {
+      responsive:true, maintainAspectRatio:true,
+      scales:{ y:{ beginAtZero:true, ticks:{ precision:0 } } },
+      plugins:{ legend:{ display:false },
+        title:{ display:!hasData, text:'Aucun créneau détecté pour l\'instant', color:'#999' } },
+    },
+  });
+
+  if (chartWeekdays) chartWeekdays.destroy();
+  chartWeekdays = new Chart(document.getElementById('chartWeekdays'), {
+    type: 'bar',
+    data: {
+      labels: wdLabels,
+      datasets: [{ label:'Créneaux détectés', data:wd, backgroundColor:'#1a7f3c' }],
+    },
+    options: {
+      responsive:true, maintainAspectRatio:true,
+      scales:{ y:{ beginAtZero:true, ticks:{ precision:0 } } },
+      plugins:{ legend:{ display:false },
+        title:{ display:!hasData, text:'Aucun créneau détecté pour l\'instant', color:'#999' } },
+    },
   });
 }
 
