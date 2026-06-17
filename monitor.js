@@ -110,54 +110,39 @@ async function fetchServices(page) {
   await page.waitForSelector('a[href*="/process"], table tr', { timeout: 15000 }).catch(() => {});
   if (page.url().includes('/login')) { await login(page); await page.goto(DASH_URL, { waitUntil: 'domcontentloaded', timeout: 45000 }); }
 
-  const rows = await page.locator('table tr, [class*="service"], [class*="processo"]').all();
+  const rows = await page.locator('table tbody tr, table tr').all();
   const services = [];
 
   for (const row of rows) {
-    const text = (await row.innerText().catch(() => '')).trim();
-    if (!text || text.length < 5) continue;
+    const cells = await row.locator('td').all();
+    if (cells.length < 2) continue; // header row or empty
 
-    // Look for a "Continuar" button with a link containing process ID
-    const links = await row.locator('a[href*="/process"], a[href*="/agendamento"]').all();
-    for (const link of links) {
-      const href = await link.getAttribute('href').catch(() => '');
-      const idMatch = href && href.match(/[?&]id=([a-f0-9]+)/i);
-      if (idMatch) {
-        // Get service name: first cell of the row, stop before person name / status
-        let rawName = text.split('\n')[0].trim();
-        // Remove known status phrases and anything after them
-        rawName = rawName.replace(/\s*(Necessita|Validado|Em análise|Aguardando|Concluído|Apagar|Continuar).*/i, '').trim();
-        // If still too long, try to get the first <td> text directly
-        if (rawName.length > 80) {
-          const firstCell = await row.locator('td').first().innerText().catch(() => '');
-          if (firstCell.trim().length > 5) rawName = firstCell.trim().split('\n')[0];
-        }
-        const name = rawName.substring(0, 70).trim() || 'Service';
-        if (!services.find(s => s.id === idMatch[1])) {
-          services.push({
-            id: idMatch[1],
-            name,
-            url: `${BASE_URL}${href.startsWith('/') ? href : '/' + href}`,
-          });
-        }
-      }
+    // Cellule 1 = nom du service, cellule 3 (souvent) = statut
+    let name = (await cells[0].innerText().catch(() => '')).trim().split('\n')[0].trim();
+    name = name.replace(/\s*(Necessita|Validado|Em análise|Aguardando|Concluído|Apagar|Continuar).*/i, '').trim();
+    if (!name || name.length < 4) continue;
+
+    // Statut = avant-dernière cellule texte (la dernière = Ações/boutons)
+    let statusText = '';
+    for (let i = cells.length - 1; i >= 1; i--) {
+      const t = (await cells[i].innerText().catch(() => '')).trim();
+      if (t && !/Continuar|Apagar|Imprimir|Ver instru/i.test(t)) { statusText = t.replace(/\n+/g, ' ').trim(); break; }
+    }
+
+    // Lien de prise de RDV éventuel
+    const link = row.locator('a[href*="/process"], a[href*="/agendamento"]').first();
+    const href = await link.getAttribute('href').catch(() => null);
+    const idMatch = href && href.match(/[?&]id=([a-f0-9]+)/i);
+
+    const id  = idMatch ? idMatch[1] : `noid-${name.substring(0, 20)}`;
+    const url = idMatch ? `${BASE_URL}${href.startsWith('/') ? href : '/' + href}` : null;
+
+    if (!services.find(s => s.id === id)) {
+      services.push({ id, name: name.substring(0, 70), url, dashStatus: statusText, monitorable: !!url });
     }
   }
 
-  // Fallback: try to find process links anywhere on page
-  if (services.length === 0) {
-    const allLinks = await page.locator('a[href*="/process?id="]').all();
-    for (const link of allLinks) {
-      const href  = await link.getAttribute('href').catch(() => '');
-      const label = (await link.innerText().catch(() => '')).trim() || 'Service';
-      const idMatch = href && href.match(/id=([a-f0-9]+)/i);
-      if (idMatch && !services.find(s => s.id === idMatch[1])) {
-        services.push({ id: idMatch[1], name: label, url: `${BASE_URL}${href}` });
-      }
-    }
-  }
-
-  log(`Found ${services.length} service(s): ${services.map(s => s.name).join(' | ')}`);
+  log(`Found ${services.length} service(s): ${services.map(s => `${s.name}${s.monitorable ? '' : ' [non-surveillable]'}`).join(' | ')}`);
   return services;
 }
 
@@ -255,6 +240,13 @@ async function runCheck() {
 
     const results = [];
     for (const svc of services) {
+      // Service sans étape RDV (ex: "Em validação, aguarde e-mail") : on le liste avec son statut, sans visiter de page
+      if (svc.monitorable === false) {
+        log(`  → "${svc.name}" non-surveillable (${svc.dashStatus || 'statut inconnu'})`);
+        results.push({ id: svc.id, name: svc.name, status: 'ok', slots: [], message: svc.dashStatus || 'En cours (pas d\'étape rendez-vous)' });
+        continue;
+      }
+
       log(`Checking: ${svc.name}`);
       const { available, slots, skipped, booked } = await checkOneService(page, svc);
 

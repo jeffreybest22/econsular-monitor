@@ -90,16 +90,6 @@
     <div class="stat booked"><div class="v" id="s-booked">0</div><div class="l">RDV réservés</div></div>
   </div>
 
-  <!-- Graphiques -->
-  <div class="card chart-card">
-    <h3>Activité par jour (7 derniers jours)</h3>
-    <canvas id="chartDaily" height="110"></canvas>
-  </div>
-  <div class="card chart-card">
-    <h3>Répartition des statuts</h3>
-    <canvas id="chartStatus" height="110"></canvas>
-  </div>
-
   <div class="card">
     <div class="toolbar">
       <label>Service :</label>
@@ -127,6 +117,23 @@
 
     <div class="pagination" id="pagination"></div>
     <p class="refresh" id="refresh-info"></p>
+  </div>
+
+  <!-- Graphiques (second plan, sous le tableau) -->
+  <div class="card chart-card">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+      <h3 style="margin:0">Activité dans le temps</h3>
+      <div>
+        <button class="filter-btn period-btn active" id="period-day" onclick="setPeriod('day')">Jour</button>
+        <button class="filter-btn period-btn" id="period-week" onclick="setPeriod('week')">Semaine</button>
+        <button class="filter-btn period-btn" id="period-month" onclick="setPeriod('month')">Mois</button>
+      </div>
+    </div>
+    <canvas id="chartDaily" height="110"></canvas>
+  </div>
+  <div class="card chart-card">
+    <h3>Répartition des statuts</h3>
+    <canvas id="chartStatus" height="110"></canvas>
   </div>
 </div>
 
@@ -297,6 +304,53 @@ function labelStatus(s) {
 
 // ---- Graphiques ----
 let chartDaily = null, chartStatus = null;
+let chartPeriod = 'day'; // day | week | month
+
+function setPeriod(p) {
+  chartPeriod = p;
+  ['day','week','month'].forEach(x =>
+    document.getElementById('period-' + x).classList.toggle('active', x === p));
+  renderCharts();
+}
+
+// Regroupe les checks par jour / semaine / mois
+function bucketize(period) {
+  const buckets = new Map(); // key -> {label, ok, slots, error, booked, order}
+  const ensure = (key, label, order) => {
+    if (!buckets.has(key)) buckets.set(key, { label, ok:0, slots:0, error:0, booked:0, order });
+    return buckets.get(key);
+  };
+
+  for (const c of allChecks) {
+    if (!c.ts) continue;
+    const d = new Date(c.ts);
+    let key, label, order;
+    if (period === 'day') {
+      key = c.ts.substring(0,10);
+      label = d.toLocaleDateString('fr-FR', { day:'2-digit', month:'2-digit', timeZone:'America/Port-au-Prince' });
+      order = key;
+    } else if (period === 'week') {
+      // semaine ISO (lundi)
+      const t = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()));
+      const day = (t.getUTCDay() + 6) % 7; t.setUTCDate(t.getUTCDate() - day);
+      key = t.toISOString().substring(0,10);
+      label = 'Sem. ' + t.toLocaleDateString('fr-FR', { day:'2-digit', month:'2-digit' });
+      order = key;
+    } else { // month
+      key = c.ts.substring(0,7);
+      label = d.toLocaleDateString('fr-FR', { month:'short', year:'2-digit', timeZone:'America/Port-au-Prince' });
+      order = key;
+    }
+    const b = ensure(key, label, order);
+    b[c.status] = (b[c.status] || 0) + 1;
+  }
+
+  let arr = [...buckets.values()].sort((a,b) => a.order < b.order ? -1 : 1);
+  // Limiter : 14 jours / 12 semaines / 12 mois max
+  const limit = period === 'day' ? 14 : 12;
+  if (arr.length > limit) arr = arr.slice(arr.length - limit);
+  return arr;
+}
 
 function renderCharts() {
   // Stats globales
@@ -307,31 +361,18 @@ function renderCharts() {
   document.getElementById('s-error').textContent  = counts.error;
   document.getElementById('s-booked').textContent = counts.booked;
 
-  // Activité 7 derniers jours (par jour, par statut)
-  const days = [];
-  const fmt = d => d.toLocaleDateString('fr-FR', { day:'2-digit', month:'2-digit', timeZone:'America/Port-au-Prince' });
-  const today = new Date();
-  for (let i = 6; i >= 0; i--) {
-    const d = new Date(today); d.setDate(today.getDate() - i);
-    days.push({ key: d.toISOString().substring(0,10), label: fmt(d), ok:0, slots:0, error:0, booked:0 });
-  }
-  for (const c of allChecks) {
-    const key = (c.ts || '').substring(0,10);
-    const day = days.find(x => x.key === key);
-    if (day) day[c.status] = (day[c.status]||0) + 1;
-  }
-
-  const labels = days.map(d => d.label);
+  const buckets = bucketize(chartPeriod);
+  const labels = buckets.map(b => b.label);
   if (chartDaily) chartDaily.destroy();
   chartDaily = new Chart(document.getElementById('chartDaily'), {
     type: 'bar',
     data: {
       labels,
       datasets: [
-        { label:'OK',       data:days.map(d=>d.ok),     backgroundColor:'#a5d6a7' },
-        { label:'Créneaux', data:days.map(d=>d.slots),  backgroundColor:'#2196f3' },
-        { label:'Erreurs',  data:days.map(d=>d.error),  backgroundColor:'#ef9a9a' },
-        { label:'Réservés', data:days.map(d=>d.booked), backgroundColor:'#9575cd' },
+        { label:'OK',       data:buckets.map(b=>b.ok),     backgroundColor:'#a5d6a7' },
+        { label:'Créneaux', data:buckets.map(b=>b.slots),  backgroundColor:'#2196f3' },
+        { label:'Erreurs',  data:buckets.map(b=>b.error),  backgroundColor:'#ef9a9a' },
+        { label:'Réservés', data:buckets.map(b=>b.booked), backgroundColor:'#9575cd' },
       ],
     },
     options: {
