@@ -1,6 +1,27 @@
 {
   "checks": [
     {
+      "ts": "2026-06-18T05:41:47.445Z",
+      "status": "ok",
+      "message": "Aucun créneau disponible",
+      "services": [
+        {
+          "id": "69a5a30b2cb1a60013b679f5",
+          "name": "Outras declarações e atestados",
+          "status": "booked",
+          "slots": [],
+          "message": "Rendez-vous déjà réservé"
+        },
+        {
+          "id": "noid-Visto de Visita - VI",
+          "name": "Visto de Visita - VIVIS",
+          "status": "ok",
+          "slots": [],
+          "message": "Em validação, aguarde e-mail"
+        }
+      ]
+    },
+    {
       "ts": "2026-06-18T05:36:38.608Z",
       "status": "ok",
       "message": "Aucun créneau disponible",
@@ -6047,22 +6068,8 @@
           "message": "? créneau(x)"
         }
       ]
-    },
-    {
-      "ts": "2026-06-17T02:41:42.533Z",
-      "status": "slots",
-      "message": "Outras declarações e atestados",
-      "services": [
-        {
-          "id": "69a5a30b2cb1a60013b679f5",
-          "name": "Outras declarações e atestados",
-          "status": "slots",
-          "slots": [],
-          "message": "? créneau(x)"
-        }
-      ]
     }
   ],
-  "last_check": "2026-06-18T05:36:38.608Z",
+  "last_check": "2026-06-18T05:41:47.445Z",
   "last_status": "ok"
 }
