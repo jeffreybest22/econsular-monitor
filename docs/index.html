@@ -46,6 +46,7 @@
   .badge.error  { background:#ffebee; color:#c62828; }
   .badge.slots  { background:#e3f2fd; color:#1565c0; }
   .badge.booked { background:#ede7f6; color:#6a1b9a; }
+  .badge.paused { background:#eceff1; color:#607d8b; }
 
   /* Stats + graphiques */
   .stats { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:16px; }
@@ -310,7 +311,7 @@ function formatDate(ts) {
   return new Date(ts).toLocaleString('fr-FR', { timeZone: 'America/Port-au-Prince' });
 }
 function labelStatus(s) {
-  return s === 'ok' ? 'OK' : s === 'slots' ? 'CRÉNEAU !' : s === 'booked' ? 'RÉSERVÉ' : 'ERREUR';
+  return s === 'ok' ? 'OK' : s === 'slots' ? 'CRÉNEAU !' : s === 'booked' ? 'RÉSERVÉ' : s === 'paused' ? 'EN PAUSE' : 'ERREUR';
 }
 
 // ---- Graphiques ----

@@ -13,6 +13,12 @@ const EC_PASSWORD = process.env.EC_PASSWORD;
 const NOTIFY_EMAILS = (process.env.NOTIFY_EMAILS || EC_EMAIL).split(',').map(e => e.trim());
 const CHECK_INTERVAL_MS = parseInt(process.env.CHECK_INTERVAL_MINUTES || '5') * 60 * 1000;
 
+// FOCUS : ne surveiller QUE les services dont le nom contient un de ces mots-clés.
+// Les autres sont listés "en pause" (pas de vérif, pas d'alerte).
+// Vide = surveiller tous les services. Modifiable via secret FOCUS_ONLY (mots séparés par virgule).
+const FOCUS_ONLY = (process.env.FOCUS_ONLY || 'Visto de Visita')
+  .split(',').map(s => s.trim()).filter(Boolean);
+
 // Per-service notification state  { [serviceId]: boolean }
 const notifiedSlots = {};
 let lastErrorNotifiedAt = 0;
@@ -240,6 +246,13 @@ async function runCheck() {
 
     const results = [];
     for (const svc of services) {
+      // FOCUS : si une liste est définie et que ce service n'y correspond pas → en pause
+      if (FOCUS_ONLY.length > 0 && !FOCUS_ONLY.some(kw => svc.name.toLowerCase().includes(kw.toLowerCase()))) {
+        log(`  → "${svc.name}" EN PAUSE (hors focus)`);
+        results.push({ id: svc.id, name: svc.name, status: 'paused', slots: [], message: 'En pause (surveillance désactivée)' });
+        continue;
+      }
+
       // Service sans étape RDV (ex: "Em validação, aguarde e-mail") : on le liste avec son statut, sans visiter de page
       if (svc.monitorable === false) {
         log(`  → "${svc.name}" non-surveillable (${svc.dashStatus || 'statut inconnu'})`);
