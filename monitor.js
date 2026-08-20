@@ -19,6 +19,18 @@ const CHECK_INTERVAL_MS = parseInt(process.env.CHECK_INTERVAL_MINUTES || '5') * 
 const FOCUS_ONLY = (process.env.FOCUS_ONLY || 'Visto de Visita')
   .split(',').map(s => s.trim()).filter(Boolean);
 
+// FENÊTRE CHAUDE : heures (Haïti) où les créneaux tombent le plus → vérifs rapprochées.
+// Intel Jeff : ~23h, minuit, 1h du matin. Pendant ces heures, plusieurs vérifs/run (~toutes les 20s).
+const HOT_HOURS = (process.env.HOT_HOURS || '23,0,1').split(',').map(s => parseInt(s.trim())).filter(n => !isNaN(n));
+
+function currentHaitiHour() {
+  const parts = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'America/Port-au-Prince', hour: '2-digit', hour12: false, hourCycle: 'h23',
+  }).formatToParts(new Date());
+  return parseInt(parts.find(p => p.type === 'hour').value);
+}
+const inHotWindow = () => HOT_HOURS.includes(currentHaitiHour());
+
 // Per-service notification state  { [serviceId]: boolean }
 const notifiedSlots = {};
 let lastErrorNotifiedAt = 0;
@@ -392,6 +404,24 @@ async function main() {
   const logFile    = logFileIdx !== -1 ? process.argv[logFileIdx + 1] : null;
 
   if (process.argv.includes('--once')) {
+    // Fenêtre chaude (23h/00h/01h Haïti) : rafale de vérifs dans le même run (~toutes les 22s)
+    // pour rester sous le timeout du workflow (4 min) et sous 60s (le cron relance chaque minute).
+    if (inHotWindow()) {
+      log(`🔥 FENÊTRE CHAUDE (${currentHaitiHour()}h Haïti) — vérifs rapprochées`);
+      const end = Date.now() + 50000; // ~50s de rafale
+      let n = 0;
+      do {
+        n++;
+        const result = await runCheck();
+        if (logFile && result) writeStatusLog(logFile, result);
+        // Si un créneau est trouvé, inutile de continuer la rafale
+        if (result && result.status === 'slots') break;
+        if (Date.now() < end) await new Promise(r => setTimeout(r, 22000));
+      } while (Date.now() < end);
+      log(`Rafale terminée (${n} vérif(s))`);
+      process.exit(0);
+    }
+
     const result = await runCheck();
     if (logFile && result) writeStatusLog(logFile, result);
     process.exit(0);
