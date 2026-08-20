@@ -8,10 +8,15 @@ on:
 permissions:
   contents: write
 
+# Évite l'empilement si un run déborde sur le suivant (déclenchement chaque minute)
+concurrency:
+  group: econsular-monitor
+  cancel-in-progress: true
+
 jobs:
   check:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 4
 
     steps:
       - uses: actions/checkout@v4
@@ -23,8 +28,22 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Install Playwright Chromium
-        run: npx playwright install chromium --with-deps
+      # Cache du binaire Chromium — évite le re-téléchargement de 175 Mo à chaque run
+      - name: Cache Playwright browser
+        id: pw-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-chromium-${{ runner.os }}
+
+      - name: Install Playwright Chromium (cached)
+        run: |
+          if [ "${{ steps.pw-cache.outputs.cache-hit }}" = "true" ]; then
+            echo "Browser en cache — install deps système seulement"
+            npx playwright install-deps chromium || true
+          else
+            npx playwright install chromium --with-deps
+          fi
 
       - name: Run availability check
         env:
