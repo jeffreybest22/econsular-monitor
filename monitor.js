@@ -23,6 +23,10 @@ const FOCUS_ONLY = (process.env.FOCUS_ONLY || 'Visto de Visita')
 // Intel Jeff : ~23h, minuit, 1h du matin. Pendant ces heures, plusieurs vérifs/run (~toutes les 20s).
 const HOT_HOURS = (process.env.HOT_HOURS || '23,0,1').split(',').map(s => parseInt(s.trim())).filter(n => !isNaN(n));
 
+// AUTO-RÉSERVATION : tenter de réserver automatiquement le 1er créneau. Désactivable via secret AUTO_BOOK=false.
+// L'alarme (appel+ntfy+email) part TOUJOURS en parallèle → repli manuel si l'auto échoue.
+const AUTO_BOOK = (process.env.AUTO_BOOK || 'true').toLowerCase() !== 'false';
+
 function currentHaitiHour() {
   const parts = new Intl.DateTimeFormat('en-US', {
     timeZone: 'America/Port-au-Prince', hour: '2-digit', hour12: false, hourCycle: 'h23',
@@ -107,6 +111,113 @@ async function makeCall(text) {
   } catch (e) {
     log(`CallMeBot error: ${e.message}`);
     return false;
+  }
+}
+
+// Tentative d'auto-réservation. Best-effort défensif : en cas de doute, N'AGIT PAS (repli manuel).
+// Flux décrit : dropdowns date/heure → bouton "Prendre RDV" → modal confirmer → si indispo, réessayer sans refresh.
+async function autoBook(page, svc) {
+  const deadline = Date.now() + 90000; // borne 90s (timeout workflow = 4 min)
+  const htmlSnapshot = (await page.content().catch(() => '')).substring(0, 4000);
+  log('[AUTOBOOK] Début — capture DOM pour affinage futur');
+
+  const successRe = /agendado com sucesso|agendamento (realizado|confirmado)|est[áa] agendado para|sucesso/i;
+  const unavailRe = /indispon|n[ãa]o (est[áa] )?dispon|hor[áa]rio.*(ocupad|indispon|n[ãa]o)|j[áa] (foi )?(reservad|agendad)|tente novamente/i;
+
+  try {
+    // 1) Récupérer les dropdowns (date, heure) présents sur la page
+    const selects = await page.locator('select:visible').all();
+    log(`[AUTOBOOK] ${selects.length} dropdown(s) trouvé(s)`);
+
+    // Options non-placeholder de chaque select
+    const optionsPerSelect = [];
+    for (const sel of selects) {
+      const opts = await sel.locator('option').all();
+      const vals = [];
+      for (const o of opts) {
+        const val = await o.getAttribute('value');
+        const txt = (await o.innerText().catch(() => '')).trim();
+        // ignorer placeholder ("Selecione", vide)
+        if (val && val !== '' && !/selecione|escolha|--/i.test(txt)) vals.push({ val, txt });
+      }
+      optionsPerSelect.push(vals);
+    }
+
+    // Bouton "Prendre rendez-vous" (par texte portugais)
+    const bookBtn = page.locator('button, input[type=submit], a').filter({
+      hasText: /agendar|marcar|confirmar agendamento|prender|reservar|selecionar hor/i,
+    }).first();
+
+    // Si aucun dropdown ET aucun bouton identifiable → on n'agit pas (sécurité)
+    const hasBook = await bookBtn.count().catch(() => 0);
+    if (selects.length === 0 && !hasBook) {
+      log('[AUTOBOOK] Formulaire non reconnu — abandon (repli manuel)');
+      return { booked: false, reason: 'form-not-recognized', htmlSnapshot };
+    }
+
+    // 2) Essayer chaque combinaison date×heure (bornée)
+    // Cas simple fréquent : 1 select date + 1 select heure. Sinon on tente le 1er select seul.
+    const dateOpts = optionsPerSelect[0] || [{ val: null, txt: '(défaut)' }];
+    const timeOpts = optionsPerSelect[1] || [{ val: null, txt: '(défaut)' }];
+
+    for (const d of dateOpts) {
+      if (Date.now() > deadline) break;
+      if (d.val && selects[0]) { await selects[0].selectOption(d.val).catch(() => {}); await page.waitForTimeout(600); }
+
+      // Recharger les options heure (peuvent dépendre de la date choisie)
+      let currentTimeOpts = timeOpts;
+      if (selects[1]) {
+        const opts = await selects[1].locator('option').all();
+        currentTimeOpts = [];
+        for (const o of opts) {
+          const val = await o.getAttribute('value');
+          const txt = (await o.innerText().catch(() => '')).trim();
+          if (val && val !== '' && !/selecione|escolha|--/i.test(txt)) currentTimeOpts.push({ val, txt });
+        }
+        if (currentTimeOpts.length === 0) currentTimeOpts = [{ val: null, txt: '(défaut)' }];
+      }
+
+      for (const t of currentTimeOpts) {
+        if (Date.now() > deadline) break;
+        if (t.val && selects[1]) { await selects[1].selectOption(t.val).catch(() => {}); await page.waitForTimeout(400); }
+
+        log(`[AUTOBOOK] Tentative : date=${d.txt} heure=${t.txt}`);
+        // Cliquer "Prendre rendez-vous"
+        if (hasBook) { await bookBtn.click({ timeout: 5000 }).catch(() => {}); }
+        await page.waitForTimeout(1200);
+
+        // Modal de confirmation → bouton confirmer
+        const confirmBtn = page.locator('[class*=modal] button, [role=dialog] button, .swal2-confirm, button').filter({
+          hasText: /confirmar|sim|agendar|ok\b|prosseguir/i,
+        }).first();
+        if (await confirmBtn.count().catch(() => 0)) {
+          await confirmBtn.click({ timeout: 5000 }).catch(() => {});
+          await page.waitForTimeout(1800);
+        }
+
+        // Vérifier le résultat SANS recharger
+        const bodyNow = await page.locator('body').innerText().catch(() => '');
+        if (successRe.test(bodyNow)) {
+          log(`[AUTOBOOK] ✅ RÉSERVÉ ! date=${d.txt} heure=${t.txt}`);
+          return { booked: true, date: d.txt, time: t.txt };
+        }
+        if (unavailRe.test(bodyNow)) {
+          log(`[AUTOBOOK] créneau ${t.txt} indispo — on essaie le suivant (sans refresh)`);
+          // fermer un éventuel modal d'erreur
+          const closeBtn = page.locator('[class*=modal] button, .swal2-confirm, .swal2-cancel, button').filter({ hasText: /fechar|ok|voltar|cancelar/i }).first();
+          if (await closeBtn.count().catch(() => 0)) { await closeBtn.click().catch(() => {}); await page.waitForTimeout(500); }
+          continue;
+        }
+        // Résultat ambigu : on log et on continue prudemment
+        log(`[AUTOBOOK] résultat ambigu pour ${t.txt} — extrait: ${bodyNow.substring(0, 120).replace(/\n/g, ' ')}`);
+      }
+    }
+
+    log('[AUTOBOOK] Aucune combinaison réservée — repli manuel');
+    return { booked: false, reason: 'all-attempts-failed', htmlSnapshot };
+  } catch (e) {
+    log(`[AUTOBOOK] Erreur: ${e.message}`);
+    return { booked: false, reason: 'error:' + e.message.substring(0, 80), htmlSnapshot };
   }
 }
 
@@ -291,38 +402,62 @@ async function runCheck() {
         log(`SLOTS AVAILABLE for "${svc.name}"! (${slots.length} slot(s))`);
         if (slots.length > 0) log(`  → ${slots.join(' | ')}`);
 
+        let bookResult = null;
         if (!notifiedSlots[svc.id]) {
           notifiedSlots[svc.id] = true;
+
+          // 1) ALARME IMMÉDIATE (fire-and-forget) — réveiller Jeff SANS attendre l'auto-réservation
+          sendNtfy(`🚨 RDV DISPONIBLE — ${svc.name}`,
+            slots.length > 0 ? `${slots.length} créneau(x) : ${slots.slice(0, 3).join(', ')}` : 'Un créneau vient de s\'ouvrir !',
+            svc.url).catch(e => log(`ntfy failed: ${e.message}`));
+          makeCall(`Alerte rendez-vous disponible pour ${svc.name} à l'ambassade du Brésil. Connectez-vous immédiatement.`)
+            .catch(e => log(`Call failed: ${e.message}`));
+
+          // 2) AUTO-RÉSERVATION (si activée) — page est déjà sur la page de RDV
+          if (AUTO_BOOK) {
+            bookResult = await autoBook(page, svc);
+            log(`[AUTOBOOK] résultat: ${JSON.stringify({ booked: bookResult.booked, reason: bookResult.reason })}`);
+            // Capturer le HTML du formulaire (1ère fois) pour affiner les sélecteurs
+            if (bookResult.htmlSnapshot) log(`[AUTOBOOK] HTML(4k): ${bookResult.htmlSnapshot.replace(/\s+/g, ' ').substring(0, 1500)}`);
+          }
+
+          // 3) Notif résultat : succès = alarme victoire ; échec = rappel "réservez à la main"
+          if (bookResult && bookResult.booked) {
+            await sendNtfy(`✅ RDV RÉSERVÉ AUTO — ${svc.name}`,
+              `Réservé automatiquement : ${bookResult.date || ''} ${bookResult.time || ''}. Vérifiez et confirmez sur le site.`, svc.url).catch(() => {});
+            makeCall(`Bonne nouvelle. Un rendez-vous a été réservé automatiquement pour ${svc.name}. Vérifiez le site pour confirmer.`).catch(() => {});
+          } else if (AUTO_BOOK) {
+            await sendNtfy(`⚠️ Créneau détecté — À RÉSERVER À LA MAIN — ${svc.name}`,
+              'L\'auto-réservation n\'a pas abouti. Ouvrez le site MAINTENANT pour réserver vous-même.', svc.url).catch(() => {});
+          }
+
+          // 4) Email récapitulatif avec le résultat
           const slotsHtml = slots.length > 0
             ? `<ul style="padding-left:20px">${slots.map(s => `<li>${s}</li>`).join('')}</ul>`
             : `<p>Connectez-vous pour voir les créneaux exacts.</p>`;
+          const bookHtml = bookResult
+            ? (bookResult.booked
+                ? `<div style="background:#e8f5e9;padding:12px;border-left:4px solid #2e7d32;margin:12px 0"><strong>✅ Réservé automatiquement</strong> : ${bookResult.date || ''} ${bookResult.time || ''}<br>Vérifiez/confirmez sur le site.</div>`
+                : `<div style="background:#fff3f3;padding:12px;border-left:4px solid #c00;margin:12px 0"><strong>⚠️ Auto-réservation non aboutie</strong> (${bookResult.reason || '?'}). Réservez à la main tout de suite.</div>`)
+            : '';
           await sendEmail(
-            `RENDEZ-VOUS DISPONIBLE — ${svc.name}`,
+            `${bookResult && bookResult.booked ? '✅ RDV RÉSERVÉ' : 'RENDEZ-VOUS DISPONIBLE'} — ${svc.name}`,
             `<div style="font-family:sans-serif;max-width:600px;margin:auto">
               <h2 style="color:#1a7f3c">Créneaux disponibles !</h2>
               <div style="background:#f0f7ff;padding:15px;border-left:4px solid #0066cc;margin:15px 0">
                 <strong>${svc.name}</strong><br><small>Embaixada do Brasil em Porto Príncipe</small>
               </div>
+              ${bookHtml}
               ${slotsHtml}
-              <p><a href="${svc.url}" style="background:#1a7f3c;color:white;padding:12px 24px;text-decoration:none;border-radius:6px;display:inline-block">Réserver maintenant</a></p>
-              <p><strong>Dépêchez-vous !</strong></p>
+              <p><a href="${svc.url}" style="background:#1a7f3c;color:white;padding:12px 24px;text-decoration:none;border-radius:6px;display:inline-block">Ouvrir le site</a></p>
               <hr><small>Détecté le ${new Date().toLocaleString('fr-FR')} | E-Consular Monitor</small>
             </div>`
           ).catch(e => log(`Email failed (non-fatal): ${e.message}`));
-
-          // Push ntfy.sh — alarme sonore sur le téléphone
-          const ntfyMsg = slots.length > 0
-            ? `${slots.length} créneau(x) : ${slots.slice(0, 3).join(', ')}`
-            : 'Un créneau vient de s\'ouvrir — réservez vite !';
-          await sendNtfy(`🚨 RDV DISPONIBLE — ${svc.name}`, ntfyMsg, svc.url);
-
-          // Appel téléphonique Telegram (CallMeBot) — sonne et lit le message
-          await makeCall(`Alerte rendez-vous. Un créneau est disponible pour ${svc.name} à l'ambassade du Brésil. Connectez-vous immédiatement pour réserver.`)
-            .catch(e => log(`Call failed (non-fatal): ${e.message}`));
         } else {
           log(`Notification already sent for "${svc.name}" — skipping duplicate`);
         }
-        results.push({ id: svc.id, name: svc.name, status: 'slots', slots, message: `${slots.length || '?'} créneau(x)` });
+        results.push({ id: svc.id, name: svc.name, status: 'slots', slots,
+          message: bookResult && bookResult.booked ? `RÉSERVÉ auto : ${bookResult.date || ''} ${bookResult.time || ''}` : `${slots.length || '?'} créneau(x)` });
       } else {
         if (notifiedSlots[svc.id]) { notifiedSlots[svc.id] = false; }
         log(`No slots for "${svc.name}"`);
