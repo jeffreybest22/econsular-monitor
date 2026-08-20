@@ -117,9 +117,10 @@ async function makeCall(text) {
 // Tentative d'auto-réservation. Best-effort défensif : en cas de doute, N'AGIT PAS (repli manuel).
 // Flux décrit : dropdowns date/heure → bouton "Prendre RDV" → modal confirmer → si indispo, réessayer sans refresh.
 async function autoBook(page, svc) {
-  const deadline = Date.now() + 90000; // borne 90s (timeout workflow = 4 min)
-  const htmlSnapshot = (await page.content().catch(() => '')).substring(0, 4000);
-  log('[AUTOBOOK] Début — capture DOM pour affinage futur');
+  const t0 = Date.now();
+  const deadline = t0 + 90000; // borne 90s (timeout workflow = 4 min)
+  let htmlSnapshot = ''; // capturé seulement en cas d'échec (ne pas retarder le 1er clic)
+  log('[AUTOBOOK] Début (mode rapide, attentes événementielles)');
 
   const successRe = /agendado com sucesso|agendamento (realizado|confirmado)|est[áa] agendado para|sucesso/i;
   const unavailRe = /indispon|n[ãa]o (est[áa] )?dispon|hor[áa]rio.*(ocupad|indispon|n[ãa]o)|j[áa] (foi )?(reservad|agendad)|tente novamente/i;
@@ -152,6 +153,7 @@ async function autoBook(page, svc) {
     const hasBook = await bookBtn.count().catch(() => 0);
     if (selects.length === 0 && !hasBook) {
       log('[AUTOBOOK] Formulaire non reconnu — abandon (repli manuel)');
+      htmlSnapshot = (await page.content().catch(() => '')).substring(0, 4000);
       return { booked: false, reason: 'form-not-recognized', htmlSnapshot };
     }
 
@@ -160,9 +162,15 @@ async function autoBook(page, svc) {
     const dateOpts = optionsPerSelect[0] || [{ val: null, txt: '(défaut)' }];
     const timeOpts = optionsPerSelect[1] || [{ val: null, txt: '(défaut)' }];
 
+    const modalSel = '[class*=modal]:visible, [role=dialog]:visible, .swal2-popup';
+
     for (const d of dateOpts) {
       if (Date.now() > deadline) break;
-      if (d.val && selects[0]) { await selects[0].selectOption(d.val).catch(() => {}); await page.waitForTimeout(600); }
+      if (d.val && selects[0]) {
+        await selects[0].selectOption(d.val).catch(() => {});
+        // attendre que le select heure se peuple (dépendant), max 1.5s
+        if (selects[1]) await selects[1].locator('option').nth(1).waitFor({ timeout: 1500 }).catch(() => {});
+      }
 
       // Recharger les options heure (peuvent dépendre de la date choisie)
       let currentTimeOpts = timeOpts;
@@ -179,41 +187,45 @@ async function autoBook(page, svc) {
 
       for (const t of currentTimeOpts) {
         if (Date.now() > deadline) break;
-        if (t.val && selects[1]) { await selects[1].selectOption(t.val).catch(() => {}); await page.waitForTimeout(400); }
+        if (t.val && selects[1]) await selects[1].selectOption(t.val).catch(() => {});
 
-        log(`[AUTOBOOK] Tentative : date=${d.txt} heure=${t.txt}`);
+        log(`[AUTOBOOK] Tentative : date=${d.txt} heure=${t.txt} (+${Date.now() - t0}ms)`);
         // Cliquer "Prendre rendez-vous"
-        if (hasBook) { await bookBtn.click({ timeout: 5000 }).catch(() => {}); }
-        await page.waitForTimeout(1200);
+        if (hasBook) await bookBtn.click({ timeout: 4000 }).catch(() => {});
 
-        // Modal de confirmation → bouton confirmer
+        // Attendre l'apparition du modal de confirmation (événementiel, ~200-500ms au lieu de 1.2s fixe)
+        await page.locator(modalSel).first().waitFor({ timeout: 4000 }).catch(() => {});
+
+        // Bouton confirmer dans le modal
         const confirmBtn = page.locator('[class*=modal] button, [role=dialog] button, .swal2-confirm, button').filter({
           hasText: /confirmar|sim|agendar|ok\b|prosseguir/i,
         }).first();
-        if (await confirmBtn.count().catch(() => 0)) {
-          await confirmBtn.click({ timeout: 5000 }).catch(() => {});
-          await page.waitForTimeout(1800);
-        }
+        if (await confirmBtn.count().catch(() => 0)) await confirmBtn.click({ timeout: 4000 }).catch(() => {});
 
-        // Vérifier le résultat SANS recharger
+        // Attendre le résultat (succès OU indispo) — événementiel, dès que le texte apparaît
+        await page.waitForFunction(
+          (re) => { const b = document.body.innerText;
+            return new RegExp(re.s, 'i').test(b) || new RegExp(re.u, 'i').test(b); },
+          { s: successRe.source, u: unavailRe.source }, { timeout: 5000 }
+        ).catch(() => {});
+
         const bodyNow = await page.locator('body').innerText().catch(() => '');
         if (successRe.test(bodyNow)) {
-          log(`[AUTOBOOK] ✅ RÉSERVÉ ! date=${d.txt} heure=${t.txt}`);
+          log(`[AUTOBOOK] ✅ RÉSERVÉ en ${Date.now() - t0}ms ! date=${d.txt} heure=${t.txt}`);
           return { booked: true, date: d.txt, time: t.txt };
         }
         if (unavailRe.test(bodyNow)) {
-          log(`[AUTOBOOK] créneau ${t.txt} indispo — on essaie le suivant (sans refresh)`);
-          // fermer un éventuel modal d'erreur
+          log(`[AUTOBOOK] créneau ${t.txt} indispo — suivant (sans refresh)`);
           const closeBtn = page.locator('[class*=modal] button, .swal2-confirm, .swal2-cancel, button').filter({ hasText: /fechar|ok|voltar|cancelar/i }).first();
-          if (await closeBtn.count().catch(() => 0)) { await closeBtn.click().catch(() => {}); await page.waitForTimeout(500); }
+          if (await closeBtn.count().catch(() => 0)) { await closeBtn.click().catch(() => {}); await page.locator(modalSel).first().waitFor({ state: 'hidden', timeout: 2000 }).catch(() => {}); }
           continue;
         }
-        // Résultat ambigu : on log et on continue prudemment
         log(`[AUTOBOOK] résultat ambigu pour ${t.txt} — extrait: ${bodyNow.substring(0, 120).replace(/\n/g, ' ')}`);
       }
     }
 
-    log('[AUTOBOOK] Aucune combinaison réservée — repli manuel');
+    htmlSnapshot = (await page.content().catch(() => '')).substring(0, 4000);
+    log(`[AUTOBOOK] Aucune combinaison réservée en ${Date.now() - t0}ms — repli manuel`);
     return { booked: false, reason: 'all-attempts-failed', htmlSnapshot };
   } catch (e) {
     log(`[AUTOBOOK] Erreur: ${e.message}`);
@@ -329,42 +341,46 @@ async function checkOneService(page, service) {
   return { available: true, slots };
 }
 
-async function runCheck() {
+async function runCheck(opts = {}) {
   checkCount++;
-  log(`--- Check #${checkCount} ---`);
+  const { sharedPage = null, cachedServices = null } = opts;
+  log(`--- Check #${checkCount}${sharedPage ? ' (session réutilisée)' : ''} ---`);
 
   let browser = null;
   try {
-    browser = await chromium.launch({ headless: true });
-    const page = await browser.newPage();
-    page.setDefaultTimeout(45000);
-
-    // Login avec retry (2 tentatives) — résiste aux blips réseau et lenteurs du site
-    let loginOk = false;
-    for (let attempt = 1; attempt <= 2 && !loginOk; attempt++) {
-      try {
-        await login(page);
-        loginOk = true;
-      } catch (e) {
-        log(`Login attempt ${attempt} failed: ${e.message}`);
-        if (attempt < 2) { await page.waitForTimeout(3000); }
-        else throw e;
+    let page;
+    if (sharedPage) {
+      page = sharedPage; // session déjà connectée (rafale) — pas de launch ni login
+    } else {
+      browser = await chromium.launch({ headless: true });
+      page = await browser.newPage();
+      page.setDefaultTimeout(45000);
+      // Login avec retry (2 tentatives) — résiste aux blips réseau et lenteurs du site
+      let loginOk = false;
+      for (let attempt = 1; attempt <= 2 && !loginOk; attempt++) {
+        try {
+          await login(page);
+          loginOk = true;
+        } catch (e) {
+          log(`Login attempt ${attempt} failed: ${e.message}`);
+          if (attempt < 2) { await page.waitForTimeout(3000); }
+          else throw e;
+        }
       }
     }
 
-    // Discover all services
-    let services = await fetchServices(page);
-
-    // Normalize known service names
-    for (const s of services) {
-      if (/Outras declaraç/i.test(s.name)) s.name = 'Outras declarações e atestados';
-      if (/Visto de Visita/i.test(s.name))  s.name = 'Visto de Visita - VIVIS';
-    }
-
-    // Fallback: if scraping found nothing, use the hardcoded default
-    if (services.length === 0) {
-      log('No services scraped — using hardcoded default');
-      services = [{ id: '69a5a30b2cb1a60013b679f5', name: 'Outras declarações e atestados', url: `${BASE_URL}/process?id=69a5a30b2cb1a60013b679f5` }];
+    // Découverte des services (ou réutilisation du cache pendant la rafale)
+    let services = cachedServices;
+    if (!services) {
+      services = await fetchServices(page);
+      for (const s of services) {
+        if (/Outras declaraç/i.test(s.name)) s.name = 'Outras declarações e atestados';
+        if (/Visto de Visita/i.test(s.name))  s.name = 'Visto de Visita - VIVIS';
+      }
+      if (services.length === 0) {
+        log('No services scraped — using hardcoded default');
+        services = [{ id: '69a5a30b2cb1a60013b679f5', name: 'Outras declarações e atestados', url: `${BASE_URL}/process?id=69a5a30b2cb1a60013b679f5` }];
+      }
     }
 
     const results = [];
@@ -539,21 +555,44 @@ async function main() {
   const logFile    = logFileIdx !== -1 ? process.argv[logFileIdx + 1] : null;
 
   if (process.argv.includes('--once')) {
-    // Fenêtre chaude (23h/00h/01h Haïti) : rafale de vérifs dans le même run (~toutes les 22s)
-    // pour rester sous le timeout du workflow (4 min) et sous 60s (le cron relance chaque minute).
+    // Fenêtre chaude (23h/00h/01h Haïti) : SESSION RÉUTILISÉE (1 seul login) + vérifs directes ~toutes les 3s.
+    // Bien plus rapide : plus de re-login ni re-scrape user-main entre les vérifs.
     if (inHotWindow()) {
-      log(`🔥 FENÊTRE CHAUDE (${currentHaitiHour()}h Haïti) — vérifs rapprochées`);
-      const end = Date.now() + 50000; // ~50s de rafale
-      let n = 0;
-      do {
-        n++;
-        const result = await runCheck();
-        if (logFile && result) writeStatusLog(logFile, result);
-        // Si un créneau est trouvé, inutile de continuer la rafale
-        if (result && result.status === 'slots') break;
-        if (Date.now() < end) await new Promise(r => setTimeout(r, 22000));
-      } while (Date.now() < end);
-      log(`Rafale terminée (${n} vérif(s))`);
+      log(`🔥 FENÊTRE CHAUDE (${currentHaitiHour()}h Haïti) — session réutilisée, vérifs ~3s`);
+      let browser = null;
+      try {
+        browser = await chromium.launch({ headless: true });
+        const page = await browser.newPage();
+        page.setDefaultTimeout(45000);
+        // Login UNE fois
+        let ok = false;
+        for (let a = 1; a <= 2 && !ok; a++) {
+          try { await login(page); ok = true; }
+          catch (e) { log(`Login ${a} échec: ${e.message}`); if (a < 2) await page.waitForTimeout(3000); else throw e; }
+        }
+        // Découvrir les services UNE fois (URLs mises en cache pour la rafale)
+        let services = await fetchServices(page);
+        for (const s of services) {
+          if (/Outras declaraç/i.test(s.name)) s.name = 'Outras declarações e atestados';
+          if (/Visto de Visita/i.test(s.name))  s.name = 'Visto de Visita - VIVIS';
+        }
+        if (services.length === 0) services = [{ id: '69a5a30b2cb1a60013b679f5', name: 'Outras declarações e atestados', url: `${BASE_URL}/process?id=69a5a30b2cb1a60013b679f5` }];
+
+        const end = Date.now() + 50000;
+        let n = 0;
+        do {
+          n++;
+          const result = await runCheck({ sharedPage: page, cachedServices: services });
+          if (logFile && result) writeStatusLog(logFile, result);
+          if (result && result.status === 'slots') { log('Créneau trouvé — fin de rafale'); break; }
+          if (Date.now() < end) await new Promise(r => setTimeout(r, 3000));
+        } while (Date.now() < end);
+        log(`Rafale terminée (${n} vérif(s) sur 1 session)`);
+      } catch (e) {
+        log(`Rafale erreur: ${e.message}`);
+      } finally {
+        if (browser) await browser.close();
+      }
       process.exit(0);
     }
 

@@ -8,10 +8,11 @@ on:
 permissions:
   contents: write
 
-# Évite l'empilement si un run déborde sur le suivant (déclenchement chaque minute)
+# Sérialise les runs (déclenchement chaque minute) SANS annuler un run en cours —
+# crucial : ne jamais tuer un run qui est en train de RÉSERVER un créneau.
 concurrency:
   group: econsular-monitor
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   check:
