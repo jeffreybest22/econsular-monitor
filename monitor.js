@@ -114,6 +114,29 @@ async function makeCall(text) {
   }
 }
 
+// Capture DURABLE de la vraie structure du formulaire (pour fiabiliser l'auto-réservation).
+// Retourne selects+options, boutons+texte, modals, et le HTML de la zone principale (pas l'en-tête).
+async function captureForm(page) {
+  try {
+    return await page.evaluate(() => {
+      const clean = s => (s || '').replace(/\s+/g, ' ').trim();
+      const selects = [...document.querySelectorAll('select')].map(s => ({
+        id: s.id, name: s.name, cls: s.className,
+        options: [...s.options].map(o => ({ v: o.value, t: clean(o.textContent) })).slice(0, 15),
+      }));
+      const buttons = [...document.querySelectorAll('button, input[type=submit], a.btn, a[class*=btn], [role=button]')]
+        .map(b => ({ tag: b.tagName, txt: clean(b.textContent || b.value).slice(0, 50), id: b.id, cls: b.className }))
+        .filter(b => b.txt);
+      const modals = [...document.querySelectorAll('[class*=modal], [role=dialog], [id*=modal], .swal2-popup')]
+        .map(m => ({ id: m.id, cls: m.className, visible: m.offsetParent !== null, html: clean(m.outerHTML).slice(0, 1500) }));
+      // Zone principale (le formulaire), pas le <head> ni la barre gov
+      const main = document.querySelector('main, [role=main], .container-fluid, #content, .content');
+      const mainHtml = main ? main.outerHTML : document.body.innerHTML;
+      return { selects, buttons, modals, mainHtml: mainHtml.replace(/\s+/g, ' ').slice(0, 18000) };
+    });
+  } catch (e) { return { error: e.message }; }
+}
+
 // Tentative d'auto-réservation. Best-effort défensif : en cas de doute, N'AGIT PAS (repli manuel).
 // Flux décrit : dropdowns date/heure → bouton "Prendre RDV" → modal confirmer → si indispo, réessayer sans refresh.
 async function autoBook(page, svc) {
@@ -429,12 +452,19 @@ async function runCheck(opts = {}) {
           makeCall(`Alerte rendez-vous disponible pour ${svc.name} à l'ambassade du Brésil. Connectez-vous immédiatement.`)
             .catch(e => log(`Call failed: ${e.message}`));
 
+          // 1bis) CAPTURE DURABLE du vrai formulaire (avant toute action) → docs/last_form.json (poussé)
+          try {
+            const formCapture = await captureForm(page);
+            fs.writeFileSync('docs/last_form.json', JSON.stringify({
+              ts: new Date().toISOString(), service: svc.name, url: svc.url, slots, capture: formCapture,
+            }, null, 2));
+            log(`[CAPTURE] formulaire sauvé → docs/last_form.json (${(formCapture.mainHtml || '').length} car., ${(formCapture.selects || []).length} selects, ${(formCapture.buttons || []).length} boutons)`);
+          } catch (e) { log(`[CAPTURE] échec: ${e.message}`); }
+
           // 2) AUTO-RÉSERVATION (si activée) — page est déjà sur la page de RDV
           if (AUTO_BOOK) {
             bookResult = await autoBook(page, svc);
             log(`[AUTOBOOK] résultat: ${JSON.stringify({ booked: bookResult.booked, reason: bookResult.reason })}`);
-            // Capturer le HTML du formulaire (1ère fois) pour affiner les sélecteurs
-            if (bookResult.htmlSnapshot) log(`[AUTOBOOK] HTML(4k): ${bookResult.htmlSnapshot.replace(/\s+/g, ' ').substring(0, 1500)}`);
           }
 
           // 3) Notif résultat : succès = alarme victoire ; échec = rappel "réservez à la main"
