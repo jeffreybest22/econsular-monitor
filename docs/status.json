@@ -1,7 +1,7 @@
 {
   "checks": [
     {
-      "ts": "2026-08-21T05:08:10.801Z",
+      "ts": "2026-08-21T05:09:36.752Z",
       "status": "ok",
       "message": "Aucun créneau disponible",
       "services": [
@@ -22,7 +22,7 @@
       ]
     },
     {
-      "ts": "2026-08-21T05:08:05.777Z",
+      "ts": "2026-08-21T05:09:31.645Z",
       "status": "ok",
       "message": "Aucun créneau disponible",
       "services": [
@@ -43,7 +43,7 @@
       ]
     },
     {
-      "ts": "2026-08-21T05:08:00.775Z",
+      "ts": "2026-08-21T05:09:26.574Z",
       "status": "ok",
       "message": "Aucun créneau disponible",
       "services": [
@@ -64,7 +64,7 @@
       ]
     },
     {
-      "ts": "2026-08-21T05:07:55.744Z",
+      "ts": "2026-08-21T05:09:21.493Z",
       "status": "ok",
       "message": "Aucun créneau disponible",
       "services": [
@@ -85,7 +85,7 @@
       ]
     },
     {
-      "ts": "2026-08-21T05:07:50.749Z",
+      "ts": "2026-08-21T05:09:16.447Z",
       "status": "ok",
       "message": "Aucun créneau disponible",
       "services": [
@@ -106,7 +106,7 @@
       ]
     },
     {
-      "ts": "2026-08-21T05:07:45.730Z",
+      "ts": "2026-08-21T05:09:11.384Z",
       "status": "ok",
       "message": "Aucun créneau disponible",
       "services": [
@@ -127,7 +127,7 @@
       ]
     },
     {
-      "ts": "2026-08-21T05:07:40.677Z",
+      "ts": "2026-08-21T05:09:06.296Z",
       "status": "ok",
       "message": "Aucun créneau disponible",
       "services": [
@@ -148,7 +148,7 @@
       ]
     },
     {
-      "ts": "2026-08-21T05:07:35.642Z",
+      "ts": "2026-08-21T05:09:01.244Z",
       "status": "ok",
       "message": "Aucun créneau disponible",
       "services": [
@@ -169,7 +169,7 @@
       ]
     },
     {
-      "ts": "2026-08-21T05:07:30.604Z",
+      "ts": "2026-08-21T05:08:56.197Z",
       "status": "ok",
       "message": "Aucun créneau disponible",
       "services": [
@@ -190,7 +190,7 @@
       ]
     },
     {
-      "ts": "2026-08-21T05:07:25.487Z",
+      "ts": "2026-08-21T05:08:51.128Z",
       "status": "ok",
       "message": "Aucun créneau disponible",
       "services": [
@@ -211,7 +211,7 @@
       ]
     },
     {
-      "ts": "2026-08-21T05:05:00.029Z",
+      "ts": "2026-08-21T05:06:46.132Z",
       "status": "ok",
       "message": "Aucun créneau disponible",
       "services": [
@@ -232,7 +232,7 @@
       ]
     },
     {
-      "ts": "2026-08-21T05:04:54.962Z",
+      "ts": "2026-08-21T05:06:41.172Z",
       "status": "ok",
       "message": "Aucun créneau disponible",
       "services": [
@@ -253,7 +253,7 @@
       ]
     },
     {
-      "ts": "2026-08-21T05:04:49.838Z",
+      "ts": "2026-08-21T05:06:36.181Z",
       "status": "ok",
       "message": "Aucun créneau disponible",
       "services": [
@@ -274,7 +274,7 @@
       ]
     },
     {
-      "ts": "2026-08-21T05:04:44.883Z",
+      "ts": "2026-08-21T05:06:31.225Z",
       "status": "ok",
       "message": "Aucun créneau disponible",
       "services": [
@@ -295,7 +295,7 @@
       ]
     },
     {
-      "ts": "2026-08-21T05:04:39.955Z",
+      "ts": "2026-08-21T05:06:26.228Z",
       "status": "ok",
       "message": "Aucun créneau disponible",
       "services": [
@@ -316,7 +316,7 @@
       ]
     },
     {
-      "ts": "2026-08-21T05:04:34.991Z",
+      "ts": "2026-08-21T05:06:21.269Z",
       "status": "ok",
       "message": "Aucun créneau disponible",
       "services": [
@@ -337,7 +337,7 @@
       ]
     },
     {
-      "ts": "2026-08-21T05:04:30.046Z",
+      "ts": "2026-08-21T05:06:16.277Z",
       "status": "ok",
       "message": "Aucun créneau disponible",
       "services": [
@@ -358,7 +358,7 @@
       ]
     },
     {
-      "ts": "2026-08-21T05:04:25.043Z",
+      "ts": "2026-08-21T05:06:11.312Z",
       "status": "ok",
       "message": "Aucun créneau disponible",
       "services": [
@@ -379,7 +379,7 @@
       ]
     },
     {
-      "ts": "2026-08-21T05:04:20.104Z",
+      "ts": "2026-08-21T05:06:06.318Z",
       "status": "ok",
       "message": "Aucun créneau disponible",
       "services": [
@@ -400,7 +400,7 @@
       ]
     },
     {
-      "ts": "2026-08-21T05:04:15.187Z",
+      "ts": "2026-08-21T05:06:01.348Z",
       "status": "ok",
       "message": "Aucun créneau disponible",
       "services": [
@@ -421,7 +421,7 @@
       ]
     },
     {
-      "ts": "2026-08-21T05:04:10.268Z",
+      "ts": "2026-08-21T05:05:56.314Z",
       "status": "ok",
       "message": "Aucun créneau disponible",
       "services": [
@@ -442,7 +442,7 @@
       ]
     },
     {
-      "ts": "2026-08-21T05:02:00.066Z",
+      "ts": "2026-08-21T05:03:27.008Z",
       "status": "ok",
       "message": "Aucun créneau disponible",
       "services": [
@@ -463,7 +463,7 @@
       ]
     },
     {
-      "ts": "2026-08-21T05:01:55.088Z",
+      "ts": "2026-08-21T05:03:21.907Z",
       "status": "ok",
       "message": "Aucun créneau disponible",
       "services": [
@@ -484,7 +484,7 @@
       ]
     },
     {
-      "ts": "2026-08-21T05:01:50.090Z",
+      "ts": "2026-08-21T05:03:16.791Z",
       "status": "ok",
       "message": "Aucun créneau disponible",
       "services": [
@@ -505,7 +505,7 @@
       ]
     },
     {
-      "ts": "2026-08-21T05:01:45.077Z",
+      "ts": "2026-08-21T05:03:11.721Z",
       "status": "ok",
       "message": "Aucun créneau disponible",
       "services": [
@@ -526,7 +526,7 @@
       ]
     },
     {
-      "ts": "2026-08-21T05:01:40.044Z",
+      "ts": "2026-08-21T05:03:06.697Z",
       "status": "ok",
       "message": "Aucun créneau disponible",
       "services": [
@@ -547,7 +547,7 @@
       ]
     },
     {
-      "ts": "2026-08-21T05:01:35.066Z",
+      "ts": "2026-08-21T05:03:01.599Z",
       "status": "ok",
       "message": "Aucun créneau disponible",
       "services": [
@@ -568,7 +568,7 @@
       ]
     },
     {
-      "ts": "2026-08-21T05:01:30.104Z",
+      "ts": "2026-08-21T05:02:56.573Z",
       "status": "ok",
       "message": "Aucun créneau disponible",
       "services": [
@@ -589,7 +589,7 @@
       ]
     },
     {
-      "ts": "2026-08-21T05:01:24.071Z",
+      "ts": "2026-08-21T05:02:51.503Z",
       "status": "ok",
       "message": "Aucun créneau disponible",
       "services": [
@@ -610,7 +610,7 @@
       ]
     },
     {
-      "ts": "2026-08-21T05:01:19.015Z",
+      "ts": "2026-08-21T05:02:46.472Z",
       "status": "ok",
       "message": "Aucun créneau disponible",
       "services": [
@@ -631,7 +631,7 @@
       ]
     },
     {
-      "ts": "2026-08-21T05:01:13.971Z",
+      "ts": "2026-08-21T05:02:41.422Z",
       "status": "ok",
       "message": "Aucun créneau disponible",
       "services": [
@@ -6303,6 +6303,6 @@
       ]
     }
   ],
-  "last_check": "2026-08-21T05:08:10.801Z",
+  "last_check": "2026-08-21T05:09:36.752Z",
   "last_status": "ok"
 }
