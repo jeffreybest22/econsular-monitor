@@ -1,10 +1,25 @@
 {
   "checks": [
     {
-      "ts": "2026-08-22T18:13:29.198Z",
-      "status": "error",
-      "message": "page.goto: Timeout 45000ms exceeded.\nCall log:\n  - navigating to \"https://ec-portoprincipe.itamaraty.gov.br/user-main\", waiting until \"domcontentloaded\"\n",
-      "services": []
+      "ts": "2026-08-22T18:14:04.925Z",
+      "status": "ok",
+      "message": "Aucun créneau disponible",
+      "services": [
+        {
+          "id": "69a5a30b2cb1a60013b679f5",
+          "name": "Outras declarações e atestados",
+          "status": "paused",
+          "slots": [],
+          "message": "En pause (surveillance désactivée)"
+        },
+        {
+          "id": "69ae03992cb1a60013b691fd",
+          "name": "Visto de Visita - VIVIS",
+          "status": "ok",
+          "slots": [],
+          "message": "Aucun créneau disponible"
+        }
+      ]
     },
     {
       "ts": "2026-08-22T18:11:41.674Z",
@@ -6286,6 +6301,6 @@
       ]
     }
   ],
-  "last_check": "2026-08-22T18:13:29.198Z",
-  "last_status": "error"
+  "last_check": "2026-08-22T18:14:04.925Z",
+  "last_status": "ok"
 }
