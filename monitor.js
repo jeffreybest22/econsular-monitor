@@ -137,122 +137,89 @@ async function captureForm(page) {
   } catch (e) { return { error: e.message }; }
 }
 
-// Tentative d'auto-réservation. Best-effort défensif : en cas de doute, N'AGIT PAS (repli manuel).
-// Flux décrit : dropdowns date/heure → bouton "Prendre RDV" → modal confirmer → si indispo, réessayer sans refresh.
+// Auto-réservation — VRAIS sélecteurs (capturés le 22/08 sur une occurrence réelle) :
+//   date  = <select name="date">        heure = <select name="time"> (options 10h00/11h00/14h00)
+//   bouton = <button class="btn btn-outline-success">Agendar</button>
+//   modal  = #confirm-modal-XXXX (.modal.fade) → bouton "Sim" (.btn-danger) confirme
+//   Succès = après confirmation, la page process affiche "está agendado para".
 async function autoBook(page, svc) {
   const t0 = Date.now();
-  const deadline = t0 + 90000; // borne 90s (timeout workflow = 4 min)
-  let htmlSnapshot = ''; // capturé seulement en cas d'échec (ne pas retarder le 1er clic)
-  log('[AUTOBOOK] Début (mode rapide, attentes événementielles)');
+  const deadline = t0 + 80000;
+  const tried = new Set();
 
-  const successRe = /agendado com sucesso|agendamento (realizado|confirmado)|est[áa] agendado para|sucesso/i;
-  const unavailRe = /indispon|n[ãa]o (est[áa] )?dispon|hor[áa]rio.*(ocupad|indispon|n[ãa]o)|j[áa] (foi )?(reservad|agendad)|tente novamente/i;
+  const readOpts = async (sel) => {
+    const opts = await sel.locator('option').all();
+    const out = [];
+    for (const o of opts) {
+      const v = await o.getAttribute('value');
+      const t = (await o.innerText().catch(() => '')).trim();
+      if (v && v !== '' && !/selecione|escolha|--/i.test(t)) out.push({ v, t });
+    }
+    return out;
+  };
 
   try {
-    // 1) Récupérer les dropdowns (date, heure) présents sur la page
-    const selects = await page.locator('select:visible').all();
-    log(`[AUTOBOOK] ${selects.length} dropdown(s) trouvé(s)`);
+    for (let iter = 0; iter < 12 && Date.now() < deadline; iter++) {
+      // (Re)charger la page de RDV — sert aussi à CONFIRMER une réservation faite au tour précédent
+      await page.goto(svc.url, { waitUntil: 'domcontentloaded', timeout: 30000 });
+      await page.waitForTimeout(700);
+      const body = await page.locator('body').innerText().catch(() => '');
 
-    // Options non-placeholder de chaque select
-    const optionsPerSelect = [];
-    for (const sel of selects) {
-      const opts = await sel.locator('option').all();
-      const vals = [];
-      for (const o of opts) {
-        const val = await o.getAttribute('value');
-        const txt = (await o.innerText().catch(() => '')).trim();
-        // ignorer placeholder ("Selecione", vide)
-        if (val && val !== '' && !/selecione|escolha|--/i.test(txt)) vals.push({ val, txt });
+      if (/est[áa]\s+agendado\s+para/i.test(body)) {
+        const m = body.match(/agendado para\s+([^.\n]+)/i);
+        log(`[AUTOBOOK] ✅ RÉSERVÉ confirmé en ${Date.now() - t0}ms — ${m ? m[1].trim() : ''}`);
+        return { booked: true, when: m ? m[1].trim().substring(0, 80) : '' };
       }
-      optionsPerSelect.push(vals);
+      if (body.includes(NO_SLOTS_TEXT)) {
+        log('[AUTOBOOK] créneau disparu (plus de dispo)');
+        return { booked: false, reason: 'slot-gone' };
+      }
+
+      const dateSel = page.locator('select[name=date]');
+      const timeSel = page.locator('select[name=time]');
+      if (!(await dateSel.count()) || !(await timeSel.count())) {
+        log('[AUTOBOOK] selects date/time absents — repli manuel');
+        return { booked: false, reason: 'form-not-recognized', htmlSnapshot: (await page.content().catch(() => '')).slice(0, 4000) };
+      }
+
+      const dOpts = await readOpts(dateSel);
+      if (!dOpts.length) { log('[AUTOBOOK] pas de date'); return { booked: false, reason: 'no-date' }; }
+      const d = dOpts[0];
+      await dateSel.selectOption(d.v).catch(() => {});
+      await page.waitForTimeout(250); // le select heure peut dépendre de la date
+
+      const tOpts = await readOpts(timeSel);
+      const pick = tOpts.find(o => !tried.has(`${d.v}|${o.v}`));
+      if (!pick) { log('[AUTOBOOK] toutes combinaisons essayées'); return { booked: false, reason: 'all-tried' }; }
+      tried.add(`${d.v}|${pick.v}`);
+      await timeSel.selectOption(pick.v).catch(() => {});
+
+      log(`[AUTOBOOK] Tentative date=${d.t} heure=${pick.t} (+${Date.now() - t0}ms)`);
+
+      // Cliquer "Agendar" (bouton vert principal)
+      await page.locator('button.btn-outline-success').first().click({ timeout: 4000 }).catch(() => {});
+
+      // Attendre le modal de confirmation
+      const modal = page.locator('[id^=confirm-modal], .modal.fade').first();
+      await modal.waitFor({ state: 'visible', timeout: 4000 }).catch(() => {});
+
+      // Confirmer : bouton "Sim" (rouge) DANS le modal — scoping crucial pour ne pas recliquer "Agendar"
+      const sim = page.locator('[id^=confirm-modal] button.btn-danger, .modal.show button.btn-danger').first();
+      if (await sim.count().catch(() => 0)) {
+        await sim.click({ timeout: 4000 }).catch(() => {});
+      } else {
+        // fallback : bouton du modal contenant "Sim"
+        await page.locator('.modal.show button, [id^=confirm-modal] button').filter({ hasText: /^\s*sim\s*$/i }).first().click({ timeout: 3000 }).catch(() => {});
+      }
+
+      // Laisser la requête de réservation partir ; le prochain tour rechargera et confirmera via "está agendado"
+      await page.waitForTimeout(1500);
     }
-
-    // Bouton "Prendre rendez-vous" (par texte portugais)
-    const bookBtn = page.locator('button, input[type=submit], a').filter({
-      hasText: /agendar|marcar|confirmar agendamento|prender|reservar|selecionar hor/i,
-    }).first();
-
-    // Si aucun dropdown ET aucun bouton identifiable → on n'agit pas (sécurité)
-    const hasBook = await bookBtn.count().catch(() => 0);
-    if (selects.length === 0 && !hasBook) {
-      log('[AUTOBOOK] Formulaire non reconnu — abandon (repli manuel)');
-      htmlSnapshot = (await page.content().catch(() => '')).substring(0, 4000);
-      return { booked: false, reason: 'form-not-recognized', htmlSnapshot };
-    }
-
-    // 2) Essayer chaque combinaison date×heure (bornée)
-    // Cas simple fréquent : 1 select date + 1 select heure. Sinon on tente le 1er select seul.
-    const dateOpts = optionsPerSelect[0] || [{ val: null, txt: '(défaut)' }];
-    const timeOpts = optionsPerSelect[1] || [{ val: null, txt: '(défaut)' }];
-
-    const modalSel = '[class*=modal]:visible, [role=dialog]:visible, .swal2-popup';
-
-    for (const d of dateOpts) {
-      if (Date.now() > deadline) break;
-      if (d.val && selects[0]) {
-        await selects[0].selectOption(d.val).catch(() => {});
-        // attendre que le select heure se peuple (dépendant), max 1.5s
-        if (selects[1]) await selects[1].locator('option').nth(1).waitFor({ timeout: 1500 }).catch(() => {});
-      }
-
-      // Recharger les options heure (peuvent dépendre de la date choisie)
-      let currentTimeOpts = timeOpts;
-      if (selects[1]) {
-        const opts = await selects[1].locator('option').all();
-        currentTimeOpts = [];
-        for (const o of opts) {
-          const val = await o.getAttribute('value');
-          const txt = (await o.innerText().catch(() => '')).trim();
-          if (val && val !== '' && !/selecione|escolha|--/i.test(txt)) currentTimeOpts.push({ val, txt });
-        }
-        if (currentTimeOpts.length === 0) currentTimeOpts = [{ val: null, txt: '(défaut)' }];
-      }
-
-      for (const t of currentTimeOpts) {
-        if (Date.now() > deadline) break;
-        if (t.val && selects[1]) await selects[1].selectOption(t.val).catch(() => {});
-
-        log(`[AUTOBOOK] Tentative : date=${d.txt} heure=${t.txt} (+${Date.now() - t0}ms)`);
-        // Cliquer "Prendre rendez-vous"
-        if (hasBook) await bookBtn.click({ timeout: 4000 }).catch(() => {});
-
-        // Attendre l'apparition du modal de confirmation (événementiel, ~200-500ms au lieu de 1.2s fixe)
-        await page.locator(modalSel).first().waitFor({ timeout: 4000 }).catch(() => {});
-
-        // Bouton confirmer dans le modal
-        const confirmBtn = page.locator('[class*=modal] button, [role=dialog] button, .swal2-confirm, button').filter({
-          hasText: /confirmar|sim|agendar|ok\b|prosseguir/i,
-        }).first();
-        if (await confirmBtn.count().catch(() => 0)) await confirmBtn.click({ timeout: 4000 }).catch(() => {});
-
-        // Attendre le résultat (succès OU indispo) — événementiel, dès que le texte apparaît
-        await page.waitForFunction(
-          (re) => { const b = document.body.innerText;
-            return new RegExp(re.s, 'i').test(b) || new RegExp(re.u, 'i').test(b); },
-          { s: successRe.source, u: unavailRe.source }, { timeout: 5000 }
-        ).catch(() => {});
-
-        const bodyNow = await page.locator('body').innerText().catch(() => '');
-        if (successRe.test(bodyNow)) {
-          log(`[AUTOBOOK] ✅ RÉSERVÉ en ${Date.now() - t0}ms ! date=${d.txt} heure=${t.txt}`);
-          return { booked: true, date: d.txt, time: t.txt };
-        }
-        if (unavailRe.test(bodyNow)) {
-          log(`[AUTOBOOK] créneau ${t.txt} indispo — suivant (sans refresh)`);
-          const closeBtn = page.locator('[class*=modal] button, .swal2-confirm, .swal2-cancel, button').filter({ hasText: /fechar|ok|voltar|cancelar/i }).first();
-          if (await closeBtn.count().catch(() => 0)) { await closeBtn.click().catch(() => {}); await page.locator(modalSel).first().waitFor({ state: 'hidden', timeout: 2000 }).catch(() => {}); }
-          continue;
-        }
-        log(`[AUTOBOOK] résultat ambigu pour ${t.txt} — extrait: ${bodyNow.substring(0, 120).replace(/\n/g, ' ')}`);
-      }
-    }
-
-    htmlSnapshot = (await page.content().catch(() => '')).substring(0, 4000);
-    log(`[AUTOBOOK] Aucune combinaison réservée en ${Date.now() - t0}ms — repli manuel`);
-    return { booked: false, reason: 'all-attempts-failed', htmlSnapshot };
+    log(`[AUTOBOOK] non abouti en ${Date.now() - t0}ms`);
+    return { booked: false, reason: 'exhausted' };
   } catch (e) {
     log(`[AUTOBOOK] Erreur: ${e.message}`);
-    return { booked: false, reason: 'error:' + e.message.substring(0, 80), htmlSnapshot };
+    return { booked: false, reason: 'error:' + e.message.substring(0, 80) };
   }
 }
 
@@ -470,7 +437,7 @@ async function runCheck(opts = {}) {
           // 3) Notif résultat : succès = alarme victoire ; échec = rappel "réservez à la main"
           if (bookResult && bookResult.booked) {
             await sendNtfy(`✅ RDV RÉSERVÉ AUTO — ${svc.name}`,
-              `Réservé automatiquement : ${bookResult.date || ''} ${bookResult.time || ''}. Vérifiez et confirmez sur le site.`, svc.url).catch(() => {});
+              `Réservé automatiquement : ${bookResult.when || ''}. Vérifiez et confirmez sur le site.`, svc.url).catch(() => {});
             makeCall(`Bonne nouvelle. Un rendez-vous a été réservé automatiquement pour ${svc.name}. Vérifiez le site pour confirmer.`).catch(() => {});
           } else if (AUTO_BOOK) {
             await sendNtfy(`⚠️ Créneau détecté — À RÉSERVER À LA MAIN — ${svc.name}`,
@@ -483,7 +450,7 @@ async function runCheck(opts = {}) {
             : `<p>Connectez-vous pour voir les créneaux exacts.</p>`;
           const bookHtml = bookResult
             ? (bookResult.booked
-                ? `<div style="background:#e8f5e9;padding:12px;border-left:4px solid #2e7d32;margin:12px 0"><strong>✅ Réservé automatiquement</strong> : ${bookResult.date || ''} ${bookResult.time || ''}<br>Vérifiez/confirmez sur le site.</div>`
+                ? `<div style="background:#e8f5e9;padding:12px;border-left:4px solid #2e7d32;margin:12px 0"><strong>✅ Réservé automatiquement</strong> : ${bookResult.when || ''}<br>Vérifiez/confirmez sur le site.</div>`
                 : `<div style="background:#fff3f3;padding:12px;border-left:4px solid #c00;margin:12px 0"><strong>⚠️ Auto-réservation non aboutie</strong> (${bookResult.reason || '?'}). Réservez à la main tout de suite.</div>`)
             : '';
           await sendEmail(
@@ -503,7 +470,7 @@ async function runCheck(opts = {}) {
           log(`Notification already sent for "${svc.name}" — skipping duplicate`);
         }
         results.push({ id: svc.id, name: svc.name, status: 'slots', slots,
-          message: bookResult && bookResult.booked ? `RÉSERVÉ auto : ${bookResult.date || ''} ${bookResult.time || ''}` : `${slots.length || '?'} créneau(x)` });
+          message: bookResult && bookResult.booked ? `RÉSERVÉ auto : ${bookResult.when || ''}` : `${slots.length || '?'} créneau(x)` });
       } else {
         if (notifiedSlots[svc.id]) { notifiedSlots[svc.id] = false; }
         log(`No slots for "${svc.name}"`);
