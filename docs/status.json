@@ -1,7 +1,28 @@
 {
   "checks": [
     {
-      "ts": "2026-08-22T15:40:18.936Z",
+      "ts": "2026-08-22T15:40:59.629Z",
+      "status": "ok",
+      "message": "Aucun créneau disponible",
+      "services": [
+        {
+          "id": "69a5a30b2cb1a60013b679f5",
+          "name": "Outras declarações e atestados",
+          "status": "paused",
+          "slots": [],
+          "message": "En pause (surveillance désactivée)"
+        },
+        {
+          "id": "69ae03992cb1a60013b691fd",
+          "name": "Visto de Visita - VIVIS",
+          "status": "ok",
+          "slots": [],
+          "message": "Aucun créneau disponible"
+        }
+      ]
+    },
+    {
+      "ts": "2026-08-22T15:39:39.324Z",
       "status": "ok",
       "message": "Aucun créneau disponible",
       "services": [
@@ -6278,29 +6299,8 @@
           "message": "Aucun créneau disponible"
         }
       ]
-    },
-    {
-      "ts": "2026-08-22T10:28:27.289Z",
-      "status": "ok",
-      "message": "Aucun créneau disponible",
-      "services": [
-        {
-          "id": "69a5a30b2cb1a60013b679f5",
-          "name": "Outras declarações e atestados",
-          "status": "paused",
-          "slots": [],
-          "message": "En pause (surveillance désactivée)"
-        },
-        {
-          "id": "69ae03992cb1a60013b691fd",
-          "name": "Visto de Visita - VIVIS",
-          "status": "ok",
-          "slots": [],
-          "message": "Aucun créneau disponible"
-        }
-      ]
     }
   ],
-  "last_check": "2026-08-22T15:40:18.936Z",
+  "last_check": "2026-08-22T15:40:59.629Z",
   "last_status": "ok"
 }
