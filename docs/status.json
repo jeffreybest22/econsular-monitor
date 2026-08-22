@@ -1,7 +1,7 @@
 {
   "checks": [
     {
-      "ts": "2026-08-22T11:04:28.648Z",
+      "ts": "2026-08-22T11:05:06.746Z",
       "status": "ok",
       "message": "Aucun créneau disponible",
       "services": [
@@ -22,7 +22,7 @@
       ]
     },
     {
-      "ts": "2026-08-22T11:03:03.676Z",
+      "ts": "2026-08-22T11:03:46.805Z",
       "status": "ok",
       "message": "Aucun créneau disponible",
       "services": [
@@ -43,7 +43,7 @@
       ]
     },
     {
-      "ts": "2026-08-22T11:01:28.210Z",
+      "ts": "2026-08-22T11:02:12.408Z",
       "status": "ok",
       "message": "Aucun créneau disponible",
       "services": [
@@ -6301,6 +6301,6 @@
       ]
     }
   ],
-  "last_check": "2026-08-22T11:04:28.648Z",
+  "last_check": "2026-08-22T11:05:06.746Z",
   "last_status": "ok"
 }
