@@ -1,0 +1,131 @@
+{
+  "ts": "2026-08-22T04:00:03.011Z",
+  "service": "Visto de Visita - VIVIS",
+  "url": "https://ec-portoprincipe.itamaraty.gov.br/process?id=69ae03992cb1a60013b691fd",
+  "slots": [
+    "21/10/2026"
+  ],
+  "capture": {
+    "selects": [
+      {
+        "id": "book-form-date-Ux7OU7C-M",
+        "name": "date",
+        "cls": "form-control",
+        "options": [
+          {
+            "v": "2026-10-21",
+            "t": "21/10/2026"
+          }
+        ]
+      },
+      {
+        "id": "book-form-time-GfVP248rmW",
+        "name": "time",
+        "cls": "form-control",
+        "options": [
+          {
+            "v": "10:00",
+            "t": "10h00"
+          },
+          {
+            "v": "11:00",
+            "t": "11h00"
+          },
+          {
+            "v": "14:00",
+            "t": "14h00"
+          }
+        ]
+      }
+    ],
+    "buttons": [
+      {
+        "tag": "A",
+        "txt": "Embaixada em Porto Príncipe",
+        "id": "",
+        "cls": "nav-link dropdown-toggle font-weight-bold"
+      },
+      {
+        "tag": "A",
+        "txt": "Idioma",
+        "id": "",
+        "cls": "nav-link dropdown-toggle"
+      },
+      {
+        "tag": "A",
+        "txt": "JJeff",
+        "id": "",
+        "cls": "nav-link dropdown-toggle"
+      },
+      {
+        "tag": "BUTTON",
+        "txt": "Agendar",
+        "id": "",
+        "cls": "btn btn-outline-success"
+      },
+      {
+        "tag": "BUTTON",
+        "txt": "×",
+        "id": "",
+        "cls": "close"
+      },
+      {
+        "tag": "BUTTON",
+        "txt": "Fechar",
+        "id": "",
+        "cls": "btn btn-secondary"
+      },
+      {
+        "tag": "BUTTON",
+        "txt": "Sim",
+        "id": "",
+        "cls": "btn btn-danger"
+      }
+    ],
+    "modals": [
+      {
+        "id": "confirm-modal-BDs1BSYbiG",
+        "cls": "modal fade",
+        "visible": false,
+        "html": "<div class=\"modal fade\" id=\"confirm-modal-BDs1BSYbiG\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"confirm-modal-title-BDs1BSYbiG\" aria-hidden=\"true\"><div class=\"modal-dialog modal-dialog-centered\" role=\"document\"><div class=\"modal-content\"><div class=\"modal-header\"><h5 class=\"modal-title\" id=\"confirm-modal-title-BDs1BSYbiG\">Atenção</h5><button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Fechar\"><span aria-hidden=\"true\">×</span></button></div><div class=\"modal-body\">Será agendado o seguinte horário de atendimento: quarta-feira, 21 de outubro de 2026 às 10h00. Deseja continuar?</div><div class=\"modal-footer\"><button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Fechar</button><button type=\"submit\" class=\"btn btn-danger\">Sim</button></div></div></div></div>"
+      },
+      {
+        "id": "",
+        "cls": "modal-dialog modal-dialog-centered",
+        "visible": false,
+        "html": "<div class=\"modal-dialog modal-dialog-centered\" role=\"document\"><div class=\"modal-content\"><div class=\"modal-header\"><h5 class=\"modal-title\" id=\"confirm-modal-title-BDs1BSYbiG\">Atenção</h5><button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Fechar\"><span aria-hidden=\"true\">×</span></button></div><div class=\"modal-body\">Será agendado o seguinte horário de atendimento: quarta-feira, 21 de outubro de 2026 às 10h00. Deseja continuar?</div><div class=\"modal-footer\"><button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Fechar</button><button type=\"submit\" class=\"btn btn-danger\">Sim</button></div></div></div>"
+      },
+      {
+        "id": "",
+        "cls": "modal-content",
+        "visible": false,
+        "html": "<div class=\"modal-content\"><div class=\"modal-header\"><h5 class=\"modal-title\" id=\"confirm-modal-title-BDs1BSYbiG\">Atenção</h5><button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Fechar\"><span aria-hidden=\"true\">×</span></button></div><div class=\"modal-body\">Será agendado o seguinte horário de atendimento: quarta-feira, 21 de outubro de 2026 às 10h00. Deseja continuar?</div><div class=\"modal-footer\"><button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Fechar</button><button type=\"submit\" class=\"btn btn-danger\">Sim</button></div></div>"
+      },
+      {
+        "id": "",
+        "cls": "modal-header",
+        "visible": false,
+        "html": "<div class=\"modal-header\"><h5 class=\"modal-title\" id=\"confirm-modal-title-BDs1BSYbiG\">Atenção</h5><button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Fechar\"><span aria-hidden=\"true\">×</span></button></div>"
+      },
+      {
+        "id": "confirm-modal-title-BDs1BSYbiG",
+        "cls": "modal-title",
+        "visible": false,
+        "html": "<h5 class=\"modal-title\" id=\"confirm-modal-title-BDs1BSYbiG\">Atenção</h5>"
+      },
+      {
+        "id": "",
+        "cls": "modal-body",
+        "visible": false,
+        "html": "<div class=\"modal-body\">Será agendado o seguinte horário de atendimento: quarta-feira, 21 de outubro de 2026 às 10h00. Deseja continuar?</div>"
+      },
+      {
+        "id": "",
+        "cls": "modal-footer",
+        "visible": false,
+        "html": "<div class=\"modal-footer\"><button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Fechar</button><button type=\"submit\" class=\"btn btn-danger\">Sim</button></div>"
+      }
+    ],
+    "mainHtml": "<div class=\"container-fluid\"><nav class=\"navbar navbar-expand-lg mb-4 navbar-dark\"><div class=\"upper-nav\"><a class=\"navbar-branding\" href=\"/\"><div>Ministério das Relações Exteriores</div><div>Sistema e-consular</div></a><div class=\"nav-accessibility hide-small\"><div><a href=\"#\" onclick=\"toggleHighContrast();\">Alto contraste</a></div><div><a href=\"http://www.vlibras.gov.br\">VLibras</a></div></div></div><div class=\"lower-nav\"><a class=\"navbar-toggler\" href=\"#\" data-toggle=\"collapse\" data-target=\"#navbarSupportedContent\" aria-controls=\"navbarSupportedContent\" aria-expanded=\"false\" aria-label=\"Toggle navigation\"><div class=\"navbar-toggler-icon-brasil\"></div></a><div class=\"collapse navbar-collapse\" id=\"navbarSupportedContent\"><ul class=\"navbar-nav mr-auto\"><li class=\"nav-item dropdown\"><a class=\"nav-link dropdown-toggle font-weight-bold\" href=\"#\" role=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">Embaixada em Porto Príncipe</a><div class=\"dropdown-menu\" aria-labelledby=\"navbarDropdown\"><a class=\"dropdown-item\" href=\"https://econsular.itamaraty.gov.br/\">Escolher outro posto consular</a></div></li><li class=\"nav-item\"><a class=\"nav-link\" href=\"/availability\">Datas disponíveis</a></li></ul></div><ul class=\"navbar-nav navbar-row d-flex align-items-center\"><li class=\"nav-item dropdown\" id=\"language-dropdown\"><a class=\"nav-link dropdown-toggle\" href=\"#\" role=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\"><i class=\"fas fa-language\" style=\"font-size: 1.5em;\"></i><span>Idioma</span></a><div class=\"dropdown-menu\" aria-labelledby=\"navbarDropdown\"><a class=\"dropdown-item\" href=\"/language/pt\"><i class=\"mr-2 fas fa-check-circle text-success\"></i><span>Português</span></a><a class=\"dropdown-item\" href=\"/language/fr\"><i class=\"mr-2 fas fa-check-circle text-success\" style=\"opacity: 0\"></i><span>Français</span></a></div></li><li class=\"nav-item\"></li><li class=\"nav-item dropdown\" id=\"user-dropdown\"><a class=\"nav-link dropdown-toggle\" href=\"#\" role=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\" style=\"display: flex; align-items: center; justify-content: flex-end; width: 10em;\"><div id=\"profile-circle\" style=\"display: flex; flex-shrink: 0; align-items: center; justify-content: center; width: 3em; height: 3em; border-radius: 50%;border: 0.1em solid white;\"><span class=\"text-white font-weight-bold\" style=\"font-size: 170%;\">J</span></div><div style=\"width: 0.6em; flex-shrink: 0;\"></div><div class=\"font-weight-bold\" style=\"overflow: hidden; text-overflow: ellipsis; flex-shrink: 1;\">Jeff</div></a><div class=\"dropdown-menu\" aria-labelledby=\"navbarDropdown\"><a class=\"dropdown-item\" href=\"/user-main\">Meus serviços</a><a class=\"dropdown-item\" href=\"/user-info\">Dados da conta</a><a class=\"dropdown-item\" href=\"/renew-pass\">Mudar senha</a><a class=\"dropdown-item\" href=\"/manage-data\">Gerenciar dados pessoais</a><a class=\"dropdown-item\" href=\"/tos\">Termos de uso e política de privacidade</a><a class=\"dropdown-item font-weight-bold text-danger mt-1\" href=\"/logout\">Sair do sistema</a></div></li></ul></div></nav></div>"
+  }
+}
