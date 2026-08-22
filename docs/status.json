@@ -1,7 +1,7 @@
 {
   "checks": [
     {
-      "ts": "2026-08-22T16:46:40.185Z",
+      "ts": "2026-08-22T16:47:19.658Z",
       "status": "ok",
       "message": "Aucun créneau disponible",
       "services": [
@@ -6301,6 +6301,6 @@
       ]
     }
   ],
-  "last_check": "2026-08-22T16:46:40.185Z",
+  "last_check": "2026-08-22T16:47:19.658Z",
   "last_status": "ok"
 }
